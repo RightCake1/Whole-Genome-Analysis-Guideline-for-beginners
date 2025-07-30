@@ -153,16 +153,6 @@ mafft --auto 16S_sequences.fasta > aligned.fasta
 * [Greengenes Database](http://greengenes.secondgenome.com/)
 * [RDP Database](http://rdp.cme.msu.edu/)
 * [EzBioCloud Database](https://www.ezbiocloud.net/)
-
-## Tool Comparison
-
-| Feature          | Barrnap  | ContEST16S | 
-|------------------|----------|------------|
-| Speed            | Fast     | Fast       | 
-| Accuracy         | High     | High       | 
-| Ease of Use      | Command  | Web        | 
-| Output Format    | GFF3     | FASTA      | 
-| Free/Open Source | Yes      | Limited    | 
 ---
 
 **Note**: Regular updates of databases and tools are essential for accurate identification and analysis.

@@ -45,32 +45,6 @@ spades.py \
     -o reference_guided_assembly
 ```
 
-## Common Parameters
-
-```bash
-# Memory and thread control
---memory 64        # Set memory limit in GB
---threads 16       # Number of threads to use
-
-# Quality control
---careful          # Reduces mismatches and short indels
---cov-cutoff auto  # Automatic coverage cutoff threshold
---isolate         # Optimized for single isolate genomes
-
-
-## Output Files
-
-Key output files in the assembly directory:
-```plaintext
-contigs.fasta     # Final contigs
-scaffolds.fasta   # Final scaffolds
-assembly_graph.fastg  # Assembly graph
-contigs.paths     # Paths in the assembly graph
-scaffolds.paths   # Scaffold paths
-spades.log        # Log file
-params.txt        # Parameters used
-```
-
 ## Alternative Assembly Options
 
 ### Web-Based Assembly
@@ -86,6 +60,10 @@ For high-throughput or repetitive assemblies:
 - Automates assembly workflow
 - Ensures reproducibility
 - Handles multiple samples efficiently
+
+### Kbase 
+- Link: https://www.kbase.us/
+- Just upload your files here and run the app
 
 ## Best Practices
 

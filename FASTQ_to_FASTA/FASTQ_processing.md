@@ -12,6 +12,12 @@ conda create -n seq_processing
 conda activate seq_processing
 conda install -c bioconda fastqc trimmomatic
 
+or 
+
+#Install directly from terminal
+sudo apt install fastqc
+sudo apt install ttrimmomatic
+
 # Verify installations
 fastqc --version
 trimmomatic -version
@@ -27,6 +33,7 @@ trimmomatic -version
   * European Nucleotide Archive (ENA)
   * Commercial sequencing providers
   * Provided by supervisors
+  * Genome Taxonmomy Database 
 
 ### 2. File Decompression
 
@@ -146,9 +153,6 @@ trimmomatic PE \
 ```bash
 # Run FastQC on trimmed files
 fastqc trimmed_R*P.fastq
-
-# Generate MultiQC report for easy comparison
-multiqc .
 ```
 
 ## Best Practices

@@ -45,59 +45,6 @@ quast.py --min-contig 1000 contigs.fasta -o quast_filtered
 # Eukaryotic genomes: 1000-5000 bp
 ```
 
-## Advanced Usage
-
-### Reference-based Assessment
-
-```bash
-# Compare assembly against reference genome
-quast.py \
-    contigs.fasta \
-    -r reference.fasta \
-    -o reference_based_assessment
-
-# Include gene annotations
-quast.py \
-    contigs.fasta \
-    -r reference.fasta \
-    -g genes.gff \
-    -o annotated_assessment
-```
-
-## Common Parameters
-
-```bash
-# Resource control
---threads N           # Number of threads (default: 25% of CPUs)
---memory-limit M      # Memory limit in GB (default: 2GB)
-
-# Output control
---silent              # Suppress progress messages
---no-html            # Don't generate HTML report
---no-plots           # Don't generate plots
---no-snps            # Don't report SNPs
---no-gc              # Don't compute GC content
-
-# Analysis options
---min-identity N     # Min alignment identity % (default: 95)
---ambiguity-usage    # Use ambiguous bases (default: one)
---strict-NA          # Break contigs at any N's
-```
-
-## Output Files
-
-QUAST generates several output files in the specified directory:
-
-```plaintext
-report.txt       # Plain text report
-report.html      # Interactive HTML report
-report.pdf       # PDF version of the report
-report.tsv       # Tab-separated values
-icarus.html      # Icarus contig browser
-basic_stats/     # Directory with raw statistics
-aligned_stats/   # Directory with alignment info (if --reference used)
-```
-
 ## Key Metrics Explained
 
 ### Basic Metrics

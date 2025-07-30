@@ -137,15 +137,6 @@ make
    - Assembly quality: N50 > 50kb
    - Coverage: >30x
 
-2. Analysis Parameters
-   - Web tools:
-     - PHASTER: Score >7
-     - PlasmidFinder: Identity >95%
-     - IS-finder: E-value <1e-10
-   - Command-line tools:
-     - MOB-suite: Default parameters
-     - Platon: Sensitive mode
-
 ### Result Validation
 1. Cross-reference between web and command-line tools
 2. Check for overlapping predictions

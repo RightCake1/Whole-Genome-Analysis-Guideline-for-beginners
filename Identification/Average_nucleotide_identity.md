@@ -73,34 +73,33 @@ fastANI \
     -o all_vs_all.txt
 ```
 
-#### Advanced Options
-```bash
-# Adjust fragment size and minimum matches
-fastANI \
-    -q contigs.fasta \
-    -r reference.fasta \
-    --fragLen 1000 \
-    --minFraction 0.5 \
-    -o detailed_output.txt
-
-# Use multiple threads
-fastANI \
-    -q contigs.fasta \
-    -r reference.fasta \
-    --threads 8 \
-    -o threaded_output.txt
-```
-
 ### Output Format
 FastANI output contains:
 ```plaintext
 query_genome  reference_genome  ANI_value  fragments_mapped  total_fragments
 ```
+## Visualization Using Python Script
+
+You can visualize ANI results as a dendrogram using the provided [ANI Dendrogram Python script](Ani_based_dendrogram.py). Before running the script, update the file paths and filenames in the script to match your data.
+
+**Required files:**
+- Query genome list (`query_list.txt`)
+- Reference genome list (`reference_list.txt`)
+- FastANI output file (e.g., `all_vs_all.txt`)
+
+**To run the script:**
+```bash
+python Ani_based_dendrogram.py
+```
+
+> **Note:**  
+> Edit the script to specify the correct locations and names of your input files before running.
 
 ## Visualization with Proksee
 
 ### Overview
 **Website**: [Proksee](https://proksee.ca/)
+Used for 1-1 comparison
 
 #### Features
 * Interactive visualization
@@ -113,17 +112,10 @@ query_genome  reference_genome  ANI_value  fragments_mapped  total_fragments
 1. Register/Login to Proksee
 2. Upload genome files:
    * Query genome
-   * Reference genome(s)
+   * Reference genome
    * FastANI results
 3. Select visualization options
 4. Generate and download reports
-
-#### Visualization Types
-* Heatmaps
-* Circular genome plots
-* Linear comparison views
-* Synteny blocks
-* Gene organization
 
 ## Analysis and Interpretation
 
@@ -137,18 +129,6 @@ query_genome  reference_genome  ANI_value  fragments_mapped  total_fragments
 * Appropriate fragment coverage
 * Sufficient query length
 * Contamination assessment
-
-## Additional Analysis Tools
-
-### 1. OrthoANI
-Alternative to FastANI with different algorithm
-
-```bash
-# Installation
-pip install orthoani
-# Run OrthoANI
-orthoani -q sequence1.fa -r sequence2.fa
-```
 
 ## Best Practices
 
@@ -199,18 +179,7 @@ orthoani -q sequence1.fa -r sequence2.fa
 * [ANI Calculator](https://www.ezbiocloud.net/tools/ani)
 * [NCBI Genome](https://www.ncbi.nlm.nih.gov/genome)
 * [Type Strain Genome Server](https://tygs.dsmz.de)
-* [OrthoANI](https://github.com/althonos/orthoani)
 
-## Tool Comparison
-
-| Feature        | FastANI | OrthoANI |  Proksee  |
-|----------------|---------|----------|-----------|
-| Speed          | Fast    | Moderate |  N/A      |
-| Accuracy       | High    | High     |  N/A      |
-| Visualization  | No      | Basic    |  Advanced |
-| Local Install  | Yes     | Yes      |  No       |
-| Memory Usage   | Low     | Moderate |  N/A      |
-| Batch Process  | Yes     | Limited  |  Limited  |
 
 ---
 

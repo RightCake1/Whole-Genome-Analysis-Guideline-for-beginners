@@ -10,9 +10,6 @@ Roary is a high-speed bacterial pangenome pipeline that can compute the pangenom
 # Install Miniconda (if not already installed)
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
-
-# Initialize conda
-source ~/.bashrc
 ```
 
 ### Create Conda Environment
@@ -29,14 +26,20 @@ conda install -c conda-forge numpy
 conda install -c conda-forge matplotlib
 ```
 
-### Download Visualization Scripts
-```bash
-# Download roary plots script
-wget https://raw.githubusercontent.com/sanger-pathogens/Roary/master/contrib/roary_plots.py
+### Visualization Scripts
 
-# Make executable
+You can visualize Roary results using either the official script or a custom script provided in this repository.
+
+```bash
+# Option 1: Download and use the official Roary plots script
+wget https://raw.githubusercontent.com/sanger-pathogens/Roary/master/contrib/roary_plots.py
 chmod +x roary_plots.py
+
+# Option 2: Use the custom visualization script included here
+chmod +x Roary_Visualize.py
 ```
+
+- [Roary_Visualize.py](Roary_Visualize.py): This custom script offers additional figures - Pangenome pie, Separate Pangenome Matrix, Seoarate Cluster Tree, Merged Tree and Matrix and Length barchart. The Official one will give Pangenome pie and Pangenome Matrix.
 
 ## Running Roary
 ```bash
@@ -50,16 +53,15 @@ prokka --outdir output_"${file%.fasta}" "$file"
 done 
 # Run Roary. 
 Code:
-Roary -f Roaryresults -p 6 -e -n -v --maft *.gff
+roary -f Roaryresults -p 6 -e -n -v --maft *.gff
 # Use FastTree. 
 Code:
 FastTree -nt -gtr -gamma -boot 100 -spr 4 Roaryresult/core_gene_alignment.aln > Roaryresult/mytree.newick
 # Generate images. 
 Code:
 python Roary_plots.py --labels Roaryresult/mytree.newick Roaryresult/gene_presence_absence.csv
-# Created an SVG file. 
-Code:
-python Roary_plots.py --labels --format svg Roaryresult/mytree.newick Roaryresult/gene_presence_absence.csv
+#or
+python roary_plots.py location/to/Pangenome.newick location/to/gene_presence_absence.csv --labels
 ```
 
 ### Parameter Explanations
@@ -73,38 +75,6 @@ python Roary_plots.py --labels --format svg Roaryresult/mytree.newick Roaryresul
 * `-g`: Maximum clusters
 * `-s`: Don't split paralogs
 * `--mafft`: Use MAFFT for alignment
-
-## Phylogenetic Tree Construction
-
-### Using FastTree
-```bash
-# Generate tree from core gene alignment
-FastTree \
-    -nt \               # Nucleotide alignment
-    -gtr \              # Generalized time-reversible model
-    roary_output/core_gene_alignment.aln > roary_output/tree.newick
-
-# With bootstrap values
-FastTree \
-    -nt \
-    -gtr \
-    -boot 1000 \
-    roary_output/core_gene_alignment.aln > roary_output/bootstrap_tree.newick
-```
-
-
-### Advanced Visualization
-```bash
-# Customized plots
-python roary_plots.py \
-    --labels \
-    --format svg \
-    --font_size 12 \
-    --width 15 \
-    --height 10 \
-    roary_output/tree.newick \
-    roary_output/gene_presence_absence.csv
-```
 
 ## Output Files and Analysis
 
@@ -159,52 +129,12 @@ number_of_genes_in_pan_genome.Rtab  # Pan-genome size analysis
 * Optimize temporary file location
 * Consider hardware limitations
 
-### Visualization Problems
-* Check Python dependencies
-* Verify file formats
-* Adjust plot parameters
-* Use appropriate file paths
-
-## Additional Analysis Tools
-
-### R Analysis Scripts
-```R
-# Read presence/absence matrix
-pan_matrix <- read.table("gene_presence_absence.Rtab", 
-                        header=TRUE, 
-                        row.names=1, 
-                        sep="\t")
-
-# Calculate summary statistics
-core_genes <- rowSums(pan_matrix == 1) == ncol(pan_matrix)
-accessory_genes <- rowSums(pan_matrix == 1) < ncol(pan_matrix)
-```
-
-### Additional Visualization
-```python
-# Generate clustered heatmap
-import seaborn as sns
-import pandas as pd
-
-matrix = pd.read_csv("gene_presence_absence.Rtab", sep="\t", index_col=0)
-sns.clustermap(matrix, cmap="YlOrRd", figsize=(15, 10))
-```
 
 ## Additional Resources
 
 * [Roary GitHub](https://github.com/sanger-pathogens/Roary)
 * [Roary Paper](https://academic.oup.com/bioinformatics/article/31/22/3691/240757)
 * [Pangenome Analysis Methods](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00928-4)
-
-## Tool Comparison
-
-| Feature            | Roary | BPGA   | PanX   | PGAP   |
-|-------------------|-------|--------|--------|--------|
-| Speed             | Fast  | Medium | Medium | Slow   |
-| Memory Usage      | High  | Low    | Medium | High   |
-| Visualization     | Basic | Good   | Best   | Basic  |
-| Scalability       | High  | Medium | Medium | Low    |
-| Ease of Use       | Easy  | Medium | Medium | Hard   |
 
 ---
 

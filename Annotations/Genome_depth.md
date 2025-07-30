@@ -98,32 +98,6 @@ samtools depth -a contigs_sort.bam | \
 * Consider PCR-free protocols
 * Assess mapping quality
 
-## Command Reference
-
-### Important Samtools Flags
-```plaintext
--F 4    # Remove unmapped reads
--f 2    # Keep only proper pairs
--q 30   # Minimum mapping quality 30
--b      # Output BAM format
--h      # Include header
-```
-
-### BWA-MEM Parameters
-```plaintext
--t      # Thread count
--R      # Read group
--M      # Mark shorter split hits
--k      # Minimum seed length
-```
-
-### Bowtie2 Parameters
-```plaintext
---sensitive-local    # Preset for local alignment
---maxins            # Maximum insert size
---no-mixed          # No unpaired alignments
---no-discordant     # No discordant alignments
-```
 
 ## Additional Resources
 

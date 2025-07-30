@@ -33,37 +33,30 @@ Before diving in, ensure you have the following:
 
 ## 🛠️Setup and Installation
 To replicate the workflows described:
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/RightCake1/Bacterial-Whole-Genome-Analysis-Guideline-for-beginners.git
-   ```
-2. Navigate to the repository directory:
-   ```bash
-   cd Bacterial-Whole-Genome-Analysis-Guideline-for-beginners
-   ```
-3. Run the installation script to install all necessary tools:
-   ```bash
-   ./install_tools.sh
-   ```
-4. Can install manually as well; all the installation process are in the .md files
+1. Just go through the folders afer checking the workflow and just install manually; all the installation process are in the .md files
 
 ## ⚙️Workflow
 
 - [FASTQ_processing.md](FASTQ_to_FASTA/FASTQ_processing.md)
-- [Genome_Assembly.md](FASTQ_to_FASTA/0Genome_Assembly.md).
+- [Genome_Assembly.md](FASTQ_to_FASTA/Genome_Assembly.md).
 - [Quality_Assessment.md](FASTQ_to_FASTA/Quality_Assessment.md).
-- [SeqKit.md](FASTQ_to_FASTA/SeqKit.md).
 - [Genome_Annotaions.md](Annotations/Genome_Annotaions.md).
 - [Organism_Identification.md](Identification/Organism_Identification.md).
-- [Barrnap_16s_rRNA.md](Identification/Barrnap_16s_rRNA.md).
-- [ANI_verification.md](Identification/ANI_verification.md).
+- [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md)
+- [16s_rRNA.md](Identification/16s_rRNA.md).
+- [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md). 
+- [OrthoANI.md](Identification/OrthoANI.md)
 - [Genome_depth.md](Annotations/Genome_depth.md).
 - [AMR_genes_and_profiling.md](AMR_Virulence/AMR_genes_and_profiling.md).
 - [Plasmid_Finderr.md](Mobile_genetic_elements/Plasmid_Finderr.md).
 - [MGE.md](Mobile_genetic_elements/MGE.md).
 - [Virulence_factors.md](AMR_Virulence/Virulence_factors.md).
 - [Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md).
-- [Phylogeny_Tree.md](Pangenome_Phylogenetics/Phylogeny_Tree_by_MEGA11.md) or [Phylogeny_Tree.md](Phylogeny_Tree_by_KBase.md)
+- [Phylogeny_Tree.md](Pangenome_Phylogenetics/Phylogeny_Tree_by_MEGA11.md) 
+- [Phylogeny_Tree.md](Phylogeny_Tree_by_KBase.md)
+
+## Others
+- [SeqKit.md](FASTQ_to_FASTA/SeqKit.md).
 
 ## 💡Contributing
 Contributions are welcome! If you have suggestions or additional workflows, please open an issue or submit a pull request.

@@ -114,18 +114,3 @@ Use batch submission for multiple sequences
 Save session IDs for future reference
 Download results immediately
 Document analysis parameters
-
-## Troubleshooting Tips
-
-Check sequence format
-Verify file size limits
-Ensure proper sequence headers
-Monitor submission status
-Contact support if needed
-
-## Additional Resources
-
-BIGSdb User Guide
-Video Tutorials
-FAQ Section
-```

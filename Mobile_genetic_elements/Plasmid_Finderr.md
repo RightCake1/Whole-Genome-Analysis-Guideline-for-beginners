@@ -92,14 +92,3 @@ mob_recon \
 - [Platon GitHub](https://github.com/oschwengers/platon)
 - [MOB-suite](https://github.com/phac-nml/mob-suite)
 
-## License
-[Add your chosen license]
-
-## Contributing
-[Add contribution guidelines if applicable]
-
-## Citation
-If you use these tools in your research, please cite:
-```
-[Add citations for Deeplasmid, Platon, and MOB-suite]
-```
