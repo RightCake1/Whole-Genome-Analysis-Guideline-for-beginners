@@ -52,8 +52,8 @@ To replicate the workflows described:
 - [MGE.md](Mobile_genetic_elements/MGE.md).
 - [Virulence_factors.md](AMR_Virulence/Virulence_factors.md).
 - [Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md).
-- [Phylogeny_Tree.md](Pangenome_Phylogenetics/Phylogeny_Tree_by_MEGA11.md) 
-- [Phylogeny_Tree.md](Phylogeny_Tree_by_KBase.md)
+- [Phylogeny_Tree_Mega11.md](Pangenome_Phylogenetics/Phylogeny_Tree_by_MEGA11.md) 
+- [Phylogeny_Tree_Kbase.md](Phylogeny_Tree_by_KBase.md)
 
 ## Others
 - [SeqKit.md](FASTQ_to_FASTA/SeqKit.md).
