@@ -61,6 +61,11 @@ python OrthoANI_Dendrogram.py
 #Make sure to change the directory of files and names from the script before using
 ```
 
+To generate a heatmap, use - [OrthoANI_Heatmap](OrthoANI_Heatmap.py) script
+```bash
+python OrthoANI_Heatmap.py
+#Make sure to change the directory of files and names from the script before using
+```
 ---
 
 **Note:**  

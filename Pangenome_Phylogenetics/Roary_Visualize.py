@@ -122,18 +122,6 @@ if __name__ == "__main__":
     plt.savefig(f'roary_pangenome_matrix.{options.format}', dpi=300)
     plt.clf()
 
-    # ======= Combined tree + matrix plot =======
-    fig = plt.figure(figsize=(25, 20))
-    ax_tree = plt.subplot2grid((1,40), (0, 0), colspan=10)
-    ax_matrix = plt.subplot2grid((1,40), (0, 10), colspan=30)
-    colored_draw(t, ax_tree, show_labels=options.labels)
-    ax_matrix.matshow(roary_sorted.T, cmap=plt.cm.Blues, vmin=0, vmax=1, aspect='auto')
-    ax_matrix.set_xticks([])
-    ax_matrix.set_yticks([])
-    ax_matrix.axis('off')
-    plt.savefig(f'roary_tree_matrix_combined.{options.format}', dpi=300)
-    plt.clf()
-
     # ======= Pangenome pie chart =======
     core     = roary[(roary.sum(axis=1) >= roary.shape[1]*0.99) & (roary.sum(axis=1) <= roary.shape[1])].shape[0]
     softcore = roary[(roary.sum(axis=1) >= roary.shape[1]*0.95) & (roary.sum(axis=1) <  roary.shape[1]*0.99)].shape[0]
@@ -167,6 +155,20 @@ if __name__ == "__main__":
     sns.despine(left=True, bottom=True)
     plt.savefig(f'pangenome_frequency.{options.format}', dpi=300)
     plt.clf()
+
+     # ======= Combined tree + matrix plot =======
+    fig = plt.figure(figsize=(45, 22))  # Wider figure for more horizontal space
+    ax_tree = plt.subplot2grid((1,100), (0, 0), colspan=60)    # More space for tree (was 45)
+    ax_matrix = plt.subplot2grid((1,100), (0, 60), colspan=40)  # Slightly less for matrix
+
+    colored_draw(t, ax_tree, show_labels=options.labels)
+    ax_matrix.matshow(roary_sorted.T, cmap=plt.cm.Blues, vmin=0, vmax=1, aspect='auto')
+    ax_matrix.set_xticks([])
+    ax_matrix.set_yticks([])
+    ax_matrix.axis('off')
+    plt.savefig(f'roary_tree_matrix_combined.{options.format}', dpi=300, bbox_inches='tight')
+    plt.clf()
+
 
 
 
