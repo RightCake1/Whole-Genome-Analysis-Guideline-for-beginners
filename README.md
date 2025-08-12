@@ -45,7 +45,7 @@ To replicate the workflows described:
 - [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md)
 - [16s_rRNA.md](Identification/16s_rRNA.md).
 - [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md). 
-- [Average_Amino_Acid_Identity.md]{Identification/Average_Amino_Acid_Identity.md}
+- [Average_Amino_Acid_Identity.md](Identification/Average_Amino_Acid_Identity.md)
 - [OrthoANI.md](Identification/OrthoANI.md)
 - [Genome_depth.md](Annotations/Genome_depth.md).
 - [AMR_genes_and_profiling.md](AMR_Virulence/AMR_genes_and_profiling.md).
