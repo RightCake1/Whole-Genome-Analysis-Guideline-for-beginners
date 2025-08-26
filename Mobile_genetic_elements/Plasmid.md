@@ -25,11 +25,16 @@ A comprehensive guide for identifying plasmids using Deeplasmid, Platon, and MOB
 ## Platon Analysis
 
 ### Setup
-1. Create Conda environment
+1. Create Conda environment and install platon
 ```bash
-conda create -n platon
-conda activate platon
-conda install platon
+conda create -n platon -c bioconda platon
+```
+2. Database
+
+```bash
+$ wget https://zenodo.org/record/4066768/files/db.tar.gz
+$ tar -xzf db.tar.gz
+$ rm db.tar.gz
 ```
 
 ### Usage
@@ -38,33 +43,29 @@ conda install platon
 conda activate platon
 
 # Run Platon
-platon --db db --output PlatonResults Your_file.fasta
+platon --db <db-path> --output PlatonResults Your_file.fasta
 ```
 
 ## MOB-suite
 
 ### Installation
 1. **Using Conda (Recommended)**
+# Create environment and install mobsuite
 ```bash
-# Create and activate new environment
-pip3 install mob_suite
-
+conda create -n mob_suite -c bioconda mob_suite
+```
 2. **Using pip**
 ```bash
 pip install mob_suite
 ```
 
-3. **Dependencies**
+3. **Dependencies** 
+If using conda they will be automatically installed
 - BLAST+ (v2.7.1 or higher)
 - MMSeqs2
 - Mash
 - bioperl
 - ncbi-blast+
-
-```bash
-# Install dependencies via conda
-conda install -c bioconda blast mmseqs2 mash perl-bioperl ncbi-blast+
-```
 
 ### Usage
 ```bash
