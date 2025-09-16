@@ -7,6 +7,7 @@ import seaborn as sns
 
 def main():
     # Load long format AAI data
+    # CHANGE THIS: provide your own input file path/name
     df_long = pd.read_csv("aai_long_format.tsv", sep='\t')
 
     # Pivot to square matrix
@@ -31,6 +32,7 @@ def main():
     dendrogram(linkage_matrix, labels=df_sym.index.tolist(), leaf_rotation=90)
     plt.title("Hierarchical Clustering based on AAI")
     plt.tight_layout()
+        # CHANGE THIS: output filename if needed and the DPI too
     plt.savefig("aai_dendrogram.png", dpi=300)
     plt.show()
 
@@ -41,6 +43,7 @@ def main():
     plt.xticks(rotation=90)
     plt.yticks(rotation=0)
     plt.tight_layout()
+        # CHANGE THIS: output filename if needed
     plt.savefig("aai_heatmap.png", dpi=300)
     plt.show()
 
@@ -54,6 +57,7 @@ def main():
                        cbar_kws={'label': 'AAI (%)'})
 
     plt.title("Hierarchical Clustering Tree based on AAI", y=1.05)
+    # CHANGE THIS: output filename if needed
     plt.savefig("aai_heatmap_dendrogram.png", dpi=300)
     plt.show()
 

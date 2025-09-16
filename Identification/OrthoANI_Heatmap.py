@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load ANI matrix
+# CHANGE THIS: provide your own input file path/name
 df = pd.read_csv('ani_matrix.tsv', sep='\t', index_col=0)
 labels = df.index.tolist()
 
@@ -61,6 +62,7 @@ cbar = plt.colorbar(im, fraction=0.046, pad=0.04)
 cbar.set_label('ANI %')
 
 plt.tight_layout()
+# CHANGE THIS: output filename if needed
 plt.savefig("orthoani_heatmap_only_95cutoff.png", dpi=300)
 plt.savefig("orthoani_heatmap_only_95cutoff.svg", dpi=300)
 plt.show()

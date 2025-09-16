@@ -3,6 +3,7 @@ import subprocess
 import pandas as pd
 
 # Directory containing your FASTA files
+# CHANGE THIS: provide your own FASTA directory
 fasta_dir = "/home/rightcake/OrthoANI"  # <-- Set your FASTA directory here
 output_file = "ani_matrix.tsv"  # Output matrix file
 

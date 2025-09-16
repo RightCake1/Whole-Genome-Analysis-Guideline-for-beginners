@@ -58,6 +58,15 @@ python OrthoANI_calculate.py
 ```
 The script will produce a text file (typically a .tsv or .csv) containing the OrthoANI values for every pairwise comparison.
 
+Outputs 
+
+File: ani_matrix.tsv
+
+Square matrix, symmetric.
+
+Diagonal = 100.0 (self-comparisons).
+
+Off-diagonal = ANI values from pyorthoani
 ---
 
 ## Visualization
@@ -73,6 +82,7 @@ Run the script with:
 python OrthoANI_Dendrogram.py
 #Make sure to change the directory of files and names from the script before using
 ```
+Outputs: colored_dendrogram.png
 
 Heatmap: Use the OrthoANI_Heatmap.py script. A heatmap displays ANI values in a grid, where colors represent different levels of identity. It's an excellent way to see all pairwise comparisons at a glance.
 

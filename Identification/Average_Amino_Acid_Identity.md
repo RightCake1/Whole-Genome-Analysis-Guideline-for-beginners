@@ -103,18 +103,55 @@ This command takes the raw results and converts them into a formatted table suit
 The final step is to generate a visual representation of your data. The converted file can be used to create a dendrogram, which is a tree diagram that groups genomes by their AAI similarity. .
 
 Generate figures from the converted data using the script [`AAI_dendrogram.py`](./AAI_dendrogram.py).
-Make sure to change the locatin of the file to your location.
+Make sure to change the locatin of the file to your location and other necessary changes.
 
 ```bash
 python AAI_dendrogram.py -i /home/rightcake/KPV/AAI/aai_results_converted.tsv -o /home/rightcake/KPV/AAI/aai_dendrogram.png
 ```
+Reads input → Takes a tab-separated file (aai_long_format.tsv) in long format containing columns: query, target, aai.
+
+Creates symmetric AAI matrix → Turns it into a square symmetric AAI matrix (missing values filled with 100).
+
+Converts to distance matrix → dist_matrix = 100 - AAI.
+
+Performs hierarchical clustering → Uses average linkage on the condensed distance matrix.
+
+Assigns branch colors → Based on dominant species names in labels for (Klebsiella_oxytoca, Klebsiella_quasipneumoniae, Klebsiella_variicola, Klebsiella_pneumoniae).
+
+Plots dendrogram → Left-oriented dendrogram with colored branches, saved as a high-resolution SVG (aai_colored_phylo_tree.svg).
+
+Displays dendrogram → Shows the plot interactively as well.
+
+So in the end, you get:
+One SVG file (aai_colored_phylo_tree.svg)
+One on-screen dendrogram figure
 
 Alternatively, you can use [`AAI_visuals.py`](./AAI_visuals.py) for additional visualizations:
 
 ```bash
 python AAI_visuals.py -i /home/rightcake/KPV/AAI/aai_results_converted.tsv -o /home/rightcake/KPV/AAI/aai_visuals.png
 ```
-```
+Outputs
+
+Dendrogram only
+
+File: aai_dendrogram.png
+
+X-axis = labels (genomes), hierarchical tree on top
+
+Heatmap only
+
+File: aai_heatmap.png
+
+Matrix of AAI (%) values, colored with Viridis colormap
+
+Combined heatmap + dendrogram (cluster map)
+
+File: aai_heatmap_dendrogram.png
+
+Heatmap with row & column dendrograms (clustering based on your linkage matrix)
+
+So you get three figures saved as PNG (300 dpi).
 ---
 
 The output will be an image file (e.g., aai_dendrogram.png) that clearly shows the genetic relationships between all your genomes. Genomes that are closely related (i.e., have high AAI values) will be grouped together on the dendrogram.

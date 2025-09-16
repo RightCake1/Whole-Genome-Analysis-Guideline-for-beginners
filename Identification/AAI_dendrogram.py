@@ -5,7 +5,8 @@ from scipy.cluster.hierarchy import linkage, dendrogram
 from scipy.spatial.distance import squareform
 from collections import Counter
 
-# Load your long-format AAI file and pivot to matrix
+# Load your long-format AAI file and pivot to matrix'
+# CHANGE THIS to your actual input file name/path
 df_long = pd.read_csv("aai_long_format.tsv", sep='\t')
 df_matrix = df_long.pivot(index='query', columns='target', values='aai').fillna(100)
 df_sym = (df_matrix + df_matrix.T) / 2  # Make symmetric
@@ -20,6 +21,7 @@ condensed_dist = squareform(dist_matrix.values)
 Z = linkage(condensed_dist, method='average')
 
 # Species-specific color assignment (adapt these species names/colors as needed)
+# CHANGE THESE species name substrings and colors to match your dataset
 species_colors = {
     "Klebsiella_oxytoca": "#ffa401",         # Orange
     "Klebsiella_quasipneumoniae": "#a638cf", # Purple
@@ -66,5 +68,6 @@ dendrogram(
 plt.title('AAI-based Hierarchical Tree', fontsize=14)
 plt.xlabel('Distance (100 - AAI %)')
 plt.tight_layout()
+# CHANGE THIS if you want a different output file format/name
 plt.savefig('aai_colored_phylo_tree.svg', dpi=1000)
 plt.show()

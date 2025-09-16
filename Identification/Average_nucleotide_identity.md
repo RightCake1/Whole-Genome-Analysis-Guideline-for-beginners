@@ -131,7 +131,25 @@ To run the script, use the command python [ANI Dendrogram Python script](Ani_bas
 ```bash
 python Ani_based_dendrogram.py
 ```
+Reads FastANI results from:
 
+fastani.txt → contains pairwise ANI comparisons.
+
+query_list.txt and reference_list.txt → lists of genomes (you don’t actually use them later in the code, but they’re read).
+
+Creates an ANI matrix using pivot:
+
+Rows = queries
+
+Columns = references
+
+Values = ANI (%)
+
+Fills missing values with 0.
+
+Runs hierarchical clustering on the matrix with linkage(method='average').
+
+Plots dendrogram of the 81 genomes, saved as: dendrogram.png
 ## Visualization with Proksee
 
 For a more advanced and interactive visualization, you can use Proksee. This web-based tool allows you to upload a query and reference genome and instantly see a comparison plot.
