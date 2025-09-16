@@ -14,15 +14,15 @@ Before diving into the technical steps, it's helpful to understand the overall p
 
 Here's the step-by-step process you'll follow:
 
-Preparation: First, you need to get your files and the right software ready.
+1. Preparation: First, you need to get your files and the right software ready.
 
-Quality Check: Next, you'll use a tool called FastQC to look at the overall quality of your raw data. This is like a health check for your sequences.
+2. Quality Check: Next, you'll use a tool called FastQC to look at the overall quality of your raw data. This is like a health check for your sequences.
 
-Trimming: Based on the health check, you'll use a tool called Trimmomatic to cut out the bad, low-quality parts of your sequences.
+3. Trimming: Based on the health check, you'll use a tool called Trimmomatic to cut out the bad, low-quality parts of your sequences.
 
-Final Quality Check: After trimming, you'll run FastQC again to make sure your cleaning process worked and your sequences are now high quality.
+4. Final Quality Check: After trimming, you'll run FastQC again to make sure your cleaning process worked and your sequences are now high quality.
 
-Conversion: Finally, you'll convert the cleaned FASTQ files into FASTA format, which is a simpler file type that's ready for your main analysis.
+5. Conversion: Finally, the next step is, you'll convert the cleaned FASTQ files into FASTA format, which is a simpler file type that's ready for your main analysis.
 
 ## Prerequisites
 
