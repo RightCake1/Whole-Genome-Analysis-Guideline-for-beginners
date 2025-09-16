@@ -2,6 +2,9 @@
 
 A comprehensive guide for identifying bacterial virulence factors using various databases and tools.
 
+What Are Virulence Factors?
+Think of a bacterium's virulence factors as its "weaponry." They are the genes, proteins, or other molecules that enable a pathogen to cause disease in a host. This guide will walk you through using two powerful web-based tools, VirulenceFinder and BIGSdb-Pasteur, to find and analyze these critical genes in your bacterial genome.
+
 ## Table of Contents
 - [Tools Overview](#tools-overview)
 - [Virulence Finder](#virulence-finder)
@@ -12,17 +15,13 @@ A comprehensive guide for identifying bacterial virulence factors using various 
 
 ### Available Databases
 1. **VFDB (Virulence Factors Database)**
+VFDB, which stands for Virulence Factors Database, is a comprehensive, curated database of known bacterial virulence factors. It serves as a central repository for information on the genes and proteins that enable pathogens to cause disease. Since its inception, VFDB has been a key resource for researchers studying bacterial pathogenesis and has been continually updated with new data and analysis features.
    - Comprehensive database of bacterial virulence factors
    - Multiple search and analysis tools
    - Regular updates with new virulence factors
 
-2. **BIGSdb-Pasteur**
-   - Specialized database for bacterial typing
-   - Includes virulence factor information
-   - Integrated analysis tools
-
 ## Virulence Finder
-
+VirulenceFinder is a user-friendly, web-based tool from the Center for Genomic Epidemiology (CGE) that quickly scans a genome for known virulence factors. It's the perfect starting point for a fast, initial check.
 ### Access and Usage
 1. Visit [VFDB Main Page](http://www.mgc.ac.cn/VFs/)
 2. Navigate to [Analysis Tools](http://www.mgc.ac.cn/VFs/main.htm)
@@ -41,11 +40,15 @@ A comprehensive guide for identifying bacterial virulence factors using various 
 4. Download results for documentation
 
 ## BIGSdb-Pasteur
-
+BIGSdb-Pasteur is a specialized, integrated database for bacterial typing and analysis. It's a great tool for a deeper dive, as it can combine virulence factor analysis with other typing methods like MLST (Multi-Locus Sequence Typing).
 ### Access
 
 Visit BIGSdb-Pasteur Database
 Register for an account if required
+
+   - Specialized database for bacterial typing
+   - Includes virulence factor information
+   - Integrated analysis tools
 
 ### Analysis Tools
 1. Sequence Query
@@ -106,6 +109,10 @@ Alignment files
 Phylogenetic trees
 TSV/CSV tables
 PDF reports
+
+
+### VFDB vs. VirulenceFinder
+While both are used for virulence factor detection, they are distinct entities. VFDB is the comprehensive database itself, serving as the core data repository. VirulenceFinder, on the other hand, is a tool developed by the Center for Genomic Epidemiology (CGE) that uses a subset of data from the VFDB and other sources to provide a quick, user-friendly web-based analysis
 
 ## Best Practices
 

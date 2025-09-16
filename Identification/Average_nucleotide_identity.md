@@ -1,45 +1,56 @@
 # Average Nucleotide Identity (ANI) Analysis Guide
 
 ## Introduction
-Average Nucleotide Identity (ANI) is a measure of nucleotide-level genomic similarity between bacterial genomes. This guide covers the use of FastANI and related tools for calculating and visualizing ANI values.
+Average Nucleotide Identity (ANI) is a powerful method for comparing the genomic similarity between bacterial strains. It provides a numerical value, typically expressed as a percentage, that indicates how much of two genomes' DNA sequences are identical. An ANI value of 95% or higher
 
 ## FastANI Setup and Usage
 
+The ANI Workflow: A Step-by-Step Guide
+The process of calculating ANI involves three main steps:
+
+Preparation: Getting your tool and data ready.
+
+Calculation: Running FastANI to compute the ANI values.
+
+Interpretation & Visualization: Analyzing the results to draw conclusions about species relatedness.
+
 ### Installation
+
+The easiest way to install FastANI and its dependencies is by using a Conda environment. This ensures all the required software works together seamlessly.
+
+Open your terminal.
+
+Create a new Conda environment and install FastANI from the bioconda channel.
 
 ```bash
 # Via conda (recommended)
 conda create -n ani_tools
 conda activate ani_tools
 conda install -c bioconda fastani
+```
+
+# OR 
+```bash
 
 # Via source
 git clone https://github.com/ParBLiSS/FastANI.git
 cd FastANI
 make
+```
+Verify the installation by checking the version.
 
+```bash 
 # Verify installation
 fastANI --version
 ```
 
 ### Preparing Reference Data
 
+For ANI analysis, you need to compare your "query" genome (the one you want to identify) against one or more "reference" genomes (known genomes from public databases). The most common source for high-quality genomes is the NCBI RefSeq database.
+
 #### Download RefSeq Data
-```bash
-# Download RefSeq assembly summary
-wget https://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/assembly_summary.txt
-
-# Filter complete genomes
-awk -F "\t" '$12=="Complete Genome" {print $20}' assembly_summary.txt > complete_genomes.txt
-
-# Download genomes
-while read url; do
-    wget "$url"/*.fna.gz
-done < complete_genomes.txt
-
-# Decompress
-gunzip *.fna.gz
-```
+ 
+You can download reference sequences from GTDB (Genome Taxonomy Database), NCBI (National Center for Biotechnology Information), JGI IMG/M (Integrated Microbial Genomes & Microbiomes) or Type Strain Genome Server (TYGS).
 
 #### Create Reference List
 ```bash
@@ -59,13 +70,15 @@ fastANI \
     -q contigs.fasta \
     -r reference.fasta \
     -o output.txt
-
+```
+```bash
 # Single query vs multiple references
 fastANI \
     -q contigs.fasta \
     --rl reference_list.txt \
     -o multi_ref_output.txt
-
+```
+```bash 
 # Multiple queries vs multiple references
 fastANI \
     --ql query_list.txt \
@@ -78,9 +91,36 @@ FastANI output contains:
 ```plaintext
 query_genome  reference_genome  ANI_value  fragments_mapped  total_fragments
 ```
+
+Understanding the Output
+FastANI generates a simple, tab-separated output file with the following columns:
+
+query_genome: The name of your input genome file.
+
+reference_genome: The name of the reference genome it was compared to.
+
+ANI_value: The most important column! This is the percentage of identity.
+
+fragments_mapped: The number of DNA fragments that were mapped from your query to the reference.
+
+total_fragments: The total number of fragments from the query genome.
+
+## Interpreting the ANI Value
+The ANI value is your key to species classification.
+
+≥95% ANI: The two genomes likely belong to the same species. This is the standard cutoff for species-level classification.
+
+≥75% ANI: The two genomes are likely in the same genus.
+
+<75% ANI: The two genomes are likely from different genera.
+
 ## Visualization Using Python Script
 
-You can visualize ANI results as a dendrogram using the provided [ANI Dendrogram Python script](Ani_based_dendrogram.py). Before running the script, update the file paths and filenames in the script to match your data.
+A table of numbers can be hard to read. Visualizing the ANI data as a dendrogram (a tree diagram) or a heatmap makes the relationships between your genomes much clearer. . The Python script provided in the original guide will use your FastANI output to create a tree, grouping genomes with high ANI values close together.
+
+Before running the script, make sure you edit it to point to the correct file names and paths for your ANI output file and your query/reference lists.
+
+To run the script, use the command python [ANI Dendrogram Python script](Ani_based_dendrogram.py). 
 
 **Required files:**
 - Query genome list (`query_list.txt`)
@@ -92,14 +132,14 @@ You can visualize ANI results as a dendrogram using the provided [ANI Dendrogram
 python Ani_based_dendrogram.py
 ```
 
-> **Note:**  
-> Edit the script to specify the correct locations and names of your input files before running.
-
 ## Visualization with Proksee
 
-### Overview
+For a more advanced and interactive visualization, you can use Proksee. This web-based tool allows you to upload a query and reference genome and instantly see a comparison plot.
+
 **Website**: [Proksee](https://proksee.ca/)
 Used for 1-1 comparison
+
+Why use it?: Proksee not only shows you the ANI value but also visualizes synteny (the order of genes) between the two genomes, providing a much richer biological context.
 
 #### Features
 * Interactive visualization
@@ -116,13 +156,6 @@ Used for 1-1 comparison
    * FastANI results
 3. Select visualization options
 4. Generate and download reports
-
-## Analysis and Interpretation
-
-### ANI Thresholds
-* **Species boundary**: ≥95% ANI
-* **Genus boundary**: ≥75% ANI
-* **Family boundary**: ≥60% ANI
 
 ### Quality Control
 * Minimum genome completeness
@@ -179,7 +212,8 @@ Used for 1-1 comparison
 * [ANI Calculator](https://www.ezbiocloud.net/tools/ani)
 * [NCBI Genome](https://www.ncbi.nlm.nih.gov/genome)
 * [Type Strain Genome Server](https://tygs.dsmz.de)
-
+* [GTDB (Genome Taxonomy Database)]( https://gtdb.ecogenomic.org/)
+* [JGI IMG/M (Integrated Microbial Genomes & Microbiomes)](https://img.jgi.doe.gov/)
 
 ---
 

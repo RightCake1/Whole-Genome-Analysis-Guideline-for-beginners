@@ -1,4 +1,5 @@
 # Comprehensive Mobile Genetic Elements Analysis Guide
+Mobile Genetic Elements (MGEs) are segments of DNA that can move within or between genomes. They are a primary driver of bacterial evolution, carrying genes for traits like antibiotic resistance and virulence. This guide provides a comprehensive workflow for identifying and analyzing the most common MGEs—plasmids, prophages, and CRISPR arrays—using a combination of web-based and command-line tools.
 
 ## Table of Contents
 - [Web-based Tools](#web-based-tools)
@@ -11,7 +12,7 @@
 - [Best Practices](#best-practices)
 
 ## Web-based Tools
-
+Web-based tools are ideal for quick, initial analyses of single genomes. They are easy to use and require no local software installation.
 ### 1. Center for Genomic Epidemiology (CGE) Tools
 **URL**: [https://www.genomicepidemiology.org/](https://www.genomicepidemiology.org/)
 
@@ -32,6 +33,9 @@
 6. Download results in various formats (JSON, TSV, PDF)
 
 ### 2. IS-finder
+Insertion sequences (IS) are the simplest MGEs, often involved in horizontal gene transfer (HGT). IS-finder and Proksee are excellent for detecting them.
+This specialized database allows you to BLAST your sequences against a curated collection of IS elements.
+
 **URL**: [https://isfinder.biotoul.fr/](https://isfinder.biotoul.fr/)
 
 #### Usage Steps:
@@ -47,6 +51,8 @@
 6. Export results table
 
 ### 3. Proksee Web-Server
+This web server provides an integrated platform for multiple analyses, including a dedicated tool for finding HGT regions and CRISPR arrays.
+Usage: After uploading your genome, select tools like "Alien Hunter" for HGT detection or "CRISPR-Cas++" for CRISPR analysis.
 **URL**: [https://proksee.ca/](https://proksee.ca/)
 
 #### Features Available:
@@ -68,6 +74,8 @@
 7. View/download results
 
 ### 4. PlasmidFinder Web Tool
+PlasmidFinder is part of the CGE suite of tools and is perfect for a rapid check for known plasmid types.
+
 **URL**: [https://cge.food.dtu.dk/services/plasmidfinder/](https://cge.food.dtu.dk/services/plasmidfinder/)
 
 #### Usage Steps:
@@ -83,7 +91,18 @@
 5. Download results
 
 ### 5. PHASTER (PHAge Search Tool Enhanced Release)
+
+PHASTER (PHage Analysis Search Tool Enhanced Release) is the go-to web tool for finding prophages—bacteriophages (viruses that infect bacteria) integrated into a bacterial chromosome. 
+
 **URL**: [https://phaster.ca/](https://phaster.ca/)
+
+1. Go to the PHASTER website: https://phaster.ca/
+
+2. Choose your input method (upload a FASTA file or paste a sequence).
+
+3. Submit your job and monitor its progress.
+
+4. The output includes a summary of identified prophages and their genes, indicating whether they are intact or incomplete.
 
 #### Usage Steps:
 1. Choose submission type:
@@ -106,11 +125,13 @@
 # Create conda environment
 conda create -n mge_analysis python=3.9
 conda activate mge_analysis
-
+```
+```bash
 # Install basic tools
 conda install -c bioconda abricate mob_suite platon
 conda install -c conda-forge biopython
-
+```
+```bash
 # Install PlasmidSeeker
 git clone https://github.com/bioinfo-ut/PlasmidSeeker.git
 cd PlasmidSeeker

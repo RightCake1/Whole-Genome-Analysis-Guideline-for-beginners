@@ -42,25 +42,47 @@ chmod +x Roary_Visualize.py
 - [Roary_Visualize.py](Roary_Visualize.py): This custom script offers additional figures - Pangenome pie, Separate Pangenome Matrix, Seoarate Cluster Tree, Merged Tree and Matrix and Length barchart. The Official one will give Pangenome pie and Pangenome Matrix.
 
 ## Running Roary
+
 ```bash
 # Create an environment. 
-Code:
 conda activate pangenome
-# Annotate related strains and generated .gff files using Prokka. 
-Code:
+```
+# Annotate related strains and generated .gff files using Prokka.
+
+```bash
 for file in *.fasta; do
 prokka --outdir output_"${file%.fasta}" "$file"
 done 
+```
+
 # Run Roary. 
-Code:
-roary -f Roaryresults -p 6 -e -n -v --maft *.gff
-# Use FastTree. 
-Code:
+
+Basic Roary RUN
+
+```bash
+roary -f Roaryresults -p 6 -e -n -v --maft *.gff 
+```
+More Robust and clear roary (takes more time)
+
+```bash
+roary -f Roaryresults -p 12 -e --mafft -i 95 -cd 99 -iv 1.5 -v *.gff
+```
+
+# Use FastTree.
+
+```bash
 FastTree -nt -gtr -gamma -boot 100 -spr 4 Roaryresult/core_gene_alignment.aln > Roaryresult/mytree.newick
+```
 # Generate images. 
-Code:
-python Roary_plots.py --labels Roaryresult/mytree.newick Roaryresult/gene_presence_absence.csv
-#or
+Need to download the [Roary.py](https://github.com/sanger-pathogens/Roary/tree/master/contrib/roary_plots)
+
+```bash 
+python roary_plots.py --labels Roaryresult/mytree.newick Roaryresult/gene_presence_absence.csv
+```
+
+# OR
+
+```bash 
 python roary_plots.py location/to/Pangenome.newick location/to/gene_presence_absence.csv --labels
 ```
 

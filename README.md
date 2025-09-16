@@ -37,6 +37,7 @@ To replicate the workflows described:
 
 ## ⚙️Workflow
 
+- [Prerequisites]
 - [FASTQ_processing.md](FASTQ_to_FASTA/FASTQ_processing.md)
 - [Genome_Assembly.md](FASTQ_to_FASTA/Genome_Assembly.md).
 - [Quality_Assessment.md](FASTQ_to_FASTA/Quality_Assessment.md).
@@ -44,13 +45,12 @@ To replicate the workflows described:
 - [Organism_Identification.md](Identification/Organism_Identification.md).
 - [Multi_Locus_Sequence_Type.md](Identification/Multi_Locus_Sequence_Type.md).
 - [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md)
-- [16s_rRNA.md](Identification/16s_rRNA.md).
-- [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md). 
+- [16s_rRNA.md](Identification/16s_rRNA.md). 
 - [Average_Amino_Acid_Identity.md](Identification/Average_Amino_Acid_Identity.md)
 - [OrthoANI.md](Identification/OrthoANI.md)
 - [Genome_depth.md](Annotations/Genome_depth.md).
 - [AMR_genes_and_profiling.md](AMR_Virulence/AMR_genes_and_profiling.md).
-- [Plasmid_Finderr.md](Mobile_genetic_elements/Plasmid_Finderr.md).
+- [Plasmid.md](Mobile_genetic_elements/Plasmid.md).
 - [MGE.md](Mobile_genetic_elements/MGE.md).
 - [Virulence_factors.md](AMR_Virulence/Virulence_factors.md).
 - [Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md).

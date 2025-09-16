@@ -2,6 +2,19 @@
 
 A comprehensive guide for constructing and analyzing phylogenetic trees using 16S RNA sequences.
 
+Phylogenetic tree analysis is a powerful bioinformatics technique used to visualize the evolutionary relationships between organisms. This guide provides a step-by-step workflow for constructing a phylogenetic tree using 16S rRNA gene sequences, a common marker for bacterial and archaeal classification
+
+The Core Workflow
+The process can be broken down into a simple, logical sequence:
+
+1. Sequence Generation: Extract the 16S rRNA gene sequence from your genome.
+
+2. Sequence Alignment: Align your sequence with sequences from closely related organisms.
+
+3. Tree Construction: Build a tree based on the alignment data.
+
+4. Tree Visualization: Generate a visual representation of the tree.
+
 ## Table of Contents
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -31,10 +44,21 @@ A comprehensive guide for constructing and analyzing phylogenetic trees using 16
 ## Detailed Steps
 
 ### 1. Generate 16S RNA Sequence
-- Use Barrnap to generate the 16S RNA sequence from your genomes
-- Verify sequence quality and length
+
+First, you need to extract the 16S rRNA sequence from your bacterial genome assembly. A reliable command-line tool for this is Barrnap
+
+Tool: Barrnap
+
+Purpose: Predicts ribosomal RNA sequences from a FASTA file.
+
+Usage: barrnap --kingdom bac your_genome.fasta > rrna.gff
+
+Result: A GFF file that contains the location of your rRNA sequences. You can then use this to extract the specific 16S sequence.
 
 ### 2. BLAST Analysis
+
+To build a meaningful tree, you need to compare your organism's 16S sequence to those of other known bacteria. The NCBI BLAST tool is perfect for this.
+
 1. Visit [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 2. Select 'Blastn' for nucleotide sequence analysis
 3. Input your sequence and run the analysis
@@ -44,6 +68,7 @@ A comprehensive guide for constructing and analyzing phylogenetic trees using 16
    - Download CSV file for record-keeping
 
 ### 3. Sequence Preparation
+
 Create a text file with sequences in the following format:
 ```
 >Organism_Name_Location_Year
@@ -51,6 +76,9 @@ ACTGCTAGCTAGCTAGCTAGCTAGCTAGCTAG
 ```
 
 ### 4. MEGA11 Analysis
+
+Alignment is the crucial step where you line up your sequences to identify homologous (evolutionarily related) positions. This is the foundation for building the tree. MEGA11 is a user-friendly desktop application for this.
+
 1. Launch MEGA11
 2. Create new alignment:
    - Click `Align` → `Build New Alignment`
@@ -62,6 +90,9 @@ ACTGCTAGCTAGCTAGCTAGCTAGCTAGCTAG
    - Save in MEGA format
 
 ### 5. Tree Construction
+
+With your aligned sequences, you can now build the phylogenetic tree. MEGA11 has many options for this.
+
 1. In MEGA11:
    - Select `Phylogeny`
    - Choose desired tree type
@@ -69,6 +100,8 @@ ACTGCTAGCTAGCTAGCTAGCTAGCTAGCTAG
    - Set p-value if required
 
 ### 6. Tree Visualization
+The raw output from MEGA can be complex. iTOL (Interactive Tree Of Life) is a powerful online tool for visualizing and annotating trees, making them publication-ready.
+
 1. Visit [iTOL](https://itol.embl.de/)
 2. Upload your tree file
 3. Edit visualization settings
