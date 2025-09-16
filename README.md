@@ -1,18 +1,16 @@
 # 🧬 Bacterial Whole Genome Analysis Guideline for Beginners
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blueviolet.svg)](https://github.com/your-repo)
 
 Welcome to the **Bacterial Whole Genome Analysis Guideline for Beginners**! This repository serves as a comprehensive starting point for researchers interested in bacterial genome analysis, focusing on tools and techniques for comparative genomics and metagenomics.
 
 ## 📚 Overview
 This guideline is designed for dry lab (computational) analysis of bacterial genomes. It covers:
 
-- **Comparative Genomics:** Tools and techniques to analyze and compare multiple bacterial genomes.  
-- **Functional Annotation:** Identification of genes, AMR genes, plasmids, virulence factors, and mobile elements.  
-- **Visualization:** Generating phylogenetic trees, heatmaps, and pangenome plots.  
-- **Beginner-Friendly:** Simplified explanations and practical tips for getting started with minimal prior experience.
+- **🔬 Comparative Genomics:** Analyze and compare multiple bacterial genomes.  
+- **🧩 Functional Annotation:** Identify genes, AMR genes, plasmids, virulence factors, and mobile elements.  
+- **📊 Visualization:** Generate phylogenetic trees, heatmaps, and pangenome plots.  
+- **🎓 Beginner-Friendly:** Step-by-step instructions for easy understanding.
 
 ## 🎯 Features
 - **Comparative Genomics:** Step-by-step instructions for analyzing and comparing bacterial genomes.
@@ -30,7 +28,9 @@ This guideline is designed for dry lab (computational) analysis of bacterial gen
 ---
 
 ## 🏃Getting Started
-This repository is designed for researchers with minimal experience in bacterial genome analysis. Follow the step-by-step instructions in the `.md` files to perform tasks like genome assembly, annotation, and visualization.
+1. Review the workflows to understand the steps.  
+2. Install each tool as instructed in its corresponding `.md` file.  
+3. No special environment required, but Linux familiarity is helpful.
 
 ## 📜Prerequisites
 Before diving in, ensure you have the following:
