@@ -17,7 +17,8 @@ bash Miniconda3-latest-Linux-x86_64.sh
 # Create and activate environment
 conda create -n pangenome
 conda activate pangenome
-
+```
+```bash
 # Install required packages
 conda install -c bioconda roary
 conda install -c bioconda fasttree
@@ -34,7 +35,8 @@ You can visualize Roary results using either the official script or a custom scr
 # Option 1: Download and use the official Roary plots script
 wget https://raw.githubusercontent.com/sanger-pathogens/Roary/master/contrib/roary_plots.py
 chmod +x roary_plots.py
-
+```
+```bash
 # Option 2: Use the custom visualization script included here
 chmod +x Roary_Visualize.py
 ```
@@ -74,7 +76,6 @@ roary -f Roaryresults -p 12 -e --mafft -i 95 -cd 99 -iv 1.5 -v *.gff
 FastTree -nt -gtr -gamma -boot 100 -spr 4 Roaryresult/core_gene_alignment.aln > Roaryresult/mytree.newick
 ```
 # Generate images. 
-Need to download the [Roary.py](https://github.com/sanger-pathogens/Roary/tree/master/contrib/roary_plots)
 
 ```bash 
 python roary_plots.py --labels Roaryresult/mytree.newick Roaryresult/gene_presence_absence.csv
