@@ -3,10 +3,12 @@
 ## Introduction
 This guide covers essential tools for bacterial genome annotation. We'll explore both web-based (RAST) and command-line (Prokka) approaches to genome annotation.
 
+Genome annotation is a critical step in bacterial genomics, enabling the identification of genes, their functions, and associated biological pathways. This guide introduces two widely used tools—RAST (web-based) and Prokka (command-line)—for efficient and accurate annotation of bacterial genomes.
+
 ## RAST (Rapid Annotation using Subsystem Technology)
 
 ### Overview
-RAST is a web-based platform that provides automated annotation of bacterial and archaeal genomes.
+RAST is a web-based platform designed for the automated annotation of bacterial and archaeal genomes. It integrates gene prediction with functional assignment and pathway reconstruction.
 
 ### Access and Usage
 ```plaintext
@@ -38,22 +40,27 @@ After annotation completion:
 ```bash
 # Create conda environment
 conda create -c bioconda -n prokka prokka
+```
 
+```bash
 # Activate environment
 conda activate prokka
+```
 
+```bash
 # Verify installation
 prokka --version
 ```
 
-### Basic Usage
 ```bash
+### Basic Usage
 # Simple annotation
 prokka contigs.fasta
 
 # Specify output directory
 prokka --outdir mygenome contigs.fasta
 
+```bash
 # Annotate multiple genomes
 for file in *.fasta; do
     prokka --outdir "${file%.fasta}_annot" "$file"
