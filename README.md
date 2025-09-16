@@ -42,6 +42,7 @@ To replicate the workflows described:
 - [Quality_Assessment.md](FASTQ_to_FASTA/Quality_Assessment.md).
 - [Genome_Annotaions.md](Annotations/Genome_Annotaions.md).
 - [Organism_Identification.md](Identification/Organism_Identification.md).
+- [Multi_Locus_Sequence_Type.md](Identification/Multi_Locus_Sequence_Type.md).
 - [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md)
 - [16s_rRNA.md](Identification/16s_rRNA.md).
 - [Average_nucleotide_identity.md](Identification/Average_nucleotide_identity.md). 
@@ -54,7 +55,7 @@ To replicate the workflows described:
 - [Virulence_factors.md](AMR_Virulence/Virulence_factors.md).
 - [Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md).
 - [Phylogeny_Tree_Mega11.md](Pangenome_Phylogenetics/Phylogeny_Tree_by_MEGA11.md) 
-- [Phylogeny_Tree_Kbase.md](Phylogeny_Tree_by_KBase.md)
+- [Phylogeny_Tree_Kbase.md](Pangenome_Phylogenetics/Phylogeny_Tree_by_KBase.md)
 
 ## Others
 - [SeqKit.md](FASTQ_to_FASTA/SeqKit.md).
