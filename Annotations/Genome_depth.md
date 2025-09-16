@@ -4,6 +4,8 @@
 ## Introduction
 This guide covers the process of mapping sequencing reads to a reference genome and analyzing coverage metrics using BWA, Samtools, and Bowtie2. These tools are essential for various genomic analyses, including variant calling and genome assembly validation.
 
+Read mapping is a fundamental step in genomic analysis, enabling alignment of sequencing reads to a reference genome. This process allows downstream applications such as variant calling, coverage assessment, and assembly validation. This guide demonstrates a standard workflow using three widely adopted tools: BWA, Samtools, and Bowtie2.
+
 ## Installation
 
 ```bash
@@ -11,7 +13,8 @@ This guide covers the process of mapping sequencing reads to a reference genome 
 conda create -n mapping
 conda activate mapping
 conda install -c bioconda bwa samtools bowtie2
-
+```
+```bash
 # Verify installations
 bwa
 samtools --version
@@ -25,12 +28,24 @@ bowtie2 --version
 ```bash
 # Indexed. Code:
 bwa index contigs.fasta
+```
+
+```bash
 # Made SAM file. Code:
 bwa mem -t 12 contigs.fasta R1p.fastq R2p.fastq > contigs.sam 
+```
+
+```bash
 # Converted SAM to BAM. Code:
 samtools view -S -b contigs.sam > contigs.bam
+```
+
+```bash
 # Sorted Alignment. Code:
 samtools sort contigs.bam --reference contigs.fasta > contigs_sort.bam
+```
+
+```bash
 # Checked Mean Read Depth. Code:
 samtools depth -a contigs_sort.bam | awk '{c++;s+=$3}END{print s/c}'
 ```
@@ -40,21 +55,26 @@ samtools depth -a contigs_sort.bam | awk '{c++;s+=$3}END{print s/c}'
 ```bash
 # Basic coverage statistics
 samtools coverage contigs_sort.bam
-
+```
+```bash
 # Detailed per-base coverage
 samtools depth -a contigs_sort.bam > coverage.txt
-
+```
+```bash
 # Mean read depth
 samtools depth -a contigs_sort.bam | \
     awk '{c++;s+=$3}END{print "Mean depth = " s/c}'
-
+```
+```bash
 # Coverage breadth (percentage of reference covered)
 samtools depth -a contigs_sort.bam | awk '{c++;s+=$3}END{print s/c}'
+```
+# OR
 
-# or 
-
+```bash
 samtools depth -a contigs_sort.bam | awk '{c++; if($3>0) total+=1}END{print (total/c)*100}'
-
+```
+```bash
 # Coverage at different thresholds
 samtools depth -a contigs_sort.bam | \
     awk '{c++; if($3>=10) d10++; if($3>=20) d20++; if($3>=30) d30++}END{
@@ -63,6 +83,7 @@ samtools depth -a contigs_sort.bam | \
         print "≥30x coverage: " (d30/c)*100 "%"
     }'
 ```
+BWA and Bowtie2 provide efficient, high-quality read alignment, while Samtools offers powerful tools for manipulating and analyzing alignments. Together, they form a robust pipeline for read mapping, coverage analysis, and quality control in bacterial genomics.
 
 ## Best Practices
 
