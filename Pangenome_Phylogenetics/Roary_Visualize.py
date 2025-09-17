@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+__author__ = "Marco Galardini (modified by ChatGPT)"
+__version__ = '0.2.0-mod-clean'
 
 import argparse
 import matplotlib
@@ -105,9 +107,8 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(20, 25))
     ax = fig.add_subplot(1, 1, 1)
     colored_draw(t, ax, show_labels=options.labels)
-    plt.savefig(f'colored_tree.{options.format}', dpi=300, bbox_inches='tight')
+    plt.savefig(f'colored_tree.{options.format}', dpi=100, bbox_inches='tight')
     plt.clf()
-    print(f"Tree plot saved as colored_tree.{options.format}")
 
     # ======= Matrix plot only =======
     fig = plt.figure(figsize=(25, 20))
@@ -117,56 +118,45 @@ if __name__ == "__main__":
     ax.set_yticks([])
     ax.set_xticks([])
     ax.axis('off')
-    plt.savefig(f'roary_pangenome_matrix.{options.format}', dpi=300)
+    plt.savefig(f'roary_pangenome_matrix.{options.format}', dpi=100)
     plt.clf()
 
-    # ======= Pangenome pie chart =======
-    core     = roary[(roary.sum(axis=1) >= roary.shape[1]*0.99) & (roary.sum(axis=1) <= roary.shape[1])].shape[0]
-    softcore = roary[(roary.sum(axis=1) >= roary.shape[1]*0.95) & (roary.sum(axis=1) <  roary.shape[1]*0.99)].shape[0]
-    shell    = roary[(roary.sum(axis=1) >= roary.shape[1]*0.15) & (roary.sum(axis=1) <  roary.shape[1]*0.95)].shape[0]
-    cloud    = roary[roary.sum(axis=1)  < roary.shape[1]*0.15].shape[0]
+  # ======= Combined tree + matrix plot =======
+fig = plt.figure(figsize=(45, 22))  # Wider figure for more horizontal space
+ax_tree = plt.subplot2grid((1,100), (0, 0), colspan=60)    # More space for tree (was 45)
+ax_matrix = plt.subplot2grid((1,100), (0, 60), colspan=40)  # Slightly less for matrix
 
-    total = roary.shape[0]
-    def my_autopct(pct):
-        val=int(round(pct*total/100.0))
-        return '{v:d}'.format(v=val)
+colored_draw(t, ax_tree, show_labels=options.labels)
+ax_matrix.matshow(roary_sorted.T, cmap=plt.cm.Blues, vmin=0, vmax=1, aspect='auto')
+ax_matrix.set_xticks([])
+ax_matrix.set_yticks([])
+ax_matrix.axis('off')
+plt.savefig(f'roary_tree_matrix_combined.{options.format}', dpi=100, bbox_inches='tight')
+plt.clf()
 
-    plt.figure(figsize=(10, 10))
-    plt.pie([core, softcore, shell, cloud],
-        labels=[
-            f'core ({core})',
-            f'soft-core ({softcore})',
-            f'shell ({shell})',
-            f'cloud ({cloud})'
-        ],
-        explode=[0.1, 0.05, 0.02, 0],
-        colors=[(0, 0, 1, float(x)/total) for x in (core, softcore, shell, cloud)],
-        autopct=my_autopct)
-    plt.savefig(f'pangenome_pie.{options.format}', dpi=300)
-    plt.clf()
+## Pangenome pie
+core     = roary[(roary.sum(axis=1) >= roary.shape[1]*0.99) & (roary.sum(axis=1) <= roary.shape[1])].shape[0]
+softcore = roary[(roary.sum(axis=1) >= roary.shape[1]*0.95) & (roary.sum(axis=1) <  roary.shape[1]*0.99)].shape[0]
+shell    = roary[(roary.sum(axis=1) >= roary.shape[1]*0.15) & (roary.sum(axis=1) <  roary.shape[1]*0.95)].shape[0]
+cloud    = roary[roary.sum(axis=1)  < roary.shape[1]*0.15].shape[0]
 
-    # ======= Pangenome frequency histogram =======
-    plt.figure(figsize=(7, 5))
-    plt.hist(roary.sum(axis=1), bins=roary.shape[1], histtype="stepfilled", alpha=.7)
-    plt.xlabel('No. of genomes')
-    plt.ylabel('No. of genes')
-    sns.despine(left=True, bottom=True)
-    plt.savefig(f'pangenome_frequency.{options.format}', dpi=300)
-    plt.clf()
+total = roary.shape[0]
+def my_autopct(pct):
+    val=int(round(pct*total/100.0))
+    return '{v:d}'.format(v=val)
 
-     # ======= Combined tree + matrix plot =======
-    fig = plt.figure(figsize=(45, 22))  # Wider figure for more horizontal space
-    ax_tree = plt.subplot2grid((1,100), (0, 0), colspan=60)    # More space for tree (was 45)
-    ax_matrix = plt.subplot2grid((1,100), (0, 60), colspan=40)  # Slightly less for matrix
-
-    colored_draw(t, ax_tree, show_labels=options.labels)
-    ax_matrix.matshow(roary_sorted.T, cmap=plt.cm.Blues, vmin=0, vmax=1, aspect='auto')
-    ax_matrix.set_xticks([])
-    ax_matrix.set_yticks([])
-    ax_matrix.axis('off')
-    plt.savefig(f'roary_tree_matrix_combined.{options.format}', dpi=300, bbox_inches='tight')
-    plt.clf()
-
-
-
+plt.figure(figsize=(10, 10))
+plt.pie(
+    [core, softcore, shell, cloud],
+    labels=[
+        f'core ({core})',
+        f'soft-core ({softcore})',
+        f'shell ({shell})',
+        f'cloud ({cloud})'
+    ],
+    explode=[0.1, 0.05, 0.02, 0],
+    colors=[(0, 0, 1, float(x)/total) for x in (core, softcore, shell, cloud)],
+    autopct=my_autopct
+)
+plt.savefig(f'pangenome_pie.{options.format}', dpi=1000)
 
