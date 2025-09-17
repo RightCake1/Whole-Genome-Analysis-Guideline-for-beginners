@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-__author__ = "Marco Galardini (modified by ChatGPT)"
-__version__ = '0.2.0-mod-clean'
 
 import argparse
 import matplotlib
