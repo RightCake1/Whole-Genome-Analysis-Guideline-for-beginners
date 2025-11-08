@@ -12,6 +12,11 @@ This guideline is designed for dry lab (computational) analysis of bacterial gen
 - **📊 Visualization:** Generate phylogenetic trees, heatmaps, and pangenome plots.  
 - **🎓 Beginner-Friendly:** Step-by-step instructions for easy understanding.
 
+<p align="center">
+  <img src="images/Workflow.png" width="650" alt="Repository Workflows"/>
+</p>
+
+
 ## 🎯 Features
 - **Comparative Genomics:** Step-by-step instructions for analyzing and comparing bacterial genomes.
 - **Beginner-Friendly:** Simplified explanations and practical tips to get you started.
@@ -47,17 +52,17 @@ To replicate the workflows described:
 ## ⚙️Workflow
 The following workflows are included in this repository:
 
-### Data Processing & Assembly
+### 1. Data Processing & Assembly
 - [FASTQ Processing](FASTQ_to_FASTA/FASTQ_processing.md)  
 - [Genome Assembly](FASTQ_to_FASTA/Genome_Assembly.md)  
 - [Quality Assessment](FASTQ_to_FASTA/Quality_Assessment.md)  
 - [SeqKit Utilities](FASTQ_to_FASTA/SeqKit.md)  
 
-### Genome Annotation & Depth
+### 2. Genome Annotation & Depth
 - [Genome Annotation](Annotations/Genome_Annotaions.md)  
 - [Genome Depth Analysis](Annotations/Genome_depth.md)  
 
-### Organism Identification & Typing
+### 3. Organism Identification & Typing
 - [Organism Identification](Identification/Organism_Identification.md)  
 - [Multi-Locus Sequence Typing (MLST)](Identification/Multi_Locus_Sequence_Type.md)  
 - [Average Nucleotide Identity (ANI)](Identification/Average_nucleotide_identity.md)  
@@ -65,15 +70,15 @@ The following workflows are included in this repository:
 - [OrthoANI Analysis](Identification/OrthoANI.md)  
 - [16S rRNA Analysis](Identification/16s_rRNA.md)  
 
-### Antimicrobial Resistance & Virulence
+### 4. Antimicrobial Resistance & Virulence
 - [AMR Genes & Profiling](AMR_Virulence/AMR_genes_and_profiling.md)  
 - [Virulence Factors](AMR_Virulence/Virulence_factors.md)  
 
-### Mobile Genetic Elements
+### 5. Mobile Genetic Elements
 - [Plasmid Analysis](Mobile_genetic_elements/Plasmid.md)  
 - [Other MGEs](Mobile_genetic_elements/MGE.md)  
 
-### Comparative Genomics & Phylogeny
+### 6. Comparative Genomics & Phylogeny
 - [Phylogeny & Pangenome Analysis (Roary)](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md)  
 - [Phylogenetic Tree using MEGA11](Pangenome_Phylogenetics/Phylogeny_Tree_Mega11.md)  
 - [Phylogenetic Tree using KBase](Pangenome_Phylogenetics/Phylogeny_Tree_Kbase.md)  
