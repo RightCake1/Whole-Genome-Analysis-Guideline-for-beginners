@@ -28,18 +28,8 @@ GitHub page: https://github.com/tseemann/mlst
 First, you need to install the mlst tool on your computer. Using Conda is the easiest way to manage this and other bioinformatics software.
 
 ```bash
-# Create conda environment
-conda create -n mlst -c bioconda mlst
-```
-
-```bash
-# Activate environment
-conda activate mlst
-```
-
-```bash
-# Verify installation
-mlst --version
+# Activate existing environment 
+conda install -c conda-forge -c bioconda -c defaults mlst
 ```
 
 The primary input for the mlst tool is a complete or draft genome assembly file in FASTA format.

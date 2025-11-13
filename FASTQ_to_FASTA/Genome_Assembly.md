@@ -30,34 +30,31 @@ Open your terminal.
 
 Download the latest SPAdes release. (Note: The version in the original prompt is old. It's best to use the most recent one).
 
-```Bash
-# Use a tool like wget or a browser to get the latest version
-# The command below is a placeholder, find the latest on the SPAdes GitHub
+- Use a tool like wget or a browser to get the latest version
+- The command below is a placeholder, find the latest on the SPAdes GitHub
 wget https://github.com/ablab/spades/releases/download/v3.15.5/SPAdes-3.15.5-Linux.tar.gz
-Extract the downloaded file.
-```
+- Extract the downloaded file.
 
 ```Bash
 tar -xzf SPAdes-3.15.5-Linux.tar.gz
-Navigate into the new SPAdes directory.
 ``` 
+
+- Navigate into the new SPAdes directory.
 
 ```Bash
 cd SPAdes-3.15.5-Linux/bin/ #try using the latest version
-Check that the installation works by verifying the version.
 ```
 
+- Check that the installation works by verifying the version.
+
+
 ```bash
+sudo apt install spades
+#verify
 ./spades.py --version
-You will likely need to use ./spades.py to run the command, as the program isn't in your system's PATH by default.
 ```
-Or or just run this in one go: 
 
-```bash
-wget https://github.com/ablab/spades/releases/download/v4.0.0/SPAdes-4.0.0-Linux.tar.gz
-tar -xzf SPAdes-4.0.0-Linux.tar.gz
-cd SPAdes-4.0.0-Linux/bin/
-```
+You will likely need to use ./spades.py to run the command, as the program isn't in your system's PATH by default.
 
 ```bash
 # Verify installation
@@ -76,6 +73,7 @@ fastp is a highly recommended tool for quality control and trimming. You can eas
 # Install fastp if you don't have it
 conda install -c bioconda fastp
 ```
+
 ```bash
 # Navigate back to your main project folder
 cd ../../
@@ -137,7 +135,7 @@ You may have heard of seqtk for converting file formats. While SPAdes already ou
 
 # seqtk is a lightweight, general-purpose command-line toolkit for processing and converting sequence files. Its functions are much simpler and faster than SPAdes.
 
-5. Alternative Assembly Methods and Automation
+Alternative Assembly Methods and Automation
 While running SPAdes from the command line is powerful, there are other options for different needs.
 
 Function: Manipulates sequence files. One of its many functions is converting a FASTQ file to a FASTA file by simply removing the quality scores.
@@ -157,6 +155,8 @@ Make sure you're in your main project folder.
 Use the seqtk command to convert your trimmed, paired reads.
 
 ```bash
+# install 
+sudo install seqtk
 # Convert R1 (forward reads)
 seqtk seq -a trimmed/R1P.fastq > final_output/R1.fasta
 # Convert R2 (reverse reads)

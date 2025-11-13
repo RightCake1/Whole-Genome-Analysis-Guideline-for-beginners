@@ -5,20 +5,41 @@ QUAST (QUality ASsessment Tool) is an excellent tool for evaluating genome assem
 
 
 ```bash
-## Installation
-conda create -n bioinfo_quast python=3.8
-conda activate bioinfo_quast
-```
-```bash 
-# Ensure channels are added in the right order
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
+# Prerequisites
+
+# All default requirements are usually preinstalled on Linux. The only missing one could be zlib-dev. See their web-site for installation details for various platforms. In particular, it is preinstalled on macOS, and it can be simply installed on Ubuntu as:
+
+sudo apt-get install zlib1g-dev
+
+#  QUAST draws plots in two formats: HTML and PDF. If you need the PDF versions, make sure that you have installed Matplotlib Python library. We recommend to use Matplotlib version 1.1 or higher. QUAST is fully tested with Matplotlib v.1.3.1. Installation on Ubuntu:
+
+sudo apt-get install -y pkg-config libfreetype6-dev libpng-dev python-matplotlib
 ```
 
 ```bash
-# Try installing QUAST again
-conda install -c bioconda quast
+#To download the QUAST source code tarball and extract it, type:
+
+wget https://github.com/ablab/quast/releases/download/quast_5.3.0/quast-5.3.0.tar.gz
+tar -xzf quast-5.3.0.tar.gz
+cd quast-5.3.0
+```
+
+```bash
+# QUAST automatically compiles all its sub-parts when needed (on the first use). Thus, installation is not required. However, if you want to precompile everything and add quast.py to your PATH, you may choose either:
+# Basic installation (about 120 MB):
+
+./setup.py install
+
+# or
+# Full installation (about 540 MB, additionally includes (1) tools for SV detection based on read pairs, which is used for more precise misassembly detection, and (2) tools/data for reference genome detection in metagenomic datasets):
+
+./setup.py install_full
+
+# If you get error in installation then - 
+
+sudo apt-get install python-distutils 
+
+# Rerun ./setup.py install
 ```
 
 ```bash

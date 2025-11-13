@@ -18,9 +18,8 @@ To use OrthoANI, you need to install both the Python-based pyorthoani package an
 2. **Install BLAST+**  
 
 Install BLAST+ binaries. pyorthoani relies on BLAST for sequence alignment. You must download and install the BLAST+ command-line tools from the NCBI website and ensure they are accessible from your terminal.
-
-    PyOrthoANI requires [BLAST+](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) binaries.  
-    Ensure BLAST+ is installed and available in your system's PATH.
+PyOrthoANI requires [BLAST+](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) binaries.  
+Ensure BLAST+ is installed and available in your system's PATH.
 
 3. **Reference**  
     - [PyOrthoANI GitHub Repository](https://github.com/althonos/pyorthoani)
