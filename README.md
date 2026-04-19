@@ -47,7 +47,8 @@ Before diving in, ensure you have the following:
 
 ## 🛠️Setup and Installation
 To replicate the workflows described:
-1. Just go through the folders afer checking the workflow and just install manually; all the installation process are in the .md files
+
+Just go through the folders afer checking the workflow and just install manually; all the installation process are in the .md files
 
 ## ⚙️Workflow
 The following workflows are included in this repository:
@@ -56,8 +57,7 @@ The following workflows are included in this repository:
 - [Retrieving Fasta files](FASTQ_to_FASTA/Retrieving_Fasta_files.md)
 - [FASTQ Processing](FASTQ_to_FASTA/FASTQ_processing.md)  
 - [Genome Assembly](FASTQ_to_FASTA/Genome_Assembly.md)  
-- [Quality Assessment](FASTQ_to_FASTA/Quality_Assessment.md)  
-- [SeqKit Utilities](FASTQ_to_FASTA/SeqKit.md)  
+- [Quality Assessment](FASTQ_to_FASTA/Quality_Assessment.md)   
 
 ### 2. Genome Annotation & Depth
 - [Genome Annotation](Annotations/Genome_Annotaions.md)  
@@ -85,7 +85,7 @@ The following workflows are included in this repository:
 - [Phylogenetic Tree using KBase](Pangenome_Phylogenetics/Phylogeny_Tree_Kbase.md)  
 
 ### Others
-- [SeqKit.md](FASTQ_to_FASTA/SeqKit.md).
+- [SeqKit](FASTQ_to_FASTA/SeqKit.md)
 
 ## 💡Contributing
 Contributions are welcome! You can:
@@ -95,4 +95,4 @@ Contributions are welcome! You can:
 - Report issues or bugs  
 
 ## 📩 Contact
-For queries or collaboration, please contact [galeeb115@gmail.com].
+For queries or collaboration, please contact through my [Gmail](galeeb115@gmail.com).
