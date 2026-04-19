@@ -13,13 +13,9 @@ These tools are great for beginners or for quick analysis of one or a few sample
 
 ### ResFinder
 
-ResFinder is a web-based tool from the Center for Genomic Epidemiology (CGE) that identifies acquired AMR genes and chromosomal mutations. It's user-friendly and very popular.
+[ResFinder](https://cge.cbs.dtu.dk/services/ResFinder/) is a web-based tool from the Center for Genomic Epidemiology (CGE) that identifies acquired AMR genes and chromosomal mutations. It's user-friendly and very popular.
 
 Usage: Simply upload your bacterial genome assembly (FASTA file) and click "submit." The service will compare your sequences to its databases and give you a detailed report of all resistance genes found.
-
-
-# Web-based tool - No command line required
-URL: https://cge.cbs.dtu.dk/services/ResFinder/
 
 # Key Features:
 - Identifies acquired antimicrobial resistance genes
@@ -29,18 +25,16 @@ URL: https://cge.cbs.dtu.dk/services/ResFinder/
 
 ### RGI (Resistance Gene Identifier)
 
-RGI is the main tool of the CARD (Comprehensive Antibiotic Resistance Database), one of the most comprehensive and authoritative databases for resistance genes. RGI not only finds genes but also predicts their resistance mechanism.
+[RGI](https://card.mcmaster.ca/analyze/rgi) is the main tool of the CARD (Comprehensive Antibiotic Resistance Database), one of the most comprehensive and authoritative databases for resistance genes. RGI not only finds genes but also predicts their resistance mechanism.
 
 Usage: Upload your FASTA file and select the analysis type (e.g., "Main Analysis"). The output includes predicted resistance genes, their mechanisms of action, and confidence scores.
 
-# Web interface
-URL: https://card.mcmaster.ca/analyze/rgi
 
 ## ABRicate
 
 For analyzing many genomes at once, or for building automated pipelines, command-line tools are more efficient.
 
-ABRicate is a versatile and widely used command-line tool for mass screening of contigs. It's fast and can use multiple databases.
+[ABRicate](https://github.com/tseemann/ABRICATE) is a versatile and widely used command-line tool for mass screening of contigs. It's fast and can use multiple databases.
 
 ```bash
 # Installation
@@ -60,7 +54,7 @@ abricate --summary *.fasta > summary.tab
 ```
  Create summary table
 
-# Database options
+## Database options
 ABRicate allows you to choose which database to use, including CARD and ResFinder.
 
 ```bash
@@ -73,16 +67,16 @@ abricate --db card --file input.fasta # Use CARD database
 abricate --db resfinder input.fasta   # Use ResFinder database
 ```
 
-# Minimum coverage threshold
+## Minimum coverage threshold
 You can set minimum identity (--minid) and coverage (--mincov) thresholds to control how strict the match has to be. A common starting point is --minid 90 --mincov 90.
 
 ```bash
 abricate --minid 80 --mincov 60 input.fasta
 ```
 
-## Advanced Tools
 
-### abriTAMR
+
+# abriTAMR
 abriTAMR is a more advanced pipeline built on top of ABRicate that generates a comprehensive AMR report. It's useful for a complete, structured analysis.
 
 ```bash
@@ -95,6 +89,7 @@ conda activate abritamr
 abritamr run --contigs genome.fasta --prefix klebsiella_amr --species Klebsiella_pneumoniae
 ```
 This command will run a full analysis and create a report with a consistent naming scheme (my_amr_report).
+
 
 ### AMR Classification Guidelines
 

@@ -2,23 +2,23 @@
 
 Average Amino Acid Identity (AAI) is a key metric for measuring the evolutionary relatedness between two organisms at the protein level. It calculates the average identity of all orthologous (gene pairs that arose from a speciation event) proteins shared between two genomes. An AAI value of 95% is a common threshold for distinguishing between species.
 
-This guide walks you through the entire AAI analysis workflow using the EzAAI tool.
+This guide walks you through the entire AAI analysis workflow using the [EzAAI](https://github.com/endixk/ezaai) tool.
 
 ---
 The AAI Analysis Workflow
 Calculating AAI is a multi-step process that starts with your raw genome data and ends with a clear visualization of genetic relationships.
 
-Preparation: Install EzAAI and organize your genome assemblies.
+- Preparation: Install EzAAI and organize your genome assemblies.
 
-Protein Extraction: Convert your DNA genome files into protein databases.
+- Protein Extraction: Convert your DNA genome files into protein databases.
 
-Calculation: Run EzAAI to perform an all-versus-all comparison.
+- Calculation: Run EzAAI to perform an all-versus-all comparison.
 
-Visualization: Generate a dendrogram or heatmap to see the relationships.
+- Visualization: Generate a dendrogram or heatmap to see the relationships.
 
 ## 1. Install EzAAI (Recommended: Conda)
 
-The easiest way to install EzAAI is with Conda. This ensures you also get MMseqs2, the underlying tool EzAAI uses for protein comparisons.
+The easiest way to install EzAAI is with Conda. This ensures you also get MMseqs2, the underlying tool EzAAI uses for protein comparisons. Check their [Website](https://endixk.github.io/ezaai/download) for more details
 
 ```bash
 conda install -c bioconda -y ezaai

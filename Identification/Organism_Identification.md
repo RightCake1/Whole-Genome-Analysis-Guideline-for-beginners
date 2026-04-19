@@ -15,10 +15,11 @@ This guide covers various tools and platforms for bacterial species identificati
 
 ### 1. PubMLST
 
-Once you have a species prediction, you should confirm it and get a more detailed genetic profile. PubMLST is a widely used resource for this. It uses Multi-Locus Sequence Typing (MLST), a robust method that identifies a species and a specific sequence type (ST) by looking at a few essential "housekeeping" genes.
+Once you have a species prediction, you should confirm it and get a more detailed genetic profile. 
+[PubMLST](https://pubmlst.org/) is a widely used resource for this. It uses Multi-Locus Sequence Typing (MLST), a robust method that identifies a species and a specific sequence type (ST) by looking at a few essential "housekeeping" genes.
 
 **Purpose**: Multi-Locus Sequence Typing (MLST) and species identification  
-**Website**: [https://pubmlst.org/](https://pubmlst.org/)
+
 
 #### Features
 * Species identification
@@ -42,9 +43,7 @@ Once you have a species prediction, you should confirm it and get a more detaile
 
 ### 2. KmerFinder
 
-KmerFinder is perfect for this. It uses a super-fast method based on k-mers (short DNA sequences) to match your genome to a known species database.
-
-**Website**: [https://cge.cbs.dtu.dk/services/KmerFinder/](https://cge.cbs.dtu.dk/services/KmerFinder/)
+[KmerFinder](https://cge.cbs.dtu.dk/services/KmerFinder/) is perfect for this. It uses a super-fast method based on k-mers (short DNA sequences) to match your genome to a known species database.
 
 #### Features
 * Species identification
@@ -69,9 +68,8 @@ KmerFinder is perfect for this. It uses a super-fast method based on k-mers (sho
 
 ### 3. PathogenWatch
 
-PathogenWatch is a powerful, integrated platform that provides a full genomic characterization.
+[PathogenWatch](https://pathogen.watch/) is a powerful, integrated platform that provides a full genomic characterization.
 
-**Website**: [https://pathogen.watch/](https://pathogen.watch/)
 
 #### Features
 * Species identification
@@ -110,15 +108,16 @@ PathogenWatch is a powerful, integrated platform that provides a full genomic ch
 The platform will identify the species, ST, and predict the presence of hundreds of known antimicrobial resistance (AMR) genes and virulence factors.
 
 What the Output Means:
-AMR Genes: This list shows all the antibiotic resistance genes found in your genome. You can see which antibiotics your strain might be resistant to.
 
-Virulence Factors: This shows genes that allow the bacterium to cause disease.
+- AMR Genes: This list shows all the antibiotic resistance genes found in your genome. You can see which antibiotics your strain might be resistant to.
 
-Phylogenetic Placement: The tool places your strain in the context of thousands of other strains from around the world, which is crucial for outbreak detection and surveillance.
+- Virulence Factors: This shows genes that allow the bacterium to cause disease.
+
+- Phylogenetic Placement: The tool places your strain in the context of thousands of other strains from around the world, which is crucial for outbreak detection and surveillance.
 
 ### 4. Kleborate [Only for klebsiella species]
 
-If your species is identified as Klebsiella, you should also use Kleborate. This tool is a highly specialized resource designed specifically for Klebsiella species and is much more detailed than general tools.
+If your species is identified as Klebsiella, you should also use [Kleborate](https://kleborate.readthedocs.io/en/latest/). This tool is a highly specialized resource designed specifically for Klebsiella species and is much more detailed than general tools.
 
 **Purpose**: Specialized tool for Klebsiella species  
 **Source**: [GitHub Repository](https://github.com/klebgenomics/Kleborate)

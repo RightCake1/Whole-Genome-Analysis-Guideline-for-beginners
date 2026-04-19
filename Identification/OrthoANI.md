@@ -8,21 +8,18 @@ OrthoANI is similar to other ANI methods like FastANI but uses a more precise ap
 
 ## Installation
 
-To use OrthoANI, you need to install both the Python-based pyorthoani package and the command-line suite BLAST+.
+To use [OrthoANI]((https://github.com/althonos/pyorthoani)), you need to install both the Python-based pyorthoani package and the command-line suite BLAST+.
 
 1. **Install PyOrthoANI**  
-    ```bash
-    pip install pyorthoani
-    ```
+```bash
+pip install pyorthoani
+```
 
 2. **Install BLAST+**  
 
 Install BLAST+ binaries. pyorthoani relies on BLAST for sequence alignment. You must download and install the BLAST+ command-line tools from the NCBI website and ensure they are accessible from your terminal.
 PyOrthoANI requires [BLAST+](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) binaries.  
 Ensure BLAST+ is installed and available in your system's PATH.
-
-3. **Reference**  
-    - [PyOrthoANI GitHub Repository](https://github.com/althonos/pyorthoani)
 
 ---
 
@@ -46,7 +43,7 @@ This command will output a single value representing the OrthoANI percentage bet
 
 For comparing multiple genomes, you'll need a more automated approach. The provided Python scripts are designed to handle this.
 
-The OrthoANI_calculate.py script automates the all-versus-all comparison for a directory of genome files. Before running it, you must edit the script to point to the correct input directory containing all your .fa files.
+The OrthoANI_calculate.py script automates the all-versus-all comparison for a directory of genome files. Before running it, you must edit the script to point to the correct input directory containing all your ```.fa``` files.
 
 - [OrthoANI_calculate.py](OrthoANI_calculate.py)
 

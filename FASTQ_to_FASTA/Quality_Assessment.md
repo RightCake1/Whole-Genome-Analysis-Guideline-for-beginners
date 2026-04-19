@@ -3,48 +3,30 @@
 ## Introduction
 QUAST (QUality ASsessment Tool) is an excellent tool for evaluating genome assemblies. It provides comprehensive quality metrics that are crucial for assessing the quality of your assemblies. 
 
+## Installation
+The current stable release is [v5.3.0](https://downloads.sourceforge.net/project/quast/quast-5.3.0.tar.gz). The package includes everything needed for running QUAST, MetaQUAST, QUAST-LG, and Icarus. After downloading the tar.gz package, just unpack it with tar -xzf quast-<VERSION>.tar.gz and start using QUAST on your data or check the installation with ```quast.py --test```
 
-```bash
-# Prerequisites
+Installation via package managers
+The fully-functional QUAST toolkit is available in popular package managers, namely pip, Brewsci/bio, and Bioconda. To install it from there, make sure that the corresponding package manager is properly installed and configured on your machine and execute one of the following commands, respectively:
 
-# All default requirements are usually preinstalled on Linux. The only missing one could be zlib-dev. See their web-site for installation details for various platforms. In particular, it is preinstalled on macOS, and it can be simply installed on Ubuntu as:
-
-sudo apt-get install zlib1g-dev
-
-#  QUAST draws plots in two formats: HTML and PDF. If you need the PDF versions, make sure that you have installed Matplotlib Python library. We recommend to use Matplotlib version 1.1 or higher. QUAST is fully tested with Matplotlib v.1.3.1. Installation on Ubuntu:
-
-sudo apt-get install -y pkg-config libfreetype6-dev libpng-dev python-matplotlib
 ```
-
-```bash
-#To download the QUAST source code tarball and extract it, type:
-
-wget https://github.com/ablab/quast/releases/download/quast_5.3.0/quast-5.3.0.tar.gz
-tar -xzf quast-5.3.0.tar.gz
-cd quast-5.3.0
+pip install quast
 ```
-
-```bash
-# QUAST automatically compiles all its sub-parts when needed (on the first use). Thus, installation is not required. However, if you want to precompile everything and add quast.py to your PATH, you may choose either:
-# Basic installation (about 120 MB):
-
-./setup.py install
-
-# or
-# Full installation (about 540 MB, additionally includes (1) tools for SV detection based on read pairs, which is used for more precise misassembly detection, and (2) tools/data for reference genome detection in metagenomic datasets):
-
-./setup.py install_full
-
-# If you get error in installation then - 
-
-sudo apt-get install python-distutils 
-
-# Rerun ./setup.py install
 ```
-
+brew install quast
+```
+```
+install -c bioconda quast
+```  
 ```bash
 # Verify installation
 quast.py --version
+```
+You can check the [official site](https://quast.sourceforge.net/install.html) to see how to download it.
+
+QUAST draws plots in two formats: HTML and PDF. If you need the PDF versions, make sure that you have installed Matplotlib. We recommend to use Matplotlib version 1.1 or higher. QUAST is fully tested with Matplotlib v.1.3.1. Installation on Ubuntu (tested on Ubuntu 20.04):
+```
+sudo apt-get update && sudo apt-get install -y pkg-config libfreetype6-dev libpng-dev python3-matplotlib
 ```
 
 ## Basic Usage
@@ -55,7 +37,15 @@ quast.py --version
 # Basic usage
 python3 quast.py contigs.fasta
 ```
-
+or 
+```
+./quast.py test_data/contigs_1.fasta \
+           test_data/contigs_2.fasta \
+        -r test_data/reference.fasta.gz \
+        -g test_data/genes.txt \
+        -1 test_data/reads1.fastq.gz -2 test_data/reads2.fastq.gz \
+        -o quast_test_output
+```
 ```bash 
 # Multiple assemblies comparison
 quast.py \

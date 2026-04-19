@@ -14,8 +14,9 @@ Think of a bacterium's virulence factors as its "weaponry." They are the genes, 
 ## Tools Overview
 
 ### Available Databases
-1. **VFDB (Virulence Factors Database)**
-VFDB, which stands for Virulence Factors Database, is a comprehensive, curated database of known bacterial virulence factors. It serves as a central repository for information on the genes and proteins that enable pathogens to cause disease. Since its inception, VFDB has been a key resource for researchers studying bacterial pathogenesis and has been continually updated with new data and analysis features.
+**VFDB (Virulence Factors Database)**
+
+[VFDB]((http://www.mgc.ac.cn/VFs/)), which stands for Virulence Factors Database, is a comprehensive, curated database of known bacterial virulence factors. It serves as a central repository for information on the genes and proteins that enable pathogens to cause disease. Since its inception, VFDB has been a key resource for researchers studying bacterial pathogenesis and has been continually updated with new data and analysis features.
    - Comprehensive database of bacterial virulence factors
    - Multiple search and analysis tools
    - Regular updates with new virulence factors
@@ -23,7 +24,7 @@ VFDB, which stands for Virulence Factors Database, is a comprehensive, curated d
 ## Virulence Finder
 VirulenceFinder is a user-friendly, web-based tool from the Center for Genomic Epidemiology (CGE) that quickly scans a genome for known virulence factors. It's the perfect starting point for a fast, initial check.
 ### Access and Usage
-1. Visit [VFDB Main Page](http://www.mgc.ac.cn/VFs/)
+1. Visit VFDB Main Page
 2. Navigate to [Analysis Tools](http://www.mgc.ac.cn/VFs/main.htm)
 
 ### Features
@@ -40,7 +41,7 @@ VirulenceFinder is a user-friendly, web-based tool from the Center for Genomic E
 4. Download results for documentation
 
 ## BIGSdb-Pasteur
-BIGSdb-Pasteur is a specialized, integrated database for bacterial typing and analysis. It's a great tool for a deeper dive, as it can combine virulence factor analysis with other typing methods like MLST (Multi-Locus Sequence Typing).
+[BIGSdb-Pasteur](https://bigsdb.pasteur.fr/) is a specialized, integrated database for bacterial typing and analysis. It's a great tool for a deeper dive, as it can combine virulence factor analysis with other typing methods like MLST (Multi-Locus Sequence Typing).
 ### Access
 
 Visit BIGSdb-Pasteur Database

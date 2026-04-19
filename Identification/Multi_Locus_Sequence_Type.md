@@ -13,11 +13,8 @@ There are two complementary, public, curated databases which assign new STs, col
 
 ### MLST
 
-MLST is databases-based tool to identify allelic combinations and determine STs from assembled genomes.
+[MLST](https://github.com/tseemann/mlst) is databases-based tool to identify allelic combinations and determine STs from assembled genomes.
 
-### Access and Usage
-
-GitHub page: https://github.com/tseemann/mlst
 
 #### Required input:
 - Assembled genome in FASTA format

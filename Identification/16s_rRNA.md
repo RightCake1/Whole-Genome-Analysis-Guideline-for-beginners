@@ -11,9 +11,8 @@ The 16S rRNA (ribosomal RNA) gene is a small but critical component of the ribos
 
 ### Barrnap (Bacterial/Archaeal Ribosomal RNA Predictor)
 
-Barrnap is a simple and fast command-line tool for predicting ribosomal RNA sequences. It is the go-to tool for finding the 16S gene directly from your genome assembly file.
+[Barrnap](https://github.com/tseemann/barrnap) is a simple and fast command-line tool for predicting ribosomal RNA sequences. It is the go-to tool for finding the 16S gene directly from your genome assembly file.
 
-**Source**: [GitHub Repository](https://github.com/tseemann/barrnap)
 
 #### Installation
 
@@ -92,11 +91,12 @@ After extracting sequences with a command-line tool, it's a great practice to us
 ### 1. ContEST16S
 
 Using ContEST16S for a Quality Check
-ContEST16S is a tool on the EzBioCloud platform that finds 16S sequences and evaluates their quality. It's an excellent way to check if your extracted 16S sequence is full-length and clean.
 
-**Website**: [EzBioCloud ContEST16S](https://www.ezbiocloud.net/tools/contest16s)
+[ContEST16S](https://www.ezbiocloud.net/tools/contest16s) is a tool on the EzBioCloud platform that finds 16S sequences and evaluates their quality. It's an excellent way to check if your extracted 16S sequence is full-length and clean.
 
-1. Go to the ContEST16S website: https://www.ezbiocloud.net/tools/contest16s
+**Website**: [EzBioCloud ContEST16S]
+
+1. Go to the ContEST16S website
 
 2. Upload your genome assembly file (or the extracted 16S sequence).
 
@@ -124,26 +124,6 @@ ContEST16S is a tool on the EzBioCloud platform that finds 16S sequences and eva
 ### 2. RNAcentral
 
 RNAcentral is a comprehensive database of all types of non-coding RNA, including 16S rRNA. It's a fantastic resource for checking your sequence against a massive collection of known sequences and finding related entries.
-
-**Website**: [RNAcentral](https://rnacentral.org/)
-
-1. Go to the RNAcentral website: https://rnacentral.org/
-
-2. Paste your 16S sequence into the search bar.
-
-3. You can view its alignment with other sequences, its secondary structure, and other related information from various databases.
-
-#### Features
-* Comprehensive RNA database
-* Multiple search options
-* Sequence alignments
-* Secondary structure prediction
-
-#### Usage Steps
-1. Upload sequence or accession
-2. Select search parameters
-3. Review results
-4. Download sequences
 
 ## Validation and Analysis
 

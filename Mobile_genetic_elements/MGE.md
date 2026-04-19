@@ -13,8 +13,8 @@ Mobile Genetic Elements (MGEs) are segments of DNA that can move within or betwe
 
 ## Web-based Tools
 Web-based tools are ideal for quick, initial analyses of single genomes. They are easy to use and require no local software installation.
-### 1. Center for Genomic Epidemiology (CGE) Tools
-**URL**: [https://www.genomicepidemiology.org/](https://www.genomicepidemiology.org/)
+### [Center for Genomic Epidemiology (CGE) Tools]([https://www.genomicepidemiology.org/](https://www.genomicepidemiology.org/))
+
 
 #### Tools Available:
 - PlasmidFinder
@@ -32,11 +32,10 @@ Web-based tools are ideal for quick, initial analyses of single genomes. They ar
 5. Submit and wait for results
 6. Download results in various formats (JSON, TSV, PDF)
 
-### 2. IS-finder
+### [IS-finder]((https://isfinder.biotoul.fr/))
 Insertion sequences (IS) are the simplest MGEs, often involved in horizontal gene transfer (HGT). IS-finder and Proksee are excellent for detecting them.
 This specialized database allows you to BLAST your sequences against a curated collection of IS elements.
 
-**URL**: [https://isfinder.biotoul.fr/](https://isfinder.biotoul.fr/)
 
 #### Usage Steps:
 1. Go to IS-finder BLAST page
@@ -50,10 +49,9 @@ This specialized database allows you to BLAST your sequences against a curated c
 5. Submit and analyze results
 6. Export results table
 
-### 3. Proksee Web-Server
+### [Proksee Web-Server](https://proksee.ca/)
 This web server provides an integrated platform for multiple analyses, including a dedicated tool for finding HGT regions and CRISPR arrays.
 Usage: After uploading your genome, select tools like "Alien Hunter" for HGT detection or "CRISPR-Cas++" for CRISPR analysis.
-**URL**: [https://proksee.ca/](https://proksee.ca/)
 
 #### Features Available:
 1. Alien Hunter for HGT detection
@@ -73,10 +71,8 @@ Usage: After uploading your genome, select tools like "Alien Hunter" for HGT det
 6. Run analysis
 7. View/download results
 
-### 4. PlasmidFinder Web Tool
+### 4. [PlasmidFinder Web Tool](https://cge.food.dtu.dk/services/plasmidfinder/)
 PlasmidFinder is part of the CGE suite of tools and is perfect for a rapid check for known plasmid types.
-
-**URL**: [https://cge.food.dtu.dk/services/plasmidfinder/](https://cge.food.dtu.dk/services/plasmidfinder/)
 
 #### Usage Steps:
 1. Upload FASTA file
@@ -90,11 +86,10 @@ PlasmidFinder is part of the CGE suite of tools and is perfect for a rapid check
 4. Submit analysis
 5. Download results
 
-### 5. PHASTER (PHAge Search Tool Enhanced Release)
+### 5. [PHASTER (PHAge Search Tool Enhanced Release)]((https://phaster.ca/))
 
 PHASTER (PHage Analysis Search Tool Enhanced Release) is the go-to web tool for finding prophages—bacteriophages (viruses that infect bacteria) integrated into a bacterial chromosome. 
 
-**URL**: [https://phaster.ca/](https://phaster.ca/)
 
 1. Go to the PHASTER website: https://phaster.ca/
 

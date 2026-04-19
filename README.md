@@ -53,6 +53,7 @@ To replicate the workflows described:
 The following workflows are included in this repository:
 
 ### 1. Data Processing & Assembly
+- [Retrieving Fasta files](FASTQ_to_FASTA/Retrieving_Fasta_files.md)
 - [FASTQ Processing](FASTQ_to_FASTA/FASTQ_processing.md)  
 - [Genome Assembly](FASTQ_to_FASTA/Genome_Assembly.md)  
 - [Quality Assessment](FASTQ_to_FASTA/Quality_Assessment.md)  

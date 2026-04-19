@@ -8,17 +8,15 @@ Genome annotation is a critical step in bacterial genomics, enabling the identif
 ## RAST (Rapid Annotation using Subsystem Technology)
 
 ### Overview
-RAST is a web-based platform designed for the automated annotation of bacterial and archaeal genomes. It integrates gene prediction with functional assignment and pathway reconstruction.
+[RAST](https://rast.nmpdr.org/rast.cgi?page=Upload) is a web-based platform designed for the automated annotation of bacterial and archaeal genomes. It integrates gene prediction with functional assignment and pathway reconstruction.
 
 ### Access and Usage
-```plaintext
-URL: https://rast.nmpdr.org/rast.cgi?page=Upload
 
 Required input:
 - Assembled genome in FASTA format
 - Taxonomy information
 - Domain (Bacteria/Archaea)
-```
+
 
 ### Key Features
 - Automated gene calling
@@ -66,6 +64,8 @@ for file in *.fasta; do
     prokka --outdir "${file%.fasta}_annot" "$file"
 done
 ```
+If you have multiple fasta files, you can loop it so that it runs for all files in one go using the [bash file](run_prokka.sh) in the repo. Make sure to change the location accordingly.
+
 
 ### Output Files
 - `.gff`: Annotation in GFF3 format

@@ -139,23 +139,21 @@ query_list.txt and reference_list.txt → lists of genomes (you don’t actually
 
 Creates an ANI matrix using pivot:
 
-Rows = queries
+- Rows = queries
 
-Columns = references
+- Columns = references
 
-Values = ANI (%)
+- Values = ANI (%)
 
-Fills missing values with 0.
+- Fills missing values with 0.
 
-Runs hierarchical clustering on the matrix with linkage(method='average').
+- Runs hierarchical clustering on the matrix with linkage(method='average').
 
-Plots dendrogram of the 81 genomes, saved as: dendrogram.png
+- Plots dendrogram of the 81 genomes, saved as: dendrogram.png
+
 ## Visualization with Proksee
 
-For a more advanced and interactive visualization, you can use Proksee. This web-based tool allows you to upload a query and reference genome and instantly see a comparison plot.
-
-**Website**: [Proksee](https://proksee.ca/)
-Used for 1-1 comparison
+For a more advanced and interactive visualization, you can use [Proksee](https://proksee.ca/). This web-based tool allows you to upload a query and reference genome and instantly see a comparison plot.
 
 Why use it?: Proksee not only shows you the ANI value but also visualizes synteny (the order of genes) between the two genomes, providing a much richer biological context.
 

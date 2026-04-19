@@ -4,8 +4,9 @@
 Roary is a high-speed bacterial pangenome pipeline that can compute the pangenome of large datasets of bacterial isolates (1000s) within minutes. This guide covers installation, usage, and visualization of pangenome analyses.
 
 ## Installation and Setup
-
+You can follow this tutorial or follow [this](https://sanger-pathogens.github.io/Roary/) as well.
 ### Prerequisites
+#### [Installing Miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install/overview)
 ```bash
 # Install Miniconda (if not already installed)
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
