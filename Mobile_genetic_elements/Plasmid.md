@@ -116,6 +116,7 @@ mob_recon \
 ## Additional Resources
 - [Platon GitHub](https://github.com/oschwengers/platon)
 - [MOB-suite](https://github.com/phac-nml/mob-suite)
+- [PCNE](https://github.com/riccabolla/PCNE)
 
 Troubleshooting
 Database Not Found: Ensure you have downloaded the database for Platon and that the path you provide with the --db flag is correct.
