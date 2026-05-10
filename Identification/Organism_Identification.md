@@ -174,6 +174,48 @@ kleborate \
 * Hypervirulence determinants
 * Mobile genetic elements
 
+### 5. StaphSCAN [Only for *Staphylococcus aureus*_]
+
+If your species is identified as Staphylococcus aureus, you should also use StaphSCAN. This tool is a highly specialized resource designed specifically for *Staphylococcus aureus* and is much more detailed than general tools.
+
+**Purpose**: Specialized tool for *Staphylococcus aureus*  
+**Source**: [GitHub Repository](https://github.com/riccabolla/StaphSCAN)
+
+#### Installation
+```bash
+# Via conda
+conda create -n staphscan -c bioconda staphscan -y
+```
+OR
+```bash
+# From source
+git clone https://github.com/riccabolla/StaphSCAN.git
+cd StaphSCAN
+python setup.py install
+```
+
+#### Basic Usage
+```bash
+# Single genome analysis
+staphscan -i genome.fasta -o staphcan_output
+```
+
+```bash
+# Multiple genome analysis
+staphscan -i *.fasta -o staphcan_output
+````
+
+#### Features Detected
+* Species identification
+* MLST typing
+* SCCmec typing
+* Resistance genes
+* Virulence factors
+* Biofilm genes
+* Capsule typing 
+* spa typing
+* agr typing
+
 ## Best Practices
 
 ### Quality Control
