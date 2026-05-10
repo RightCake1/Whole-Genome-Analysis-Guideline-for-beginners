@@ -3,11 +3,6 @@
 # 🧬 Bacterial Whole Genome Analysis Guideline
 
 **A beginner-friendly guide to bacterial genome analysis using Linux + web-based tools**
-
-[![Documentation](https://img.shields.io/badge/📖_Documentation-Visit_Site-2196F3?style=for-the-badge)](https://rightcake1.github.io/Whole-Genome-Analysis-Guideline-for-beginners/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python)](https://www.python.org/)
-
 ---
 
 ### 👉 [Click here to view the full documentation site](https://rightcake1.github.io/Whole-Genome-Analysis-Guideline-for-beginners/)
