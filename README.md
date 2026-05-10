@@ -34,6 +34,7 @@ If you're a student, a researcher new to dry lab work, or just someone trying to
 where to start — this is for you. You don't need to be an expert. You just need to follow
 the steps.
 
+![👋 About this project](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3NwY3E0cjQyN2g5MXg5ZzVsMWZtY2JhM2txNzUyMWs0dDdndjhoayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/zdhgBtpANvh6G6ERNz/giphy.gif)
 ---
 
 ## 🗺️ What's covered
@@ -60,3 +61,13 @@ the steps.
 ## 📩 Contact
 
 For queries or collaboration → [galeeb115@gmail.com](mailto:galeeb115@gmail.com)
+
+---
+
+## 🧬 Happy Analyzing!
+
+
+Now go find some AMR genes. 🦠
+
+![Happy Analyzing](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3J0YWk4YTJ5ODd1bGNpY3p2YTc4OG5mMTlhcWdkcTN0dXg0bjJuNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/56Fgd9hor7KkU/giphy.gif)
+
