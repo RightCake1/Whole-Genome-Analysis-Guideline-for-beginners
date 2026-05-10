@@ -34,7 +34,6 @@ If you're a student, a researcher new to dry lab work, or just someone trying to
 where to start — this is for you. You don't need to be an expert. You just need to follow
 the steps.
 
-![About this project](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3NwY3E0cjQyN2g5MXg5ZzVsMWZtY2JhM2txNzUyMWs0dDdndjhoayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/zdhgBtpANvh6G6ERNz/giphy.gif)
 ---
 
 ## 🗺️ What's covered
