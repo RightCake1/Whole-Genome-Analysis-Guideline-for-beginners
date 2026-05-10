@@ -21,8 +21,7 @@
   - [16S rRNA](Identification/16s_rRNA.md)
 
 - **4. AMR & Virulence**
-  - [AMR Genes & Profiling](AMR_Virulence/AMR_genes_and_profiling.md)
-  - [Virulence Factors](AMR_Virulence/Virulence_factors.md)
+  - [AMR & Virulence Factors](AMR_Virulence/AMR & Virulence Factor_profiling.md)
 
 - **5. Mobile Genetic Elements**
   - [Plasmid Analysis](Mobile_genetic_elements/Plasmid.md)
