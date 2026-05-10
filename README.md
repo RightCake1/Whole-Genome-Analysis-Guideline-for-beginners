@@ -1,98 +1,62 @@
-# 🧬 Bacterial Whole Genome Analysis Guideline for Beginners
+<div align="center">
 
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
+# 🧬 Bacterial Whole Genome Analysis Guideline
 
-Welcome to the **Bacterial Whole Genome Analysis Guideline for Beginners**! This repository serves as a comprehensive starting point for researchers interested in bacterial genome analysis, focusing on tools and techniques for comparative genomics and metagenomics.
+**A beginner-friendly guide to bacterial genome analysis using Linux + web-based tools**
 
-## 📚 Overview
-This guideline is designed for dry lab (computational) analysis of bacterial genomes. It covers:
-
-- **🔬 Comparative Genomics:** Analyze and compare multiple bacterial genomes.  
-- **🧩 Functional Annotation:** Identify genes, AMR genes, plasmids, virulence factors, and mobile elements.  
-- **📊 Visualization:** Generate phylogenetic trees, heatmaps, and pangenome plots.  
-- **🎓 Beginner-Friendly:** Step-by-step instructions for easy understanding.
-
-<p align="center">
-  <img src="images/Workflow.png" width="650" alt="Repository Workflows"/>
-</p>
-
-
-## 🎯 Features
-- **Comparative Genomics:** Step-by-step instructions for analyzing and comparing bacterial genomes.
-- **Beginner-Friendly:** Simplified explanations and practical tips to get you started.
+[![Documentation](https://img.shields.io/badge/📖_Documentation-Visit_Site-2196F3?style=for-the-badge)](https://rightcake1.github.io/Whole-Genome-Analysis-Guideline-for-beginners/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python)](https://www.python.org/)
 
 ---
 
-## 📖 Table of Contents
-1. [🏃Getting Started](#getting-started)
-2. [📜Prerequisites](#prerequisites)
-3. [🛠️Setup and Installation](#setup-and-installation)
-4. [⚙️Workflow](#workflow)
-5. [💡Contributing](#contributing)
+### 👉 [Click here to view the full documentation site](https://rightcake1.github.io/Whole-Genome-Analysis-Guideline-for-beginners/)
 
 ---
 
-## 🏃Getting Started
-1. Review the workflows to understand the steps.  
-2. Install each tool as instructed in its corresponding `.md` file.  
-3. No special environment required, but Linux familiarity is helpful.
+</div>
 
-## 📜Prerequisites
-Before diving in, ensure you have the following:
-- **Basic Knowledge**: Familiarity with Linux and command-line tools.
-- **Software Requirements**:
-  - Tools already referenced in this repository.
-  - [🛠️Setup and Installation](#setup-and-installation) section for details.
-  - Can manually install all the tools (instructinos are in all .md files)
+## 👋 About this project
 
-## 🛠️Setup and Installation
-To replicate the workflows described:
+I'm an amateur bioinformatician, and when I first started out I struggled a lot to find
+clear, beginner-friendly resources for bacterial whole genome analysis. Most guides assumed
+you already knew what you were doing, tools had scattered documentation, and it was hard to
+know where to even begin.
 
-Just go through the folders afer checking the workflow and just install manually; all the installation process are in the .md files
+So I made this.
 
-## ⚙️Workflow
-The following workflows are included in this repository:
+This repository is everything I wish I had when I started — a complete, step-by-step
+walkthrough of the entire bacterial WGA pipeline, from raw sequencing reads all the way to
+phylogenetic trees and AMR profiling. Written in plain language, with real commands, real
+tools, and explanations of what everything actually does and why.
 
-### 1. Data Processing & Assembly
-- [Retrieving Fasta files](FASTQ_to_FASTA/Retrieving_Fasta_files.md)
-- [FASTQ Processing](FASTQ_to_FASTA/FASTQ_processing.md)  
-- [Genome Assembly](FASTQ_to_FASTA/Genome_Assembly.md)  
-- [Quality Assessment](FASTQ_to_FASTA/Quality_Assessment.md)   
+If you're a student, a researcher new to dry lab work, or just someone trying to figure out
+where to start — this is for you. You don't need to be an expert. You just need to follow
+the steps.
 
-### 2. Genome Annotation & Depth
-- [Genome Annotation](Annotations/Genome_Annotaions.md)  
-- [Genome Depth Analysis](Annotations/Genome_depth.md)  
+---
 
-### 3. Organism Identification & Typing
-- [Organism Identification](Identification/Organism_Identification.md)  
-- [Multi-Locus Sequence Typing (MLST)](Identification/Multi_Locus_Sequence_Type.md)  
-- [Average Nucleotide Identity (ANI)](Identification/Average_nucleotide_identity.md)  
-- [Average Amino Acid Identity (AAI)](Identification/Average_Amino_Acid_Identity.md)  
-- [OrthoANI Analysis](Identification/OrthoANI.md)  
-- [16S rRNA Analysis](Identification/16s_rRNA.md)  
+## 🗺️ What's covered
 
-### 4. Antimicrobial Resistance & Virulence
-- [AMR Genes & Profiling](AMR_Virulence/AMR_genes_and_profiling.md)  
-- [Virulence Factors](AMR_Virulence/Virulence_factors.md)  
+| Step | Topic | Tools |
+|------|-------|-------|
+| 1 | Data Processing & Assembly | FastQC, Trimmomatic, SPAdes |
+| 2 | Genome Annotation | Prokka, RAST |
+| 3 | Organism Identification | MLST, ANI, AAI, 16S rRNA |
+| 4 | AMR & Virulence | ResFinder, ABRicate, RGI |
+| 5 | Mobile Genetic Elements | PlasmidFinder, PHASTER |
+| 6 | Comparative Genomics | Roary, FastTree, MEGA11 |
 
-### 5. Mobile Genetic Elements
-- [Plasmid Analysis](Mobile_genetic_elements/Plasmid.md)  
-- [Other MGEs](Mobile_genetic_elements/MGE.md)  
+---
 
-### 6. Comparative Genomics & Phylogeny
-- [Phylogeny & Pangenome Analysis (Roary)](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md)  
-- [Phylogenetic Tree using MEGA11](Pangenome_Phylogenetics/Phylogeny_Tree_Mega11.md)  
-- [Phylogenetic Tree using KBase](Pangenome_Phylogenetics/Phylogeny_Tree_Kbase.md)  
+## 🚀 Quick Start
 
-### Others
-- [SeqKit](FASTQ_to_FASTA/SeqKit.md)
+1. Visit the **[documentation site](https://rightcake1.github.io/Whole-Genome-Analysis-Guideline-for-beginners/)**
+2. Follow the workflow in order from Step 1 → Step 6
+3. Each page has installation instructions + commands
 
-## 💡Contributing
-Contributions are welcome! You can:
-
-- Suggest improvements  
-- Add new workflows or tutorials  
-- Report issues or bugs  
+---
 
 ## 📩 Contact
-For queries or collaboration, please contact through my [Gmail](galeeb115@gmail.com).
+
+For queries or collaboration → [galeeb115@gmail.com](mailto:galeeb115@gmail.com)
