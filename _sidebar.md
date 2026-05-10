@@ -29,5 +29,6 @@
 
 - **6. Phylogenetics**
   - [Pangenome (Roary)](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_ROARY.md)
+  - [Pangenome (Panaroo)](Pangenome_Phylogenetics/Phylogeny_Tree_and_Pangenome_Analysis_by_Panaroo.md)
   - [Phylogeny (MEGA11)](Pangenome_Phylogenetics/Phylogeny_Tree_Mega11.md)
   - [Phylogeny (KBase)](Pangenome_Phylogenetics/Phylogeny_Tree_Kbase.md)
