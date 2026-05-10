@@ -1,160 +1,99 @@
-# Bacterial Species Identification and Characterization Guide
+# Bacterial Species Identification and Characterization
 
-When a bacterium's genome is sequenced, it's like getting a huge text file containing its entire genetic code. But to understand what that code means, you need to analyze it. This guide shows you how to use a series of free, web-based tools and specialized software to answer three key questions about a bacterium:
+When a bacterial genome is sequenced, you need to analyze it to answer three key questions:
 
-What is it? (Species and Strain Identification)
+- **What is it?** — Species and strain identification
+- **What can it do?** — Virulence and antimicrobial resistance
+- **Where does it come from?** — Population structure and epidemiology
 
-What can it do? (Virulence and Antimicrobial Resistance)
+This guide covers the best tools for each of these questions.
 
-Where does it come from? (Population and Epidemiology)
+---
 
-## Introduction
-This guide covers various tools and platforms for bacterial species identification, strain typing, and virulence/resistance characterization using genomic data. Each tool offers unique features and specializes in different aspects of bacterial identification and characterization.
+## Recommended Workflow
 
-## Tools Overview
+**KmerFinder** (quick species ID) → **PubMLST** (confirm + ST) → **PathogenWatch** (full characterization) → **Species-specific tool** if applicable
 
-### 1. PubMLST
+---
 
-Once you have a species prediction, you should confirm it and get a more detailed genetic profile. 
-[PubMLST](https://pubmlst.org/) is a widely used resource for this. It uses Multi-Locus Sequence Typing (MLST), a robust method that identifies a species and a specific sequence type (ST) by looking at a few essential "housekeeping" genes.
+## 1. KmerFinder — Quick Species Identification
 
-**Purpose**: Multi-Locus Sequence Typing (MLST) and species identification  
+[KmerFinder](https://cge.cbs.dtu.dk/services/KmerFinder/) uses k-mers (short DNA sequences)
+to rapidly match your genome against a known species database. Use this first for a fast
+initial identification.
 
+**Usage:**
+1. Upload your FASTA file
+2. Select database (Bacteria or Fungi)
+3. Submit and review the species prediction, confidence score, and template coverage
 
-#### Features
-* Species identification
-* MLST profiling
-* Sequence analysis
-* Population studies
-* Evolutionary analysis
+---
 
-#### Usage Instructions
-1. Navigate to Species ID section
-2. Upload FASTA file
-3. Select appropriate scheme if known
-4. Submit for analysis
+## 2. PubMLST — Species Confirmation and Sequence Typing
 
-#### Output Interpretation
-* Sequence Type (ST)
-* Allelic profiles
-* Species identification confidence
-* Related sequence types
-* Population structure data
+[PubMLST](https://pubmlst.org/) confirms your species and assigns a Sequence Type (ST)
+by analyzing conserved housekeeping genes. Use this to confirm KmerFinder results and
+get a detailed genetic profile.
 
-### 2. KmerFinder
+**Usage:**
+1. Navigate to the Species ID section
+2. Upload your FASTA file and select the appropriate scheme
+3. Review the ST, allelic profiles, and population structure data
 
-[KmerFinder](https://cge.cbs.dtu.dk/services/KmerFinder/) is perfect for this. It uses a super-fast method based on k-mers (short DNA sequences) to match your genome to a known species database.
+> For a dedicated MLST command-line guide, see the
+> [MLST page](Identification/Multi_Locus_Sequence_Type.md).
 
-#### Features
-* Species identification
-* Subspecies discrimination
-* Contamination detection
-* Template-free approach
+---
 
-#### Usage Instructions
-1. Select input type (assembled genome/reads)
-2. Upload FASTA file
-3. Choose database version
-4. Set parameters:
-   * Threshold: 0.0-1.0
-   * Database: Bacteria/Fungi
-   * Quick mode: Yes/No
+## 3. PathogenWatch — Full Genomic Characterization
 
-#### Output Interpretation
-* Species prediction
-* Confidence score
-* Template coverage
-* Depth of identification
+[PathogenWatch](https://pathogen.watch/) is an integrated platform that provides species
+identification, AMR prediction, virulence factors, plasmid replicons, and phylogenetic
+placement — all in one place.
 
-### 3. PathogenWatch
+**Usage:**
+1. Create an account and upload your genome assembly
+2. Review the results:
 
-[PathogenWatch](https://pathogen.watch/) is a powerful, integrated platform that provides a full genomic characterization.
+| Output | What it means |
+|--------|--------------|
+| **AMR Genes** | Antibiotic resistance genes found and predicted resistances |
+| **Virulence Factors** | Genes that enable the bacterium to cause disease |
+| **Phylogenetic Placement** | Where your strain sits among thousands of global strains |
+| **MLST** | Sequence type assignment |
 
+PathogenWatch is particularly useful for outbreak detection and global surveillance
+because it places your strain in the context of thousands of other isolates worldwide.
 
-#### Features
-* Species identification
-* Antimicrobial resistance prediction
-* Virulence factor detection
-* Outbreak detection
-* Global surveillance data
+---
 
-#### Usage Steps
-1. Create account
-2. Upload genome assembly
-3. Select analysis type:
-   * Basic identification
-   * Complete characterization
-   * Surveillance typing
-4. Review results
+## 4. Kleborate — Specialized Tool for *Klebsiella* species only
 
-#### Analysis Types
-* **Basic Analysis**
-  * Species identification
-  * MLST typing
-  * Basic resistance genes
+If your organism is identified as *Klebsiella*, use [Kleborate](https://kleborate.readthedocs.io/)
+for a much more detailed characterization than general tools provide.
 
-* **Complete Analysis**
-  * All basic features
-  * Virulence factors
-  * Plasmid replicons
-  * Phylogenetic placement
+### Installation
 
-* **Surveillance**
-  * All complete features
-  * Outbreak detection
-  * Global context
-  * Temporal analysis
-
-The platform will identify the species, ST, and predict the presence of hundreds of known antimicrobial resistance (AMR) genes and virulence factors.
-
-What the Output Means:
-
-- AMR Genes: This list shows all the antibiotic resistance genes found in your genome. You can see which antibiotics your strain might be resistant to.
-
-- Virulence Factors: This shows genes that allow the bacterium to cause disease.
-
-- Phylogenetic Placement: The tool places your strain in the context of thousands of other strains from around the world, which is crucial for outbreak detection and surveillance.
-
-### 4. Kleborate [Only for klebsiella species]
-
-If your species is identified as Klebsiella, you should also use [Kleborate](https://kleborate.readthedocs.io/en/latest/). This tool is a highly specialized resource designed specifically for Klebsiella species and is much more detailed than general tools.
-
-**Purpose**: Specialized tool for Klebsiella species  
-**Source**: [GitHub Repository](https://github.com/klebgenomics/Kleborate)
-
-#### Installation
 ```bash
-# Via conda
+# Via conda (recommended)
 conda create -n kleborate
 conda activate kleborate
 conda install -c bioconda kleborate
-```
-# OR 
-```bash
+
 # Via pip
 pip install kleborate
 ```
-# OR
-```bash
-# From source
-git clone https://github.com/klebgenomics/Kleborate.git
-cd Kleborate
-python setup.py install
-```
 
-#### Basic Usage
+### Usage
+
 ```bash
-# Single genome analysis
+# Single genome
 kleborate -a contigs.fasta -o output.csv
-```
 
-```bash
-# Multiple genome analysis
+# Multiple genomes
 kleborate -a *.fasta -o batch_output.txt
-```
 
-```bash
-# Advanced options
+# Full analysis with resistance, virulence, and capsule typing
 kleborate \
     -a contigs.fasta \
     --resistance \
@@ -164,100 +103,73 @@ kleborate \
     -o detailed_output.txt
 ```
 
-#### Features Detected
-* Species identification
-* MLST typing
-* Resistance genes
-* Virulence factors
-* Capsule typing (K locus)
-* O antigen typing
-* Hypervirulence determinants
-* Mobile genetic elements
+### What Kleborate detects
 
-### 5. StaphSCAN [Only for *Staphylococcus aureus*_]
-
-If your species is identified as Staphylococcus aureus, you should also use StaphSCAN. This tool is a highly specialized resource designed specifically for *Staphylococcus aureus* and is much more detailed than general tools.
-
-**Purpose**: Specialized tool for *Staphylococcus aureus*  
-**Source**: [GitHub Repository](https://github.com/riccabolla/StaphSCAN)
-
-#### Installation
-```bash
-# Via conda
-conda create -n staphscan -c bioconda staphscan -y
-```
-OR
-```bash
-# From source
-git clone https://github.com/riccabolla/StaphSCAN.git
-cd StaphSCAN
-python setup.py install
-```
-
-#### Basic Usage
-```bash
-# Single genome analysis
-staphscan -i genome.fasta -o staphcan_output
-```
-
-```bash
-# Multiple genome analysis
-staphscan -i *.fasta -o staphcan_output
-````
-
-#### Features Detected
-* Species identification
-* MLST typing
-* SCCmec typing
-* Resistance genes
-* Virulence factors
-* Biofilm genes
-* Capsule typing 
-* spa typing
-* agr typing
-
-## Best Practices
-
-### Quality Control
-* Verify assembly quality before submission
-* Check for contamination
-* Ensure appropriate coverage
-* Validate species predictions across tools
-
-### Data Management
-* Maintain consistent naming conventions
-* Document analysis parameters
-* Archive raw results
-* Track version numbers
-
-### Analysis Strategy
-1. Start with rapid tools (KmerFinder)
-2. Confirm with specific tools (PubMLST)
-3. Perform detailed characterization
-4. Validate critical findings
-
-### Common Issues and Solutions
-
-#### Discordant Results
-* Check assembly quality
-* Verify coverage depth
-* Consider mixed samples
-* Use multiple tools for confirmation
-
-#### Low Confidence Calls
-* Improve assembly quality
-* Increase sequencing depth
-* Check for contamination
-* Consider closely related species
-
-## Additional Resources
-
-* [CGE Tools](https://cge.cbs.dtu.dk/services/)
-* [NCBI Pathogen Detection](https://www.ncbi.nlm.nih.gov/pathogens/)
-* [BacWGSTdb](http://bacdb.org/BacWGSTdb/)
-* [Kleborate](https://kleborate.readthedocs.io/en/latest/Installation.html)
-* [Bacterial Typing Tools Directory](https://www.applied-maths.com/applications/bacterial-typing)
+- Species identification and MLST
+- Resistance genes and virulence factors
+- Capsule typing (K locus) and O antigen typing
+- Hypervirulence determinants
+- Mobile genetic elements
 
 ---
 
-**Note**: Regular updates of databases and tools are essential for accurate identification and characterization.
+## 5. StaphSCAN — Specialized Tool for *Staphylococcus aureus* only
+
+If your organism is *Staphylococcus aureus*, use [StaphSCAN](https://github.com/riccabolla/StaphSCAN)
+for detailed characterization.
+
+### Installation
+
+```bash
+# Via conda
+conda create -n staphscan -c bioconda staphscan -y
+conda activate staphscan
+```
+
+### Usage
+
+```bash
+# Single genome
+staphscan -i genome.fasta -o staphscan_output
+
+# Multiple genomes
+staphscan -i *.fasta -o staphscan_output
+```
+
+### What StaphSCAN detects
+
+- Species identification and MLST
+- SCCmec typing, spa typing, agr typing
+- Resistance and virulence genes
+- Biofilm genes and capsule typing
+
+---
+
+## Best Practices
+
+- Always start with KmerFinder for a rapid initial ID before running heavier tools
+- Cross-validate species predictions across at least two tools
+- Check assembly quality before submission — contaminated assemblies cause wrong results
+- Use species-specific tools (Kleborate, StaphSCAN) when applicable for much richer output
+- Keep track of database versions used for reproducibility
+
+---
+
+## Common Issues
+
+| Problem | Solution |
+|---------|----------|
+| Discordant species results between tools | Check assembly quality and coverage, consider contamination |
+| Low confidence calls | Increase sequencing depth or improve assembly |
+| Wrong MLST scheme selected | Let the tool auto-detect, or verify species first with KmerFinder |
+| No ST assigned | May be a novel ST — check allele-level output and submit to PubMLST |
+
+---
+
+## Additional Resources
+
+- [CGE Tools](https://cge.cbs.dtu.dk/services/)
+- [NCBI Pathogen Detection](https://www.ncbi.nlm.nih.gov/pathogens/)
+- [Kleborate Documentation](https://kleborate.readthedocs.io/en/latest/)
+- [StaphSCAN GitHub](https://github.com/riccabolla/StaphSCAN)
+- [BacWGSTdb](http://bacdb.org/BacWGSTdb/)

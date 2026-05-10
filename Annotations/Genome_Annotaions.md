@@ -43,6 +43,17 @@ After annotation completion:
 
 ## Prokka (Rapid Prokaryotic Genome Annotation)
 
+### What is Prokka?
+
+Prokka is a rapid command-line tool for annotating bacterial genome assemblies. Once
+you have an assembled genome in FASTA format, Prokka scans it to identify and label all
+the biological features — genes, rRNA, tRNA, and coding sequences — and assigns
+functional descriptions to them where possible.
+
+It produces several output files, the most important being the `.gff` file (used by
+pangenome tools like Roary and Panaroo), the `.faa` file (protein sequences), and the
+`.gbk` file (GenBank format for submission). Prokka runs in minutes and is the standard
+first step after genome assembly.
 ### Installation
 
 ```bash
@@ -114,7 +125,67 @@ Run it
 - `.txt` — Statistics summary
 - `.log` — Log file
 
----
+### Extracting Summary Statistics from Prokka Results
+
+After annotating all your genomes, you can extract a comprehensive summary table covering
+genome size, GC content, CDS count, tRNA, rRNA, hypothetical proteins, efflux pumps, and
+transposases across all isolates at once.
+
+Save the script below as `compile_prokka.sh` and update the paths to match your setup:
+
+```bash
+#!/bin/bash
+# Define paths
+ANNOTATIONS_DIR="/home/rightcake/Fida_thesis/Annotations"
+OUTPUT_DIR="/home/rightcake/Fida_thesis/Docs"
+OUTPUT_FILE="$OUTPUT_DIR/prokka_comprehensive_summary.tsv"
+mkdir -p "$OUTPUT_DIR"
+
+# Header
+echo -e "Sample_ID\tTotal_Bases\tGC_Content\tContigs\tCDS\tHypothetical_Prots\tRibosomal_Prots\tEfflux_Pumps\tTransposases\ttRNA\trRNA" > "$OUTPUT_FILE"
+
+echo "Extracting data from annotation folders..."
+
+for dir in "$ANNOTATIONS_DIR"/*/ ; do
+    sample=$(basename "$dir")
+    txt_file=$(ls "$dir"/*.txt 2>/dev/null | grep -v "log")
+    tsv_file=$(ls "$dir"/*.tsv 2>/dev/null | grep -v "prokka")
+    fna_file=$(ls "$dir"/*.fna 2>/dev/null)
+
+    if [ -f "$txt_file" ] && [ -f "$tsv_file" ]; then
+        # Genome stats
+        contigs=$(grep -c ">" "$fna_file")
+        bases=$(grep -v ">" "$fna_file" | tr -d '\n' | wc -c)
+        gc_count=$(grep -v ">" "$fna_file" | tr -d -c 'GCgc' | wc -c)
+        gc_pct=$(echo "scale=2; ($gc_count * 100) / $bases" | bc)
+
+        # Annotation stats
+        cds=$(grep "CDS:" "$txt_file" | awk '{print $2}')
+        trna=$(grep "tRNA:" "$txt_file" | awk '{print $2}')
+        rrna=$(grep "rRNA:" "$txt_file" | awk '{print $2}')
+
+        # Functional insights
+        hypo=$(grep -c "hypothetical protein" "$tsv_file")
+        ribo=$(grep -i -c "ribosomal protein" "$tsv_file")
+        efflux=$(grep -i -c "efflux pump" "$tsv_file")
+        transp=$(grep -i -c "transposase" "$tsv_file")
+
+        echo -e "$sample\t$bases\t$gc_pct\t$contigs\t$cds\t$hypo\t$ribo\t$efflux\t$transp\t$trna\t$rrna" >> "$OUTPUT_FILE"
+    fi
+done
+
+echo "Done! File saved at: $OUTPUT_FILE"
+```
+
+```bash
+# Make executable and run
+chmod +x compile_prokka.sh
+./compile_prokka.sh
+```
+
+The output is a `.tsv` file you can open directly in Excel or use for downstream
+statistical analysis and visualization.
+
 
 ## Best Practices
 

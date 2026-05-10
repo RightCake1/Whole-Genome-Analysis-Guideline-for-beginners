@@ -2,6 +2,17 @@
 
 This guide explains how to set up your environment and automate the download of genome sequences and GFF3 annotation files using the NCBI Datasets CLI.
 
+## What is NCBI Datasets CLI?
+
+NCBI Datasets CLI is a command-line tool developed by NCBI for downloading genome
+sequences, annotations, and metadata directly from NCBI databases. Instead of manually
+downloading genomes one by one through a browser, you can provide a list of accession
+IDs and the tool will automatically fetch all the corresponding FASTA and GFF3 files
+in bulk.
+
+This makes it essential for large-scale comparative genomics studies where you need
+to download hundreds or thousands of reference genomes efficiently and reproducibly.
+
 ## 🧪 1. Environment Setup
 
 Create a dedicated Conda environment to manage dependencies.

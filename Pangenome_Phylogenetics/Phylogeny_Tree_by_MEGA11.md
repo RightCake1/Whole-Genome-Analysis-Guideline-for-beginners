@@ -1,126 +1,118 @@
-# Phylogenetic Tree Analysis Guide
+# 16S rRNA Phylogenetic Tree Analysis
 
-A comprehensive guide for constructing and analyzing phylogenetic trees using 16S RNA sequences.
+The 16S rRNA gene is the most widely used marker for bacterial and archaeal classification.
+Because it is present in all bacteria, highly conserved, and contains both conserved and
+variable regions, it serves as a reliable "molecular clock" for determining evolutionary
+relationships between organisms.
 
-Phylogenetic tree analysis is a powerful bioinformatics technique used to visualize the evolutionary relationships between organisms. This guide provides a step-by-step workflow for constructing a phylogenetic tree using 16S rRNA gene sequences, a common marker for bacterial and archaeal classification
+---
 
-The Core Workflow
-The process can be broken down into a simple, logical sequence:
+## Core Workflow
 
-1. Sequence Generation: Extract the 16S rRNA gene sequence from your genome.
+**Extract 16S sequence → BLAST for relatives → Align sequences → Build tree → Visualize**
 
-2. Sequence Alignment: Align your sequence with sequences from closely related organisms.
+---
 
-3. Tree Construction: Build a tree based on the alignment data.
+## Tools Needed
 
-4. Tree Visualization: Generate a visual representation of the tree.
+| Tool | Purpose | Type |
+|------|---------|------|
+| [Barrnap](https://github.com/tseemann/barrnap) | Extract 16S rRNA from genome | Command-line |
+| [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/) | Find related sequences | Web |
+| [MEGA11](https://www.megasoftware.net/) | Alignment and tree construction | Desktop app |
+| [iTOL](https://itol.embl.de/) | Tree visualization | Web |
 
-## Table of Contents
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Workflow](#workflow)
-- [Detailed Steps](#detailed-steps)
-- [Troubleshooting](#troubleshooting)
-- [Additional Resources](#additional-resources)
+---
 
-## Prerequisites
-- Basic understanding of molecular biology
-- Computer with internet connection
-- Sequence data of your organism
+## Step 1 — Extract 16S rRNA Sequence with Barrnap
 
-## Installation
-1. **MEGA11 Software**
-   - Download from [MEGA official website](https://www.megasoftware.net/)
-   - Follow installation instructions for your operating system
+Barrnap predicts ribosomal RNA sequences directly from your genome FASTA file:
 
-2. **Barrnap**
-   - Required for 16S RNA sequence generation
-   - Installation instructions vary by operating system
+```bash
+# Install
+conda install -c bioconda barrnap
 
-## Workflow
+# Run on your genome
+barrnap --kingdom bac your_genome.fasta > rrna.gff
+```
 
-1. **Sequence Generation** → 2. **BLAST Analysis** → 3. **Sequence Alignment** → 4. **Tree Construction** → 5. **Tree Visualization**
+This produces a GFF file with the locations of all rRNA sequences. Use this to extract
+the 16S sequence specifically for downstream analysis.
 
-## Detailed Steps
+---
 
-### 1. Generate 16S RNA Sequence
+## Step 2 — Find Related Sequences with NCBI BLAST
 
-First, you need to extract the 16S rRNA sequence from your bacterial genome assembly. A reliable command-line tool for this is Barrnap
+1. Go to [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) and select **Blastn**
+2. Paste your 16S sequence and run the search
+3. From the results, select the top hits from closely related organisms
+4. Download the aligned sequences in FASTA format
+5. Save the CSV results for record-keeping
 
-Tool: Barrnap
+---
 
-Purpose: Predicts ribosomal RNA sequences from a FASTA file.
+## Step 3 — Prepare Your Sequence File
 
-Usage: barrnap --kingdom bac your_genome.fasta > rrna.gff
+Create a FASTA file combining your sequence with the downloaded BLAST hits. Use a
+consistent, descriptive naming format:
 
-Result: A GFF file that contains the location of your rRNA sequences. You can then use this to extract the specific 16S sequence.
-
-### 2. BLAST Analysis
-
-To build a meaningful tree, you need to compare your organism's 16S sequence to those of other known bacteria. The NCBI BLAST tool is perfect for this.
-
-1. Visit [NCBI BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
-2. Select 'Blastn' for nucleotide sequence analysis
-3. Input your sequence and run the analysis
-4. Download results:
-   - Select aligned sequences
-   - Save in .txt format
-   - Download CSV file for record-keeping
-
-### 3. Sequence Preparation
-
-Create a text file with sequences in the following format:
 ```
 >Organism_Name_Location_Year
 ACTGCTAGCTAGCTAGCTAGCTAGCTAGCTAG
 ```
 
-### 4. MEGA11 Analysis
+---
 
-Alignment is the crucial step where you line up your sequences to identify homologous (evolutionarily related) positions. This is the foundation for building the tree. MEGA11 is a user-friendly desktop application for this.
+## Step 4 — Align Sequences in MEGA11
 
-1. Launch MEGA11
-2. Create new alignment:
-   - Click `Align` → `Build New Alignment`
-   - Select DNA sequence type
-   - Import sequences (`Ctrl+D`)
-3. Perform alignment:
-   - Use MUSCLE algorithm
-   - Select UPGMA for rooted tree construction
-   - Save in MEGA format
+1. Download and install MEGA11 from [megasoftware.net](https://www.megasoftware.net/)
+2. Click **Align → Build New Alignment**
+3. Select **DNA** as the sequence type
+4. Import your sequences with `Ctrl+D`
+5. Run alignment using the **MUSCLE** algorithm
+6. Review the alignment — look for obvious gaps or misalignments
+7. Save in MEGA format (`.meg`)
 
-### 5. Tree Construction
+---
 
-With your aligned sequences, you can now build the phylogenetic tree. MEGA11 has many options for this.
+## Step 5 — Build the Phylogenetic Tree
 
-1. In MEGA11:
-   - Select `Phylogeny`
-   - Choose desired tree type
-   - Adjust parameters as needed
-   - Set p-value if required
+1. In MEGA11, click **Phylogeny**
+2. Choose your tree construction method:
+   - **Neighbor-Joining** — fast, good for large datasets
+   - **Maximum Likelihood** — more accurate, recommended for publication
+   - **UPGMA** — for rooted trees
+3. Set bootstrap replicates to **1000** for statistical support
+4. Run and save the tree file in Newick format
 
-### 6. Tree Visualization
-The raw output from MEGA can be complex. iTOL (Interactive Tree Of Life) is a powerful online tool for visualizing and annotating trees, making them publication-ready.
+---
 
-1. Visit [iTOL](https://itol.embl.de/)
-2. Upload your tree file
-3. Edit visualization settings
-4. Export in desired format
+## Step 6 — Visualize with iTOL
+
+1. Go to [itol.embl.de](https://itol.embl.de/)
+2. Upload your Newick tree file
+3. Customize the visualization:
+   - Color branches by taxonomy
+   - Add labels and bootstrap values
+   - Adjust layout (circular, rectangular, etc.)
+4. Export in PNG, SVG, or PDF for publication
+
+---
 
 ## Troubleshooting
-- Ensure sequences are in correct FASTA format
-- Verify sequence alignments before tree construction
-- Check for gaps and misalignments in sequences
+
+| Problem | Solution |
+|---------|----------|
+| No 16S found by Barrnap | Check genome quality and completeness |
+| Poor BLAST hits | Try relaxing E-value threshold or search a broader database |
+| Misaligned sequences | Manually inspect and trim poorly aligned ends in MEGA11 |
+| Tree looks unresolved | Increase bootstrap replicates or try a different tree method |
+
+---
 
 ## Additional Resources
-- [Video Tutorial](https://www.youtube.com/watch?v=7GAYLbiyLuw)
+
+- [Video Tutorial — 16S Phylogenetic Tree](https://www.youtube.com/watch?v=7GAYLbiyLuw)
 - [MEGA11 Documentation](https://www.megasoftware.net/web_help)
 - [iTOL User Guide](https://itol.embl.de/help.cgi)
-
-## License
-[Add your chosen license]
-
-## Contributing
-[Add contribution guidelines if applicable]
-
-Would you like me to modify any section or add more details to specific parts?
+- [Barrnap GitHub](https://github.com/tseemann/barrnap)

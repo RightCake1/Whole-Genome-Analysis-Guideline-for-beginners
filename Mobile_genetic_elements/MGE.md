@@ -1,168 +1,136 @@
-# Comprehensive Mobile Genetic Elements Analysis Guide
-Mobile Genetic Elements (MGEs) are segments of DNA that can move within or between genomes. They are a primary driver of bacterial evolution, carrying genes for traits like antibiotic resistance and virulence. This guide provides a comprehensive workflow for identifying and analyzing the most common MGEs—plasmids, prophages, and CRISPR arrays—using a combination of web-based and command-line tools.
+# Mobile Genetic Elements (MGEs) Analysis Guide
 
-## Table of Contents
-- [Web-based Tools](#web-based-tools)
-- [Command-line Installation](#command-line-installation)
-- [MGE Analysis Tools](#mge-analysis-tools)
-- [Plasmid Analysis](#plasmid-analysis)
-- [Prophage Analysis](#prophage-analysis)
-- [CRISPR Analysis](#crispr-analysis)
-- [Integration and Visualization](#integration-and-visualization)
-- [Best Practices](#best-practices)
+Mobile Genetic Elements (MGEs) are segments of DNA that can move within or between genomes.
+They are a primary driver of bacterial evolution, carrying genes for traits like antibiotic
+resistance and virulence. This guide covers identification and analysis of the most common
+MGEs — plasmids, prophages, insertion sequences, and CRISPR arrays.
 
-## Web-based Tools
-Web-based tools are ideal for quick, initial analyses of single genomes. They are easy to use and require no local software installation.
-### [Center for Genomic Epidemiology (CGE) Tools]([https://www.genomicepidemiology.org/](https://www.genomicepidemiology.org/))
+---
 
+## What are MGEs?
 
-#### Tools Available:
-- PlasmidFinder
-- ResFinder
-- VirulenceFinder
-- MGE Finder
+| MGE Type | Description |
+|----------|-------------|
+| **Plasmids** | Circular DNA elements that replicate independently of the chromosome |
+| **Prophages** | Bacteriophages integrated into the bacterial chromosome |
+| **Insertion Sequences (IS)** | The simplest MGEs, often involved in horizontal gene transfer |
+| **CRISPR arrays** | Bacterial immune system elements that record past phage infections |
 
-#### Usage Steps:
-1. Visit the website
-2. Select the appropriate tool
-3. Upload your FASTA file (max 20 MB)
-4. Configure parameters:
-   - Minimum identity: 90% (default)
-   - Minimum coverage: 60% (default)
-5. Submit and wait for results
-6. Download results in various formats (JSON, TSV, PDF)
+---
 
-### [IS-finder]((https://isfinder.biotoul.fr/))
-Insertion sequences (IS) are the simplest MGEs, often involved in horizontal gene transfer (HGT). IS-finder and Proksee are excellent for detecting them.
-This specialized database allows you to BLAST your sequences against a curated collection of IS elements.
+## Web-Based Tools
 
+Web-based tools are ideal for quick initial analyses of single genomes — no installation
+required.
 
-#### Usage Steps:
-1. Go to IS-finder BLAST page
-2. Upload sequence in FASTA format
-3. Select BLAST program:
-   - BLASTN for nucleotide sequences
-   - BLASTX for protein sequences
-4. Configure parameters:
-   - E-value threshold: 1e-10 (recommended)
-   - Word size: 11 (default)
-5. Submit and analyze results
-6. Export results table
+---
 
-### [Proksee Web-Server](https://proksee.ca/)
-This web server provides an integrated platform for multiple analyses, including a dedicated tool for finding HGT regions and CRISPR arrays.
-Usage: After uploading your genome, select tools like "Alien Hunter" for HGT detection or "CRISPR-Cas++" for CRISPR analysis.
+### CGE Tools (Center for Genomic Epidemiology)
 
-#### Features Available:
-1. Alien Hunter for HGT detection
-2. CRISPR-Cas++ analysis
-3. Genome visualization
-4. Comparative genomics
+[genomicepidemiology.org](https://www.genomicepidemiology.org/) hosts several tools
+including PlasmidFinder, ResFinder, VirulenceFinder, and MGE Finder.
 
-#### Usage Steps:
-1. Register/Login to Proksee
-2. Create new project
-3. Upload genome files
-4. Select analysis tools:
-   - Alien Hunter
-   - CRISPR-Cas++
-   - Other analyses
-5. Configure parameters
-6. Run analysis
-7. View/download results
+**Usage:**
+1. Visit the website and select the appropriate tool
+2. Upload your FASTA file (max 20 MB)
+3. Set minimum identity (90% default) and minimum coverage (60% default)
+4. Submit and download results in JSON, TSV, or PDF format
 
-### 4. [PlasmidFinder Web Tool](https://cge.food.dtu.dk/services/plasmidfinder/)
-PlasmidFinder is part of the CGE suite of tools and is perfect for a rapid check for known plasmid types.
+---
 
-#### Usage Steps:
-1. Upload FASTA file
-2. Select database:
-   - Enterobacteriaceae
-   - Enterococcus
-   - Staphylococcus
-3. Configure settings:
-   - Identity threshold: 95% (default)
-   - Minimum coverage: 60% (default)
-4. Submit analysis
-5. Download results
+### PlasmidFinder
 
-### 5. [PHASTER (PHAge Search Tool Enhanced Release)]((https://phaster.ca/))
+[PlasmidFinder](https://cge.food.dtu.dk/services/plasmidfinder/) is perfect for a rapid
+check for known plasmid replicon types.
 
-PHASTER (PHage Analysis Search Tool Enhanced Release) is the go-to web tool for finding prophages—bacteriophages (viruses that infect bacteria) integrated into a bacterial chromosome. 
+**Usage:**
+1. Upload your FASTA file
+2. Select database (Enterobacteriaceae, Enterococcus, or Staphylococcus)
+3. Set identity threshold (95% default) and minimum coverage (60% default)
+4. Submit and download results
 
+---
 
-1. Go to the PHASTER website: https://phaster.ca/
+### PHASTER
 
-2. Choose your input method (upload a FASTA file or paste a sequence).
+[PHASTER](https://phaster.ca/) is the go-to tool for finding prophages — bacteriophages
+integrated into a bacterial chromosome. It classifies prophage regions as intact,
+questionable, or incomplete.
 
-3. Submit your job and monitor its progress.
+**Usage:**
+1. Go to [phaster.ca](https://phaster.ca/)
+2. Upload a FASTA file, paste a sequence, or provide an NCBI accession number
+3. Submit your job and monitor progress
+4. Download results including a summary table, detailed annotations, and genome viewer
 
-4. The output includes a summary of identified prophages and their genes, indicating whether they are intact or incomplete.
+---
 
-#### Usage Steps:
-1. Choose submission type:
-   - Upload sequence file
-   - Paste sequence
-   - Provide NCBI accession
-2. Select analysis options:
-   - Contigs vs complete genome
-   - Sequence type (DNA/RNA)
-3. Submit job
-4. Monitor progress
-5. Download results:
-   - Summary table
-   - Detailed annotations
-   - Genome viewer
+### IS-finder
 
-## Command-line Installation
+[IS-finder](https://isfinder.biotoul.fr/) is a specialized database for detecting
+insertion sequences by BLASTing your genome against a curated collection of IS elements.
 
-```bash
-# Create conda environment
-conda create -n mge_analysis python=3.9
-conda activate mge_analysis
-```
-```bash
-# Install basic tools
-conda install -c bioconda abricate mob_suite platon
-conda install -c conda-forge biopython
-```
-```bash
-# Install PlasmidSeeker
-git clone https://github.com/bioinfo-ut/PlasmidSeeker.git
-cd PlasmidSeeker
-make
-```
+**Usage:**
+1. Go to the IS-finder BLAST page
+2. Upload your sequence in FASTA format
+3. Select BLAST program — BLASTN for nucleotide, BLASTX for protein
+4. Set E-value threshold to 1e-10 (recommended)
+5. Submit and export the results table
+
+---
+
+### Proksee
+
+[Proksee](https://proksee.ca/) is an integrated platform for multiple analyses including
+HGT region detection and CRISPR arrays, with a built-in genome visualizer.
+
+**Usage:**
+1. Register and create a new project
+2. Upload your genome file
+3. Select tools:
+   - **Alien Hunter** — for horizontal gene transfer (HGT) detection
+   - **CRISPR-Cas++** — for CRISPR array detection
+4. Run analysis and view or download results
+
+---
+
+## Command-Line Tools
+
+For plasmid analysis with MOB-suite and Platon, see the detailed
+[Plasmid Analysis Guide](Mobile_genetic_elements/Plasmid.md).
+
+---
+
+## Recommended Workflow
+
+**Step 1 — Start with web tools for a quick overview:**
+- PHASTER → prophage detection
+- PlasmidFinder → plasmid replicon typing
+- IS-finder → insertion sequence detection
+- Proksee → HGT regions and CRISPR arrays
+
+**Step 2 — Follow up with command-line tools for batch processing:**
+- MOB-suite → detailed plasmid mobility and typing
+- Platon → plasmid contig verification
+- ABRicate with `--db vfdb` → virulence gene screening
+
+---
 
 ## Best Practices
 
-### Analysis Workflow
-1. Start with web tools for initial analysis:
-   - Use PHASTER for prophage detection
-   - Use PlasmidFinder for plasmid identification
-   - Use IS-finder for insertion sequences
-   - Use Proksee for HGT and CRISPR analysis
+- Use a minimum contig length of 1000 bp for reliable MGE detection
+- Aim for assembly N50 > 50 kb and sequencing coverage > 30x before analysis
+- Always cross-validate findings between at least two tools
+- Check for overlapping predictions between prophage and plasmid tools
+- Compare results with closely related reference genomes
 
-2. Follow up with command-line tools:
-   - Use MOB-suite for detailed plasmid analysis
-   - Use Platon for plasmid verification
-   - Run custom scripts for integration
+---
 
-### Quality Control
-1. Input Sequence Quality
-   - Minimum contig length: >1000 bp
-   - Assembly quality: N50 > 50kb
-   - Coverage: >30x
+## Additional Resources
 
-### Result Validation
-1. Cross-reference between web and command-line tools
-2. Check for overlapping predictions
-3. Validate key findings
-4. Compare with related genomes
-
-## References
 - [CGE Tools](https://www.genomicepidemiology.org/)
+- [PHASTER](https://phaster.ca/)
 - [IS-finder](https://isfinder.biotoul.fr/)
 - [Proksee](https://proksee.ca/)
-- [PHASTER](https://phaster.ca/)
 - [PlasmidFinder](https://cge.food.dtu.dk/services/plasmidfinder/)
-- [MOB-suite Documentation](https://github.com/phac-nml/mob-suite)
+- [MOB-suite GitHub](https://github.com/phac-nml/mob-suite)

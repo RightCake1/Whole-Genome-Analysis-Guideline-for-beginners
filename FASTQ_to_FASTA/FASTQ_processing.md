@@ -1,309 +1,241 @@
-# FASTQ to FASTA Processing Guide
+# FASTQ Processing and Quality Control Guide
 
-## Introduction
+Raw sequencing data from the sequencer comes in FASTQ format, which contains both the
+nucleotide sequence and its corresponding quality scores. Before any analysis, this data
+needs to be quality-checked and cleaned. This guide walks you through that entire process
+step by step.
 
-This guide is all about handling FASTQ sequence files, performing quality control, and getting them ready for downstream analysis. This step-by-step workflow helps manage files, assess quality, and trim sequences effectively.
+---
 
-## Overview of FASTQ to FASTA Conversion
+## What is the difference between FASTQ and FASTA?
 
-The process of converting FASTQ (Fast Quality) files to FASTA (Fast A) is a crucial initial step in bioinformatics. The key difference between these two file types is that a FASTQ file contains both the nucleotide sequence and its corresponding quality scores, while a FASTA file contains only the sequence. Removing the quality scores and other metadata simplifies the file for downstream analyses that don't require this information, such as sequence alignment, which focuses solely on the nucleotide sequence. This conversion is often done after quality control and trimming steps to produce clean, high-quality sequence files.
+A FASTQ file contains both the nucleotide sequence and quality scores for each base. A
+FASTA file contains only the sequence. Removing the quality scores simplifies the file
+for downstream analyses like genome assembly that only need the sequence itself. This
+conversion is done after quality control and trimming to ensure only clean, high-quality
+sequences move forward.
 
-## Overview of the process 
+---
+## What is FastQC?
 
-Before diving into the technical steps, it's helpful to understand the overall process. Think of this as a "cleaning and preparing" phase for your sequencing data. You start with raw, messy data from the sequencer (the FASTQ file), clean it up by removing low-quality sections and junk, and then save the final, pure sequences in a new, simpler file format (the FASTA file) that's ready for analysis.
+FastQC is a quality control tool for raw sequencing data. Before doing any analysis,
+it is essential to check the quality of your reads — bad data in means bad results out.
+FastQC reads your FASTQ files and generates an HTML report with a series of diagnostic
+graphs covering per-base quality scores, GC content, adapter contamination, sequence
+duplication levels, and more.
 
-Here's the step-by-step process you'll follow:
+Think of it as a health check for your sequencing data. You run it before trimming to
+see what needs fixing, and again after trimming to confirm the cleaning worked.
+## What is Trimmomatic?
 
-1. Preparation: First, you need to get your files and the right software ready.
+Trimmomatic is a flexible read trimming tool for Illumina sequencing data. Raw reads
+from the sequencer often have low-quality bases at the ends, leftover adapter sequences,
+and other artifacts that can interfere with downstream analysis. Trimmomatic removes
+these by sliding a window along each read and cutting where the average quality drops
+below a set threshold.
 
-2. Quality Check: Next, you'll use a tool called FastQC to look at the overall quality of your raw data. This is like a health check for your sequences.
+It handles both single-end and paired-end reads, and outputs both the cleaned paired
+reads and any orphaned unpaired reads separately.
+## Overview
 
-3. Trimming: Based on the health check, you'll use a tool called Trimmomatic to cut out the bad, low-quality parts of your sequences.
+Think of this as a "cleaning and preparing" phase for your sequencing data:
 
-4. Final Quality Check: After trimming, you'll run FastQC again to make sure your cleaning process worked and your sequences are now high quality.
+1. **Preparation** — Get your files and software ready
+2. **Quality Check** — Run FastQC to assess raw data quality
+3. **Trimming** — Use Trimmomatic to remove low-quality regions
+4. **Final Quality Check** — Run FastQC again to confirm trimming worked
+5. **Conversion** — Convert cleaned FASTQ to FASTA for downstream analysis
 
-5. Conversion: Finally, the next step is, you'll convert the cleaned FASTQ files into FASTA format, which is a simpler file type that's ready for your main analysis.
+---
 
-## Prerequisites
-
-1. Open your terminal or command prompt.
-
-2. Create a new environment (a dedicated space for your tools) by typing this command:
+## Installation
 
 ```bash
-# Install required tools via conda
+# Via conda (recommended)
 conda create -n seq_processing
 conda activate seq_processing
 conda install -c bioconda fastqc trimmomatic
-```
-3. Directly install using the terminal command line
- 
-```bash
-#Install directly from terminal
+
+# Or install directly
 sudo apt install fastqc
 sudo apt install trimmomatic
-```
-```bash 
+
 # Verify installations
 fastqc --version
 trimmomatic -version
 ```
 
-4. After the installation is complete, you can verify they're working by checking their versions:
+---
+
+## Step 1 — File Organization
+
+Keeping your files organized is essential. Create a clear directory structure from the
+start:
 
 ```bash
-fastqc --version
-trimmomatic -version
+mkdir -p {raw_data,trimmed,fastqc_reports,final_output}
 ```
 
-## Detailed Workflow
+| Folder | Purpose |
+|--------|---------|
+| `raw_data/` | Your original unprocessed FASTQ files |
+| `trimmed/` | Cleaned sequences from Trimmomatic |
+| `fastqc_reports/` | Reports generated by FastQC |
+| `final_output/` | Final converted FASTA files |
 
-### 1. Obtaining FASTQ Sequences
+Place your raw `.fastq` or `.fastq.gz` files inside `raw_data/`.
 
-Go over to [Retrieving Fasta files](FASTQ_to_FASTA/Retrieving_Fasta_files.md) to see how you can get public data easily if you don't have your own to work with.
+---
 
-### 2. File Organization and Renaming
-
-Keeping your files organized is key to avoiding confusion. This is a crucial best practice that will save you a lot of trouble later.
-
-Navigate to your main project folder in the terminal.
-
-Create a clear directory structure using the mkdir command:
-
-```bash
-# Create organized directory structure
-mkdir -p {raw_data,trimmed,fastqc_reports,final_output}
-``` 
-- Rename files for clarity
-
-- raw_data: This is where your original, unprocessed files will go. Place your raw FASTQ files inside the raw_data folder. These files often end with .fastq or .fastq.gz (if they are compressed).
-
-- trimmed: This is where the cleaned-up sequences from Trimmomatic will be stored.
-
-- fastqc_reports: This folder will hold all the reports generated by FastQC.
-
-- final_output: This is for your final, converted FASTA files.
-
-### 3. File Decompression
-
-Navigate to your raw_data folder in the terminal
+## Step 2 — File Decompression
 
 ```bash
 cd raw_data
-```
 
-## Decompress your files. If they are .gz files (the most common), use gunzip. If they are .zip or .tar.gz, use the corresponding command.
-
-```bash
-# For gzip compressed files
+# For gzip compressed files (most common)
 gunzip *.fastq.gz
-```
 
-```bash
 # For zip files
 unzip sequence_files.zip
-```
 
-```bash
 # For tar archives
 tar -xvf sequence_files.tar.gz
 ```
-- The * is a wildcard that tells gunzip to decompress every file that ends with .fastq.gz in the current folder.
 
-### 4. Merging Multiple FASTQ Files
+---
 
-If your sequencing run was split across multiple lanes (e.g., L001, L002), you will have a separate file for each lane. It's often best to merge these into a single file per sample before proceeding. This is done with the cat command, which concatenates (combines) files.
+## Step 3 — Merging Multiple FASTQ Files
 
-- Make sure you are inside your raw_data folder.
-
-- Use cat to merge the forward reads (R1) and then, use cat to merge the reverse reads (R2):
+If your sequencing run was split across multiple lanes (e.g., L001, L002), merge them
+into a single file per sample using `cat`:
 
 ```bash
 # Merge forward reads
 cat sample1_L001_R1.fastq \
     sample1_L002_R1.fastq \
     sample1_L003_R1.fastq \
-    sample1_L004_R1.fastq > R1.fastq```
+    sample1_L004_R1.fastq > R1.fastq
 
-```bash
 # Merge reverse reads
 cat sample1_L001_R2.fastq \
     sample1_L002_R2.fastq \
     sample1_L003_R2.fastq \
     sample1_L004_R2.fastq > R2.fastq
-```
 
-```bash
 # Verify file sizes
 ls -lh R*.fastq
 ```
-This will create two new, consolidated files: sample1_R1.fastq and sample1_R2.fastq. You can now delete the original lane-specific files to save space.
 
-### 5. Initial Quality Control with FastQC
+---
 
-This is the most important step before trimming. It gives you a "before" picture of your data's quality.
+## Step 4 — Initial Quality Control with FastQC
 
-Go back to your main project directory:
-
-```Bash
-cd ..
-```
-
-Run FastQC on your raw files. This command tells FastQC to read the files in your raw_data folder and save the reports in the fastqc_reports folder.
-
-```Bash
-fastqc raw_data/*.fastq --outdir fastqc_reports
-```
-
-After the command finishes, go to the fastqc_reports folder. You'll find .html and .zip files. Open the .html file in a web browser. The most critical graph to check is Per base sequence quality. . Look for a drop in quality towards the end of the reads. A quality score below 20 is generally considered low quality and needs to be trimmed.
+Run FastQC on your raw files to get a "before" picture of your data quality:
 
 ```bash
 # Basic usage
-fastqc R1.fastq R2.fastq
+fastqc raw_data/*.fastq --outdir fastqc_reports
 ```
-
-```bash 
-# Advanced usage
+```
+# Advanced usage with more options
 fastqc \
     --outdir fastqc_reports \
     --threads 4 \
     --noextract \
     --format fastq \
-    R*.fastq
+    *.fastq
 ```
 
-```bash
-# Run on multiple files in parallel
-fastqc *.fastq
-``` 
-#### Interpreting FastQC Reports
+Open the `.html` report in your browser. The most important graph is **Per base sequence
+quality**. Quality scores below 20 are generally considered low quality and should be
+trimmed.
 
-Key metrics to examine:
+**Key metrics to check:**
+- Per base sequence quality
+- Per sequence quality scores
+- Per base sequence content
+- Overrepresented sequences
+- Adapter content
+- GC content
 
-* Per base sequence quality
-* Per sequence quality scores
-* Per base sequence content
-* Overrepresented sequences
-* Adapter content
-* GC content
+---
 
-#### 6. Sequence Trimming with Trimmomatic
-Based on what you saw in the FastQC report, you'll now use Trimmomatic to clean up the bad parts of your sequences.
+## Step 5 — Trimming with Trimmomatic
 
-Make sure you're in the main project directory.
-
-Run this command.
+Based on what you saw in the FastQC report, use Trimmomatic to clean your sequences:
 
 ```bash
-# Basic paired-end trimming
 trimmomatic PE \
     -phred33 \
     R1.fastq R2.fastq \
-    R1P.fastq R1U.fastq \ 
+    R1P.fastq R1U.fastq \
     R2P.fastq R2U.fastq \
     SLIDINGWINDOW:4:20 \
     LEADING:20 \
     TRAILING:20 \
     MINLEN:36
 ```
-Can exclude R1U and R2U since they are unpaired reads and not needed for downstream analysis
 
-Parameters:
+> Note: `R1U.fastq` and `R2U.fastq` are unpaired reads and can be excluded from
+> downstream analysis.
 
-- PE: Specifies paired-end reads.
+**Parameter explanations:**
 
-- raw_data/R1.fastq and raw_data/R2.fastq: Your input files.
-
-- trimmed/R1P.fastq and trimmed/R2P.fastq: The cleaned, paired output files.
-
-- SLIDINGWINDOW:4:20: The main trimming command. It cuts the read when the average quality in a 4-base window drops below 20.
-
-- LEADING:20 and TRAILING:20: Removes low-quality bases from the start and end of the read, respectively.
-
-- MINLEN:36: Discards any reads shorter than 36 bases after trimming.
-
-
-#### Trimmomatic Parameters Explained
-
-* **SLIDINGWINDOW:4:20**
-  * Window size: 4 bases
-  * Quality threshold: 20
-  * Recommended ranges: Window 4-5, Threshold 15-30
-
-* **LEADING/TRAILING:20**
-  * Trim low quality bases from start/end
-  * Adjust based on FastQC quality plot
-  * Common range: 20-30
-
-* **CROP:147**
-  * Cut reads to specified length
-  * Use when quality drops at specific position
-  * Determine from FastQC per base quality
-
-* **HEADCROP:15**
-  * Remove specified number of bases from start
-  * Use when consistent poor quality at read start
-  * Check FastQC per base sequence content
-
-* **MINLEN:36**
-  * Discard reads below this length
-  * Adjust based on downstream analysis needs
-
-### 7. Post-trimming Quality Control
-
-This step is crucial to ensure that your trimming process was successful.
-
-Run FastQC again, this time on your new, trimmed files in the trimmed folder.
-
-```bash
-# Run FastQC on trimmed files
-fastqc trimmed_R*P.fastq
-```
-Open the new FastQC reports and check the Per base sequence quality graph. It should now look much better, with the quality scores remaining high all the way to the end of the sequences.
-
-## Best Practices
-
-### File Management
-* Maintain original files in a separate directory
-* Use consistent naming conventions
-* Track file provenance
-* Calculate and verify checksums
-
-### Quality Control
-* Always run FastQC before and after trimming
-* Compare paired-end read qualities
-* Monitor sequence duplication levels
-* Check for adapter contamination
-
-### Resource Management
-* Monitor disk space during merging
-* Use appropriate thread counts
-* Consider using ramdisk for temporary files
-* Compress intermediate files when possible
-
-### Common Issues and Solutions
-
-#### Low Quality Scores
-* Increase SLIDINGWINDOW threshold
-* Adjust LEADING/TRAILING values
-* Consider shorter CROP length
-
-#### Adapter Contamination
-* Use appropriate adapter sequences
-* Adjust ILLUMINACLIP parameters
-* Verify adapter orientation
-
-#### Uneven Coverage
-* Check for PCR duplicates
-* Verify library complexity
-* Consider sequence normalization
-
-## Additional Resources
-
-* [FastQC Documentation](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-* [Trimmomatic Manual](http://www.usadellab.org/cms/?page=trimmomatic)
-* [Illumina Adapter Sequences](https://support.illumina.com/downloads/illumina-adapter-sequences-document-1000000002694.html)
+| Parameter | Description |
+|-----------|-------------|
+| `PE` | Paired-end mode |
+| `-phred33` | Quality score encoding (standard for Illumina) |
+| `SLIDINGWINDOW:4:20` | Cuts read when average quality in a 4-base window drops below 20 |
+| `LEADING:20` | Removes low-quality bases from the start of the read |
+| `TRAILING:20` | Removes low-quality bases from the end of the read |
+| `MINLEN:36` | Discards reads shorter than 36 bases after trimming |
+| `CROP:147` | Cuts reads to a specified length (use when quality drops at a specific position) |
+| `HEADCROP:15` | Removes a set number of bases from the start (use when start quality is consistently poor) |
 
 ---
 
-> **Note**: Parameters should be adjusted based on your specific dataset and research goals. Always verify output quality after each step.
+## Step 6 — Post-trimming Quality Control
+
+Run FastQC again on your trimmed files to confirm the cleaning worked:
+
+```bash
+fastqc trimmed_R*P.fastq
+```
+
+The **Per base sequence quality** graph should now show high scores all the way to the
+end of the reads. If it still looks poor, consider adjusting your Trimmomatic parameters
+and re-running.
+
+---
+
+## Best Practices
+
+**File Management**
+- Always keep your original raw files untouched in `raw_data/`
+- Use consistent naming conventions throughout
+- Compress intermediate files when possible to save disk space
+
+**Quality Control**
+- Always run FastQC before AND after trimming
+- Compare paired-end read qualities
+- Monitor sequence duplication levels
+- Check for adapter contamination
+
+---
+
+## Common Issues
+
+| Problem | Solution |
+|---------|----------|
+| Low quality scores | Increase `SLIDINGWINDOW` threshold or adjust `LEADING`/`TRAILING` values |
+| Adapter contamination | Use `ILLUMINACLIP` with appropriate adapter sequences |
+| Reads too short after trimming | Lower `MINLEN` or reduce trimming stringency |
+| Uneven coverage | Check for PCR duplicates, verify library complexity |
+
+---
+
+## Additional Resources
+
+- [FastQC Documentation](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- [Trimmomatic Manual](http://www.usadellab.org/cms/?page=trimmomatic)
+- [Illumina Adapter Sequences](https://support.illumina.com/downloads/illumina-adapter-sequences-document-1000000002694.html)

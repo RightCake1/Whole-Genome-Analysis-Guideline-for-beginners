@@ -1,110 +1,124 @@
-# QUAST: Quality Assessment Tool for Genome Assemblies
+# Quality Assessment with QUAST
 
-## Introduction
-QUAST (QUality ASsessment Tool) is an excellent tool for evaluating genome assemblies. It provides comprehensive quality metrics that are crucial for assessing the quality of your assemblies. 
+QUAST (Quality Assessment Tool) evaluates genome assemblies and provides comprehensive
+quality metrics to help you understand how good your assembly is. It can compare multiple
+assemblies side by side and generate both HTML and PDF reports.
+
+---
 
 ## Installation
-The current stable release is [v5.3.0](https://downloads.sourceforge.net/project/quast/quast-5.3.0.tar.gz). The package includes everything needed for running QUAST, MetaQUAST, QUAST-LG, and Icarus. After downloading the tar.gz package, just unpack it with tar -xzf quast-<VERSION>.tar.gz and start using QUAST on your data or check the installation with ```quast.py --test```
 
-Installation via package managers
-The fully-functional QUAST toolkit is available in popular package managers, namely pip, Brewsci/bio, and Bioconda. To install it from there, make sure that the corresponding package manager is properly installed and configured on your machine and execute one of the following commands, respectively:
-
-```
-pip install quast
-```
-```
-brew install quast
-```
-```
-install -c bioconda quast
-```  
 ```bash
+# Via conda (recommended)
+conda install -c bioconda quast
+
+# Via pip
+pip install quast
+
+# Via apt
+sudo apt-get update && sudo apt-get install -y \
+    pkg-config libfreetype6-dev libpng-dev python3-matplotlib
+
+# Or download directly
+wget https://downloads.sourceforge.net/project/quast/quast-5.3.0.tar.gz
+tar -xzf quast-5.3.0.tar.gz
+
 # Verify installation
 quast.py --version
 ```
-You can check the [official site](https://quast.sourceforge.net/install.html) to see how to download it.
 
-QUAST draws plots in two formats: HTML and PDF. If you need the PDF versions, make sure that you have installed Matplotlib. We recommend to use Matplotlib version 1.1 or higher. QUAST is fully tested with Matplotlib v.1.3.1. Installation on Ubuntu (tested on Ubuntu 20.04):
-```
-sudo apt-get update && sudo apt-get install -y pkg-config libfreetype6-dev libpng-dev python3-matplotlib
-```
+> QUAST generates plots in HTML and PDF formats. For PDF output, make sure Matplotlib
+> is installed (v1.1 or higher recommended).
+
+---
 
 ## Basic Usage
 
-### Simple Assembly Assessment
+### Single Assembly
 
 ```bash
-# Basic usage
 python3 quast.py contigs.fasta
 ```
-or 
-```
-./quast.py test_data/contigs_1.fasta \
-           test_data/contigs_2.fasta \
-        -r test_data/reference.fasta.gz \
-        -g test_data/genes.txt \
-        -1 test_data/reads1.fastq.gz -2 test_data/reads2.fastq.gz \
-        -o quast_test_output
-```
-```bash 
-# Multiple assemblies comparison
+
+### Multiple Assemblies (side by side comparison)
+
+```bash
 quast.py \
-    assembly1.fasta assembly2.fasta assembly3.fasta \
+    assembly1.fasta \
+    assembly2.fasta \
+    assembly3.fasta \
     -o quast_comparison
 ```
 
-### Filtering Small Contigs
+### With Reference Genome
 
 ```bash
-# Filter contigs shorter than 1000 bp
-quast.py --min-contig 1000 contigs.fasta -o quast_filtered
-
-# Common minimum contig lengths:
-# Bacterial genomes: 200-500 bp
-# Eukaryotic genomes: 1000-5000 bp
+quast.py contigs.fasta \
+    -r reference.fasta \
+    -g genes.txt \
+    -1 reads1.fastq.gz \
+    -2 reads2.fastq.gz \
+    -o quast_output
 ```
-With QUAST, you can quickly identify strengths and weaknesses of your genome assemblies, guide parameter tuning, and ensure your assemblies meet the required quality standards.
+
+### Filter Small Contigs
+
+```bash
+# Filter contigs shorter than 500 bp (recommended for bacterial genomes)
+quast.py --min-contig 500 contigs.fasta -o quast_filtered
+```
+
+| Organism type | Recommended minimum contig length |
+|---------------|----------------------------------|
+| Bacterial genomes | 200 – 500 bp |
+| Eukaryotic genomes | 1000 – 5000 bp |
+
+---
 
 ## Key Metrics Explained
 
 ### Basic Metrics
-* **N50**: Length where contigs of this length or longer contain 50% of genome
-* **L50**: Number of contigs needed to reach N50
-* **Total length**: Sum of all contig lengths
-* **Number of contigs**: Total number of contigs in assembly
-* **Largest contig**: Length of the longest contig
 
-### Reference-based Metrics (when using -r)
-* **Genome fraction (%)**: Percentage of reference covered by assembly
-* **Misassemblies**: Number of positions with breakpoints relative to reference
-* **Mismatches per 100 kbp**: Number of mismatches per 100,000 aligned bases
-* **Indels per 100 kbp**: Number of insertions/deletions per 100,000 aligned bases
+| Metric | What it means |
+|--------|--------------|
+| **N50** | Length where contigs of this size or longer contain 50% of the total assembly — higher is better |
+| **L50** | Number of contigs needed to reach N50 — lower is better |
+| **Total length** | Sum of all contig lengths |
+| **Number of contigs** | Total contigs in the assembly — fewer usually means better |
+| **Largest contig** | Length of the longest contig |
 
-## Best Practices
+### Reference-Based Metrics (when using `-r`)
 
-### Assembly Assessment
-* Always filter contigs below meaningful length for your organism
-* Compare multiple assemblies from different parameters/assemblers
-* Use reference genome when available
-* Check both basic stats and alignment-based metrics
-
-### Resource Management
-* Adjust thread count based on system capabilities
-* Monitor memory usage for large assemblies
-* Consider using `--space-efficient` for large datasets
-
-### Output Interpretation
-* Focus on metrics relevant to your research goals
-* Consider biological context when interpreting results
-* Look for red flags in alignment statistics
-* Compare results with similar published assemblies
-
-## Additional Resources
-
-* [QUAST Documentation](http://quast.sourceforge.net/docs/manual.html)
-* [QUAST GitHub Repository](https://github.com/ablab/quast)
-* [QUAST Tutorial](http://quast.sourceforge.net/docs/manual.html#sec3)
+| Metric | What it means |
+|--------|--------------|
+| **Genome fraction (%)** | Percentage of the reference covered by your assembly |
+| **Misassemblies** | Number of positions with structural errors relative to reference |
+| **Mismatches per 100 kbp** | Number of mismatches per 100,000 aligned bases |
+| **Indels per 100 kbp** | Number of insertions/deletions per 100,000 aligned bases |
 
 ---
 
-**Note**: For detailed documentation and additional features, consult the [official QUAST manual](http://quast.sourceforge.net/docs/manual.html).
+## Best Practices
+
+- Always filter contigs below a meaningful length for your organism before assessment
+- Compare multiple assemblies from different parameters or assemblers to find the best one
+- Use a reference genome with `-r` when one is available for more detailed metrics
+- Compare your results with similar published assemblies to set realistic expectations
+
+---
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| PDF plots not generating | Install Matplotlib: `pip install matplotlib` |
+| Running out of memory | Add `--space-efficient` flag for large datasets |
+| Very high contig count | Lower `--min-contig` threshold or re-check trimming quality |
+
+---
+
+## Additional Resources
+
+- [QUAST Documentation](http://quast.sourceforge.net/docs/manual.html)
+- [QUAST GitHub](https://github.com/ablab/quast)
+- [Official Installation Guide](https://quast.sourceforge.net/install.html)

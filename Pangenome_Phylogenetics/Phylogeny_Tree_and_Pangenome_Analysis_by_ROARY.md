@@ -36,13 +36,8 @@ conda install -c conda-forge matplotlib
 
 ### Step 1 — Annotate genomes with Prokka first to get `.gff` files
 
-```bash
-conda activate pangenome
-
-for file in *.fasta; do
-    prokka --outdir output_"${file%.fasta}" "$file"
-done
-```
+Please look at [How to run Prokka](../Annotations/Genome_Annotaions.md).
+Move all ``.gff`` files in a separate folder for convenience.
 
 ### Step 2 — Run Roary
 
@@ -280,4 +275,3 @@ if __name__ == "__main__":
 
 - [Roary GitHub](https://github.com/sanger-pathogens/Roary)
 - [Roary Paper](https://academic.oup.com/bioinformatics/article/31/22/3691/240757)
-- [Panaroo](https://github.com/gtonkinhill/panaroo) — a more modern alternative to Roary

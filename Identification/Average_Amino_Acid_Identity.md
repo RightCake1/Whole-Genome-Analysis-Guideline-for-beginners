@@ -90,7 +90,7 @@ ezaai calculate -i /home/rightcake/KPV/EzAAI_dbs/ -j /home/rightcake/KPV/EzAAI_d
 The aai_results.tsv file is a simple list of pairwise comparisons. To visualize this data, you first need to convert it into a format that a plotting script can use. This is done with a dedicated Python script.
 
 Convert the resulting TSV file to a format suitable for figure generation using the provided script [`Convert_AAI_tsv.py`](./Convert_AAI_tsv.py).
-Make sure to change the locatin of the file to your location.
+Make sure to change the location of the file to your location.
 
 ```bash
 python Convert_AAI_tsv.py -i /home/rightcake/KPV/AAI/aai_results.tsv -o /home/rightcake/KPV/AAI/aai_results_converted.tsv

@@ -1,96 +1,69 @@
-# SPAdes Genome Assembly Guide
+# Genome Assembly with SPAdes
 
-## Introduction
-In this guide, I'll walk you through using SPAdes (St. Petersburg genome assembler) for genome assembly. SPAdes is a fantastic toolkit, especially for assembling bacterial genomes.  
+SPAdes (St. Petersburg Genome Assembler) is a sophisticated de novo genome assembly tool
+designed to take raw short reads (like those from Illumina) and piece them together to
+reconstruct a complete or near-complete genome sequence — without needing a reference genome.
 
-SPAdes (St. Petersburg Genome Assembler)
-SPAdes is a sophisticated genome assembly tool designed for de novo assembly of DNA sequencing reads. Its primary function is to take raw, short reads (like those from Illumina) and piece them together to reconstruct a complete, or near-complete, genome sequence without a reference genome.
+---
 
-- Function: Assembles a genome. It identifies overlapping regions between millions of short DNA fragments and connects them to build longer, continuous sequences called contigs.
+## How does genome assembly work?
 
-- Input: Requires raw FASTQ reads.
+Imagine you have a huge book, but every page has been shredded into millions of tiny,
+overlapping paper scraps. Your job is to put the book back together without an original
+copy to guide you. In bioinformatics, this "book" is a genome and the "scraps" are the
+sequencing reads. SPAdes solves this puzzle using complex algorithms called de Bruijn graphs.
 
-- Output: Generates a FASTA file containing assembled contigs and scaffolds. This is the new, longer genomic sequence.
+| | SPAdes | seqtk |
+|--|--------|-------|
+| **Purpose** | Assembles a genome from scratch | Converts file formats |
+| **Input** | Raw FASTQ reads | Existing FASTQ file |
+| **Output** | FASTA contigs and scaffolds | FASTA with quality scores removed |
+| **Complexity** | High — requires significant RAM and CPU | Minimal resources |
 
-- Complexity: It uses complex algorithms, including de Bruijn graphs, to solve the "genome puzzle." It requires significant computational resources (RAM and CPU).
-
-- Purpose: To create a new genome sequence from scratch.
-
-Using SPAdes for genome assembly is an essential step in bioinformatics for reconstructing a complete genome from short DNA reads. While tools like seqtk are useful for simple file conversions, SPAdes performs the complex task of piecing together millions of tiny fragments into a coherent, much longer sequence, a process called de novo assembly.
-
-Imagine you have a huge book, but every page has been shredded into millions of tiny, overlapping paper scraps. Your job is to put the book back together without an original copy to guide you. In bioinformatics, this "book" is a genome, and the "scraps" are the sequencing reads. Genome assembly is the process of using powerful algorithms to solve this puzzle and reconstruct the original sequence.
+---
 
 ## Installation
 
-Before you run SPAdes, you need a clean workspace and your data ready (the trimmmed .fastq R1 and R2 seqeunces).
-
-SPAdes is a standalone program, so you don't need conda for a basic install.
-
-Open your terminal.
-
-Download the latest SPAdes release. (Note: The version in the original prompt is old. It's best to use the most recent one).
-
-- Use a tool like wget or a browser to get the latest version
-```
-wget https://github.com/ablab/spades/releases/download/v3.15.5/SPAdes-3.15.5-Linux.tar.gz
-```
-- Extract the downloaded file.
-
-```Bash
-tar -xzf SPAdes-3.15.5-Linux.tar.gz
-``` 
-
-- Navigate into the new SPAdes directory.
-
-```Bash
-cd SPAdes-3.15.5-Linux/bin/ #try using the latest version if available
-```
-
-- Check that the installation works by verifying the version.
-
-
 ```bash
+# Option 1 — apt install
 sudo apt install spades
-#verify
-./spades.py --version
-```
 
-You will likely need to use ./spades.py to run the command, as the program isn't in your system's PATH by default.
+# Option 2 — download directly
+wget https://github.com/ablab/spades/releases/download/v3.15.5/SPAdes-3.15.5-Linux.tar.gz
+tar -xzf SPAdes-3.15.5-Linux.tar.gz
+cd SPAdes-3.15.5-Linux/bin/
 
-```bash
 # Verify installation
 spades.py --version
 ```
 
-## Basic Assembly Commands
+---
 
-High-quality input reads are the key to a good assembly. You should always clean your reads before assembly.
+## Before You Assemble
 
-Raw reads from a sequencer contain low-quality bases at the ends and artificial sequences called adapters (small fragments used during sequencing). If you don't remove them, they can cause errors and create false "contigs" (assembled sequences), leading to a fragmented and inaccurate final genome.
+Always clean your reads before assembly. Raw reads contain low-quality bases and adapter
+sequences that can cause errors and create false contigs, leading to a fragmented and
+inaccurate final genome. See the [FASTQ Processing Guide](FASTQ_to_FASTA/FASTQ_processing.md)
+for how to do this.
 
-### De Novo Assembly with Paired Reads
+---
 
-The SPAdes run can take a long time, from minutes to hours, depending on the genome size and your computer's power. It will print its progress to the terminal.
+## Assembly Commands
 
-The Basic Command
-Use the spades.py script to run the assembly. The key parameters are:
-
-- 1: Specifies the forward reads file.
-- 2: Specifies the reverse reads file.
--o: Specifies the output directory.
+### Basic Paired-End Assembly
 
 ```bash
-# Basic paired-end assembly
-# Navigate to the SPAdes folder or move spades.py to your trimmmed sequence folder.
 spades.py \
     -1 forward_reads.fastq \
     -2 reverse_reads.fastq \
     -o spades_output
 ```
 
-For better accuracy, especially with bacterial genomes, it's highly recommended to use the --careful flag. This option adds an extra step that helps reduce mismatches and indels (insertions/deletions) in the final assembly.
+### Careful Mode (Recommended for Bacterial Genomes)
 
-# Careful mode (recommended for bacterial genomes)
+The `--careful` flag adds an extra step that reduces mismatches and indels in the final
+assembly. Always use this for bacterial genomes:
+
 ```bash
 spades.py \
     -1 forward_reads.fastq \
@@ -101,8 +74,8 @@ spades.py \
 ```
 
 ### Reference-Guided Assembly
+
 ```bash
-# Assembly with trusted reference contigs
 spades.py \
     -1 forward_reads.fastq \
     -2 reverse_reads.fastq \
@@ -112,121 +85,103 @@ spades.py \
     -o reference_guided_assembly
 ```
 
-Converting to FASTA with seqtk
-You may have heard of seqtk for converting file formats. While SPAdes already outputs a FASTA file, you might use seqtk for other tasks, like converting your initial FASTQ reads to FASTA if that's all you need. 
+**Key parameters:**
 
-# seqtk 
-seqtk is a lightweight, general-purpose command-line toolkit for processing and converting sequence files. Its functions are much simpler and faster than SPAdes.
+| Parameter | Description |
+|-----------|-------------|
+| `-1` | Forward reads file |
+| `-2` | Reverse reads file |
+| `-o` | Output directory |
+| `--careful` | Reduces mismatches and indels (recommended) |
+| `--cov-cutoff auto` | Automatically filters low-coverage contigs |
+| `--trusted-contigs` | Reference contigs to guide assembly |
 
-- Alternative Assembly Methods and Automation
-While running SPAdes from the command line is powerful, there are other options for different needs.
+> The SPAdes run can take anywhere from minutes to hours depending on genome size and
+> your computer's resources. It will print its progress to the terminal.
 
-- Function: Manipulates sequence files. One of its many functions is converting a FASTQ file to a FASTA file by simply removing the quality scores.
+---
 
-- Input: Requires an existing FASTQ file.
+## Converting FASTQ to FASTA with seqtk
 
-- Output: Generates a FASTA file containing the same exact sequences as the input, just without the quality information. It does not assemble or alter the sequence order.
-
-- Complexity: It's a simple, fast utility. It requires minimal computational resources.
-
-- Purpose: To quickly format and process sequence files for various downstream applications that don't need quality information. 
-
-You will convert your clean FASTQ files into FASTA format, which is much simpler and only contains the sequence data. We'll use the seqtk command-line tool.
-
-Make sure you're in your main project folder.
-
-Use the seqtk command to convert your trimmed, paired reads.
+If you don't need a full assembly and just want to convert your cleaned FASTQ files to
+FASTA format, use seqtk:
 
 ```bash
-# install 
-sudo install seqtk
-# Convert R1 (forward reads)
+# Install
+sudo apt install seqtk
+
+# Convert forward reads
 seqtk seq -a trimmed/R1P.fastq > final_output/R1.fasta
-# Convert R2 (reverse reads)
+
+# Convert reverse reads
 seqtk seq -a trimmed/R2P.fastq > final_output/R2.fasta
 ```
 
-- a: An option that tells seqtk to output the file in FASTA format.
+The `-a` flag tells seqtk to output FASTA format. The `>` redirects the output into a
+new file.
 
-- ">" A redirect command that sends the output of the command into a new file.
+---
 
-You now have a clean, ready-to-use FASTA file containing only the high-quality sequences from your original data. Good job!
+## fastp for QC and Trimming
 
-# fastp
-fastp is a highly recommended tool for quality control and trimming. You can easily install it using conda.
+fastp is a fast all-in-one quality control and trimming tool that automatically detects
+and removes adapters:
 
-```Bash
-# Install fastp if you don't have it
-conda install -c bioconda fastp
-```
-## Run fastp on your raw reads
 ```bash
-fastp -i raw_data/forward_reads.fastq.gz -o trimmed/forward_reads.fastq.gz \
--I raw_data/reverse_reads.fastq.gz -O trimmed/reverse_reads.fastq.gz
+# Install
+conda install -c bioconda fastp
+
+# Run on paired reads
+fastp \
+    -i raw_data/forward_reads.fastq.gz \
+    -o trimmed/forward_reads.fastq.gz \
+    -I raw_data/reverse_reads.fastq.gz \
+    -O trimmed/reverse_reads.fastq.gz
 ```
 
-This command automatically detects and removes adapters and low-quality bases. Your clean, ready-to-use files are now in the trimmed folder.
+---
 
-## Why is SPAdes better for assembly? 
-Because seqtk only removes quality scores and metadata; it doesn't have the sophisticated algorithms to align overlapping reads and build a new, longer sequence. SPAdes is a powerful assembler, not just a simple converter.
 ## Alternative Assembly Options
 
-Alternative Assembly Methods and Automation
-While running SPAdes from the command line is powerful, there are other options for different needs.
+If you prefer not to use the command line, these web-based platforms offer genome
+assembly with a graphical interface:
 
-### Web-Based Assembly
-The Bacterial and Viral Bioinformatics Resource Center (BV-BRC) offers web-based assembly:
-- URL: https://www.bv-brc.org/
+**BV-BRC** — [bv-brc.org](https://www.bv-brc.org/)
 - Supports multiple assembly algorithms
 - Provides quality assessment tools
 - Enables comparative analysis
 
-### Automation with Snakemake
-For high-throughput or repetitive assemblies:
-- [Assembly Pipeline Repository](https://github.com/Lagator-Group/De-Novo-Plasmid-Assembly-and-Annotation-Snakemake)
-- Automates assembly workflow
-- Ensures reproducibility
-- Handles multiple samples efficiently
+**KBase** — [kbase.us](https://www.kbase.us/)
+- Upload your files and run the assembly app directly in the browser
 
-### Kbase 
-- Link: https://www.kbase.us/
-- Just upload your files here and run the app
+**Snakemake Pipeline** — for automated high-throughput assemblies:
+- [De Novo Assembly Pipeline](https://github.com/Lagator-Group/De-Novo-Plasmid-Assembly-and-Annotation-Snakemake)
+
+---
 
 ## Best Practices
 
-1. Quality Control
-   - Always check input read quality
-   - Use --careful for better accuracy
-   - Monitor coverage distribution
+- Always quality-check and trim reads before assembly
+- Use `--careful` for bacterial genomes
+- Allocate sufficient memory — SPAdes is RAM-intensive
+- Validate your assembly with QUAST, BBMap, or BUSCO after completion
 
-2. Resource Management
-   - Allocate sufficient memory
-   - Use appropriate thread count
-   - Monitor disk space
+---
 
-3. Output Validation
-   - Check assembly statistics
-   - Verify contig lengths
-   - Assess coverage uniformity
+## Troubleshooting
 
-## Troubleshooting Tips
+| Problem | Solution |
+|---------|----------|
+| Insufficient memory | Increase `--memory` parameter |
+| Long runtime | Check input read quality, reduce dataset size for testing |
+| Failed error correction | Try `--only-assembler` to skip error correction |
 
-1. Common Issues
-   - Insufficient memory: Increase --memory parameter
-   - Long runtime: Check input quality
-   - Failed error correction: Try --only-assembler
-
-2. Quality Checks
-   - Use QUAST for assembly evaluation
-   - Check coverage with BBMap
-   - Validate completeness with BUSCO
+---
 
 ## Additional Resources
 
-- [SPAdes GitHub Repository](https://github.com/ablab/spades)
+- [SPAdes GitHub](https://github.com/ablab/spades)
 - [SPAdes Manual](http://cab.spbu.ru/files/release3.15.5/manual.html)
-- [Tutorial](http://sepsis-omics.github.io/tutorials/modules/spades_cmdline/)
-- [fastp](https://github.com/OpenGene/fastp)
-
----
-**Note**: This guide covers basic usage. For advanced features and detailed parameters, consult the [official documentation](https://github.com/ablab/spades).
+- [fastp GitHub](https://github.com/OpenGene/fastp)
+- [QUAST](http://quast.sourceforge.net/)
+- [BUSCO](https://busco.ezlab.org/)

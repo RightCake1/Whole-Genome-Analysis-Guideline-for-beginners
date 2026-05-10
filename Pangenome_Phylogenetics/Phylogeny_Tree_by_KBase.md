@@ -1,44 +1,101 @@
-# Creating a Phylogeny Tree using KBase
+# Phylogenetic Tree Construction Using KBase
 
-## Preparing Files
+KBase is a free, web-based platform for biological data analysis. This guide walks you
+through building a phylogenetic species tree from FASTA files entirely in the browser —
+no command line needed.
 
-1. Retrieve FASTA files from [IMG/M](https://img.jgi.doe.gov/). First, create an account. Go to the [Genome Search](https://img.jgi.doe.gov/cgi-bin/mer/main.cgi?section=GenomeSearch&page=searchForm) page, select **Advanced Search Builder**, and click **Add new builder line**. Choose **taxonomy**, then **NCBI SPECIES**, and type the organism name to get all genomes. To get completed or high-quality sequences, add another builder line, select **sequencing assembly annotation**, then **sequencing quality**, and pick **level 6** for the best quality. Click **EVALUATE QUERY** to check the number of available sequences, then click **SEARCH**.
+---
 
-2. Wait for the results. You can customize the table by scrolling down and selecting options. Under **NCBI Metadata**, choose **NCBI Assembly Accession** and **NCBI GenBank ID**, then click **REDISPLAY**. The table will show GCA IDs linking to the sequence profile. Select all by clicking the checkbox at the top left of the table, then click **EXPORT** to get the table.
+## Step 1 — Retrieve FASTA Files
 
-3. To download sequences in bulk, select all and click **ADD TO GENOME CART**, then wait for the page to reload. Click **Upload & Export & Save**, then **Export Genomes**, ensuring all genomes are selected. You will be notified by email when the download is ready.
+You can get your genome sequences from [IMG/M](https://img.jgi.doe.gov/) or use files
+you already have. If downloading from IMG/M:
 
-## Using KBase
+1. Create an account and go to the [Genome Search](https://img.jgi.doe.gov/cgi-bin/mer/main.cgi?section=GenomeSearch&page=searchForm) page
+2. Click **Advanced Search Builder → Add new builder line**
+3. Select **Taxonomy → NCBI Species** and type your organism name
+4. Add another builder line → **Sequencing Assembly Annotation → Sequencing Quality → Level 6** for highest quality genomes
+5. Click **Evaluate Query** to check available sequences, then click **Search**
+6. In the results table, scroll down and under **NCBI Metadata** select **NCBI Assembly Accession** and **NCBI GenBank ID**, then click **Redisplay**
+7. Select all genomes using the top-left checkbox and click **Export** to download the table
+8. To download sequences in bulk, click **Add to Genome Cart**, then **Upload & Export & Save → Export Genomes** — you will be notified by email when ready
 
-1. Head over to [KBase](https://www.kbase.us/)
-2. Click **Get Started**
-3. Create an account and login
-4. Wait for the plugin to load and then click **New Narrative** on the top right
-5. Click the **plus** sign under **DATA** and then click **Import**
-6. Import your FASTA files and then use the proper label for **IMPORT AS** to **FASTA ASSEMBLY**
-7. Click **IMPORT SELECTED** and wait for them to load
-8. After they are loaded, the **Import from Staging Area** window will pop up. 
-9. Click **RUN** and wait for them to load into the data. You should see your files under the **DATA** panel now.
+---
 
-## Annotating Genomes
+## Step 2 — Set Up KBase
 
-- If you have one FASTA file, under **APPS**, search for **Annotate Genome/Assembly with RASTtk - v1.073** under **GENOME ANNOTATION**.
-- If you have multiple FASTA files, search for **Annotate Multiple Microbial Assemblies with RASTtk - v1.073** under **GENOME ANNOTATION**.
-- Click **Run** after selecting your files. New files will be added under **DATA**.
+1. Go to [kbase.us](https://www.kbase.us/) and click **Get Started**
+2. Create an account and log in
+3. Click **New Narrative** in the top right once the platform loads
 
-## Creating a GenomeSet
+---
 
-1. Under **Comparative Genomics**, select **Add Genomes to GenomeSet - v1.7.6** and create a GenomeSet using the annotated files (Note: only annotated files will be visible under the add option).
-2. Click **Run** after selecting your files. This can be done to handle huge file lists.
+## Step 3 — Import Your FASTA Files
 
-## Inserting Genomes into SpeciesTree
+1. Click the **+** sign under **Data** and then click **Import**
+2. Upload your FASTA files and set **Import As** to **FASTA Assembly**
+3. Click **Import Selected** and wait for them to load
+4. When the **Import from Staging Area** window appears, click **Run**
+5. Your files will now appear under the **Data** panel
 
-1. Under **Comparative Genomics**, click **Insert Set of Genomes Into SpeciesTree - v2.2.0**.
-2. Select the GenomeSet(s) you made and add those, then click **RUN**. This might take time depending on the RAM. 
-3. You can use the parameter **Neighbor Public Genome Count** to add extra organisms. 
-4. If the organism is known, then 2-3 is okay; otherwise, keeping it at 1 is fine to create less clutter.
+---
 
-## Trimming the SpeciesTree
+## Step 4 — Annotate Genomes
 
-1. Under **Comparative Genomics**, click **Trim SpeciesTree to GenomeSet - v1.4.0** to omit extra things that may or may not have been included in the tree.
-2. The tree is ready to download in Newick, -labels.newick, PNG, or PDF formats, whichever you need.
+Under **Apps → Genome Annotation**, search for the appropriate tool:
+
+| Situation | App to use |
+|-----------|-----------|
+| Single FASTA file | **Annotate Genome/Assembly with RASTtk - v1.073** |
+| Multiple FASTA files | **Annotate Multiple Microbial Assemblies with RASTtk - v1.073** |
+
+Select your files, click **Run**, and wait. Annotated files will appear under **Data**.
+
+> Only annotated files will be visible in downstream steps.
+
+---
+
+## Step 5 — Create a GenomeSet
+
+1. Under **Comparative Genomics**, select **Add Genomes to GenomeSet - v1.7.6**
+2. Add your annotated genome files and click **Run**
+3. You can create multiple GenomeSets to manage large file lists more easily
+
+---
+
+## Step 6 — Build the Species Tree
+
+1. Under **Comparative Genomics**, click **Insert Set of Genomes Into SpeciesTree - v2.2.0**
+2. Select your GenomeSet(s) and click **Run**
+
+> This step can take time depending on the number of genomes and available RAM.
+
+**Neighbor Public Genome Count** parameter:
+- If your organism is well-known → set to **2–3**
+- If less characterized → set to **1** to reduce clutter in the tree
+
+---
+
+## Step 7 — Trim the Tree
+
+1. Under **Comparative Genomics**, click **Trim SpeciesTree to GenomeSet - v1.4.0**
+2. This removes any extra reference genomes that were added automatically and don't belong to your dataset
+
+---
+
+## Step 8 — Download Your Tree
+
+Your tree is now ready to download in multiple formats:
+
+- `.newick` — for use in MEGA11, FigTree, or iTOL
+- `-labels.newick` — newick with tip labels
+- `.png` — image format
+- `.pdf` — publication-ready format
+
+---
+
+## Additional Resources
+
+- [KBase](https://www.kbase.us/)
+- [IMG/M Genome Search](https://img.jgi.doe.gov/)
+- [RASTtk Documentation](https://rast.nmpdr.org/)

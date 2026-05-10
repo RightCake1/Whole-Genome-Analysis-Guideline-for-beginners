@@ -1,22 +1,27 @@
-# SeqKit: Essential Command Guide
+# SeqKit: Sequence File Manipulation
 
-## Introduction
-SeqKit is a cross-platform toolkit for FASTA/Q file manipulation. This guide covers the most frequently used commands for basic sequence analysis. For comprehensive documentation, visit the [official SeqKit page](https://bioinf.shenwei.me/seqkit/) or check out the detailed [tutorial](https://bioinf.shenwei.me/seqkit/tutorial/).
+SeqKit is a fast, cross-platform toolkit for FASTA/Q file manipulation. This guide covers
+the most frequently used commands for basic sequence analysis.
+
+For comprehensive documentation visit the [official SeqKit page](https://bioinf.shenwei.me/seqkit/)
+or the detailed [tutorial](https://bioinf.shenwei.me/seqkit/tutorial/).
+
+---
 
 ## Installation
+
 ```bash
-# Via conda
+# Via conda (recommended)
 conda install -c bioconda seqkit
 
 # Via homebrew
 brew install seqkit
 ```
 
-## Basic Commands
+---
 
-### File Inspection
+## File Inspection
 
-Display sequence content:
 ```bash
 # View sequence file content
 cat contigs.fasta
@@ -25,33 +30,31 @@ cat contigs.fasta
 head contigs.fasta
 ```
 
-### Sequence Statistics
+---
 
-Basic sequence statistics:
+## Sequence Statistics
+
 ```bash
 # Stats for a single file
 seqkit stat contigs.fasta
 
 # Stats for multiple files with additional info
 seqkit stats *.f{a,q}.gz -a
-
-# Output includes: file format, sequence count, sum length, min length, 
-# avg length, max length, and GC content
 ```
 
-### Sequence Manipulation
+Output includes: file format, sequence count, total length, min/avg/max length, and GC content.
 
-Sort sequences:
+---
+
+## Sequence Manipulation
+
 ```bash
-# Sort by sequence length (longest to shortest)
+# Sort by length — longest to shortest
 seqkit sort --by-length contigs.fasta > sorted.fasta
 
-# Sort by sequence length (shortest to longest)
+# Sort by length — shortest to longest
 seqkit sort --by-length --reverse contigs.fasta > sorted_reverse.fasta
-```
 
-Split sequences:
-```bash
 # Split multi-FASTA into separate files
 seqkit split -i contigs.fasta
 
@@ -59,9 +62,10 @@ seqkit split -i contigs.fasta
 seqkit split -s 1000 contigs.fasta
 ```
 
-### Sequence Extraction
+---
 
-Extract subsequences:
+## Sequence Extraction
+
 ```bash
 # First 12 bases
 seqkit subseq -r 1:12 contigs.fasta > first12.fasta
@@ -73,9 +77,10 @@ seqkit subseq -r -12:-1 contigs.fasta > last12.fasta
 seqkit subseq -r 13:-13 contigs.fasta > trimmed.fasta
 ```
 
-### Format Conversion
+---
 
-Convert between formats:
+## Format Conversion
+
 ```bash
 # FASTA to tabular format
 seqkit fx2tab contigs.fasta > output.tab
@@ -84,19 +89,29 @@ seqkit fx2tab contigs.fasta > output.tab
 seqkit tab2fx input.tab > output.fasta
 ```
 
-## Tips and Best Practices
+---
 
-1. Use `-j` flag to enable multiple threads for faster processing
-2. Always check output with `head` or `less` after operations
-3. Use `seqkit stats` before and after operations to verify sequence counts
-4. Consider using compressed files (.gz) to save space
+## Useful Flags
 
-## Common Flags
-
-- `-j`: Number of threads
-- `-v`: Verbose output
-- `-o`: Output file
-- `-w`: Line width for FASTA format (default: 60)
+| Flag | Description |
+|------|-------------|
+| `-j` | Number of threads for faster processing |
+| `-v` | Verbose output |
+| `-o` | Output file |
+| `-w` | Line width for FASTA format (default: 60) |
 
 ---
-**Note**: This is a basic guide covering essential commands. For advanced usage, including pattern matching, sequence searching, and format validation, please refer to the [official documentation](https://bioinf.shenwei.me/seqkit/).
+
+## Best Practices
+
+- Always run `seqkit stats` before and after operations to verify sequence counts
+- Use `-j` to enable multiple threads for large files
+- Check output with `head` or `less` after each operation
+- Use compressed files (`.gz`) to save disk space
+
+---
+
+## Additional Resources
+
+- [SeqKit Official Documentation](https://bioinf.shenwei.me/seqkit/)
+- [SeqKit Tutorial](https://bioinf.shenwei.me/seqkit/tutorial/)

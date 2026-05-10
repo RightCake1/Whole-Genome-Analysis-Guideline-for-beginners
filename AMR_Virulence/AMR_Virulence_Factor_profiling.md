@@ -143,10 +143,11 @@ abritamr run \
   --jobs 1 \
   --threads 6
 ```
+You can change the ``job`` and ``threads`` number according to your system.
 
 ---
 
-### AMR Classification Guidelines
+### AMR Classification Guidelines (Klebsiella pnuemoniae)
 
 | Class | Definition |
 |-------|-----------|

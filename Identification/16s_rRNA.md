@@ -1,60 +1,54 @@
-# 16S rRNA Sequence Identification and Analysis Guide
+# 16S rRNA Sequence Identification and Extraction
 
-## Introduction
-This guide covers tools and methods for identifying and extracting 16S rRNA sequences from genome assemblies. These sequences are crucial for phylogenetic analysis and taxonomic classification of bacterial species.
+The 16S rRNA gene is found in all bacteria and archaea and changes very slowly over time,
+making it act like a unique molecular barcode for each species. This guide covers how to
+extract and validate 16S sequences from your genome assembly for use in phylogenetic
+analysis and taxonomic classification.
 
-## What is 16S rRNA?
-The 16S rRNA (ribosomal RNA) gene is a small but critical component of the ribosome, the cellular machinery that produces proteins. This gene is found in all bacteria and archaea, and its sequence changes very slowly over time. Because of this, it acts like a unique barcode
+> If you want to build a phylogenetic tree from your 16S sequence after extraction,
+> see the [16S Phylogenetic Tree Guide](Identification/16s_rRNA.md).
 
-## Command Line Tools
+## What is Barrnap?
+
+Barrnap (Bacterial/Archaeal Ribosomal RNA Predictor) is a fast command-line tool that
+scans a bacterial genome assembly and predicts the location of ribosomal RNA genes,
+including the 16S, 23S, and 5S rRNA genes. It uses Hidden Markov Models (HMMs) built
+from known rRNA sequences to do this accurately and quickly.
+
+For our purposes, the most important output is the 16S rRNA sequence, which is used as
+a molecular marker for species identification and phylogenetic analysis.
 
 
-### Barrnap (Bacterial/Archaeal Ribosomal RNA Predictor)
-
-[Barrnap](https://github.com/tseemann/barrnap) is a simple and fast command-line tool for predicting ribosomal RNA sequences. It is the go-to tool for finding the 16S gene directly from your genome assembly file.
-
-
-#### Installation
-
-The easiest way to install Barrnap is with Conda. This ensures all its dependencies are handled automatically.
+### Installation
 
 ```bash
-# Via conda (recommended)
 conda create -n rRNA_tools
 conda activate rRNA_tools
 conda install -c bioconda barrnap
-```
-```bash 
-# Verify installation
+
+# Verify
 barrnap --version
 ```
-If a version number is displayed, the installation was successful.
 
-#### Basic Usage
+### Basic Usage
+
 ```bash
-# Simple run
+# Simple run — outputs GFF3 and extracts rRNA sequences
 barrnap -o rrna.fa < contigs.fa > rrna.gff
-```
-```bash
-# To see the 16s sequence
+
+# View the extracted 16S sequence
 head -n 3 rrna.fa
-```
-You'll often only need the 16S sequences for phylogenetic analysis. Barrnap's output is in GFF3 format, which is a standardized way to describe genomic features. You can use a simple command to filter for just the 16S entries.
 
-```bash
-# Get gff3
+# Get GFF3 only
 barrnap contigs.fasta > output.gff3
-```
-# OR 
 
-```bash
-Filter for 16S_rRNA and save the FASTA sequence
+# Filter for 16S only
 barrnap --kingdom bac contigs.fasta | awk '$3 == "16S_rRNA"' > 16S_locations.gff3
 ```
 
-#### Advanced Options
+### Advanced Options
+
 ```bash
-# Adjust search parameters
 barrnap \
     --threads 4 \
     --kingdom bac \
@@ -63,126 +57,90 @@ barrnap \
     --evalue 1e-6 \
     contigs.fasta > detailed_output.gff3
 ```
-```bash
-# Extract specific rRNA types
-barrnap contigs.fasta | \
-    awk '$3 == "16S_rRNA"' > 16S_locations.gff3
+
+| Parameter | Description |
+|-----------|-------------|
+| `--threads` | Number of CPU threads to use |
+| `--kingdom` | Set to `bac` for bacteria, `arc` for archaea |
+| `--lencutoff` | Minimum fraction of expected length (default 0.8) |
+| `--reject` | Reject sequences below this fraction (default 0.25) |
+| `--evalue` | E-value threshold for HMMER search |
+
+### Output Format
+
+Barrnap outputs in GFF3 format, which contains:
+
+```
+Sequence Name | Source | Feature Type | Start | End | Score | Strand | Frame | Attributes
 ```
 
-#### Output Format
-GFF3 format contains:
-```plaintext
-##gff-version 3
-# Sequence Name
-# Source (barrnap)
-# Feature Type (rRNA)
-# Start Position
-# End Position
-# Score
-# Strand
-# Frame
-# Attributes
-```
+A typical 16S rRNA sequence should be approximately **1500 bp** in length.
 
-## Web-based Tools
+---
 
-After extracting sequences with a command-line tool, it's a great practice to use a web-based service for confirmation, especially for beginners.
+## Web-Based Validation Tools
 
-### 1. ContEST16S
+After extracting with Barrnap, use a web tool to confirm your sequence is complete and
+high quality — especially recommended for beginners.
 
-Using ContEST16S for a Quality Check
+### ContEST16S (EzBioCloud)
 
-[ContEST16S](https://www.ezbiocloud.net/tools/contest16s) is a tool on the EzBioCloud platform that finds 16S sequences and evaluates their quality. It's an excellent way to check if your extracted 16S sequence is full-length and clean.
+[ContEST16S](https://www.ezbiocloud.net/tools/contest16s) checks your 16S sequence for
+completeness, chimeras (sequences with parts from different organisms), and assigns a
+preliminary taxonomic classification.
 
-**Website**: [EzBioCloud ContEST16S]
+1. Go to [ezbiocloud.net/tools/contest16s](https://www.ezbiocloud.net/tools/contest16s)
+2. Register/login and upload your genome assembly or extracted 16S FASTA
+3. Submit and download results including quality metrics and taxonomic assignments
 
-1. Go to the ContEST16S website
+### RNAcentral
 
-2. Upload your genome assembly file (or the extracted 16S sequence).
+[RNAcentral](https://rnacentral.org/) is a comprehensive database of all non-coding RNA
+including 16S rRNA. Use it to check your sequence against a massive collection of known
+sequences and find related entries.
 
-3. The tool will check for completeness, potential chimeras (sequences with parts from different organisms), and assign a preliminary taxonomic classification.
+---
 
-#### Features
-* Web-based interface
-* Multiple genome support
-* Quality assessment
-* Taxonomic classification
+## Multiple Sequence Alignment
 
-#### Usage Steps
-1. Register/Login to EzBioCloud
-2. Navigate to ContEST16S tool
-3. Upload genome assembly (FASTA)
-4. Submit for analysis
-5. Download results
-
-#### Output Files
-* 16S rRNA sequences (FASTA)
-* Quality metrics
-* Taxonomic assignments
-* Alignment statistics
-
-### 2. RNAcentral
-
-RNAcentral is a comprehensive database of all types of non-coding RNA, including 16S rRNA. It's a fantastic resource for checking your sequence against a massive collection of known sequences and finding related entries.
-
-## Validation and Analysis
-
-
-### Multiple Sequence Alignment
-
-If you have 16S sequences from several different bacterial strains, you can align them to see how they compare. Alignment is a necessary first step before creating a phylogenetic tree.
+If you have 16S sequences from multiple strains, align them before building a
+phylogenetic tree:
 
 ```bash
 # Using MUSCLE
 muscle -align 16S_sequences.fasta -out aligned.fasta
-```
 
-```bash
 # Using MAFFT
 mafft --auto 16S_sequences.fasta > aligned.fasta
 ```
 
-## Quality Control
+---
 
-### Sequence Validation
-* Check sequence length (typical 16S ~1500bp)
-* Verify sequence completeness
-* Assess sequence quality
-* Compare with reference databases
+## Quality Control Checklist
 
-### Common Issues
-* Fragmented sequences
-* Chimeric sequences
-* Misidentified regions
-* Poor quality assemblies
+- Sequence length is approximately 1500 bp
+- No chimeric sequences (check with ContEST16S)
+- Assembly is complete and uncontaminated
+- Correct kingdom setting used in Barrnap (`--kingdom bac` for bacteria)
+- Validated with at least one web-based tool
 
-## Best Practices
+---
 
-### Data Preparation
-* Use high-quality genome assemblies
-* Verify assembly completeness
-* Check for contamination
-* Use appropriate kingdom settings
+## Common Issues
 
-### Analysis Workflow
-1. Run multiple prediction tools
-2. Compare and validate results
-3. Perform quality checks
-4. Conduct phylogenetic analysis
-5. Document findings
+| Problem | Solution |
+|---------|----------|
+| Fragmented 16S sequence | Check assembly quality — low N50 leads to broken genes |
+| No 16S found | Try lowering `--lencutoff` or check if genome is complete |
+| Chimeric sequences | Use ContEST16S to detect and flag chimeras |
+| Multiple 16S copies | This is normal — pick the longest full-length copy |
 
-### Tips for Success
-* Use multiple tools for verification
-* Validate predictions with BLAST
-* Check sequence quality metrics
-* Consider evolutionary context
+---
 
 ## Additional Resources
 
-* [SILVA rRNA Database](https://www.arb-silva.de/)
-* [Greengenes Database](http://greengenes.secondgenome.com/)
-* [RDP Database](http://rdp.cme.msu.edu/)
-* [EzBioCloud Database](https://www.ezbiocloud.net/)
----
-
-**Note**: Regular updates of databases and tools are essential for accurate identification and analysis.
+- [Barrnap GitHub](https://github.com/tseemann/barrnap)
+- [SILVA rRNA Database](https://www.arb-silva.de/)
+- [EzBioCloud](https://www.ezbiocloud.net/)
+- [RNAcentral](https://rnacentral.org/)
+- [RDP Database](http://rdp.cme.msu.edu/)
